@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Role;
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RoleTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(TeamTableSeeder::class);
     }
 }
 
@@ -28,10 +32,23 @@ class RoleTableSeeder extends Seeder
 }
 
 
-//class UserTableSeeder extends Seeder
-//{
-//    public function run()
-//    {
-//        User::create(['provider_id' => '']);
-//    }
-//}
+class UserTableSeeder extends Seeder
+{
+    public function run()
+    {
+        $user = User::create(['provider_id' => '5360839', 'screen_name' => 'id5360839', 'name' => 'Alex']);
+        $user->roles()->attach(1);
+    }
+}
+
+class TeamTableSeeder extends Seeder
+{
+    public function run()
+    {
+        Team::create([
+            'mls_id' => '182',
+            'name' => 'MightyDucks',
+            'link' => 'http://mls.od.ua/component/joomsport/team/70/182'
+        ]);
+    }
+}
