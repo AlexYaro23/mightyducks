@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Team;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\App;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
     }
 
     /**

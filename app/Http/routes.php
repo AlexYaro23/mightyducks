@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -10,10 +9,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +22,53 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+
+    Route::group(['namespace' => 'Frontend\Auth'], function () {
+        Route::get('/vk', 'AuthVkController@redirect')->name('auth');
+        Route::get('/vk/auth', 'AuthVkController@login');
+        Route::get('/logout', 'AuthVkController@logout')->name('logout');
+    });
+
+    Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['admin']], function () {
+        Route::get('/', 'MainController@index')->name('admin.main');
+
+        Route::get('teams', 'TeamsController@index')->name('admin.team');
+
+        Route::group(['prefix' => 'teams/{team}', 'where' => ['team' => '[0-9]+']], function ($team) {
+            Route::get('edit', 'TeamsController@edit')->name('admin.teams.edit');
+            Route::patch('update', 'TeamsController@update')->name('admin.teams.update');
+        });
+
+        Route::get('users', 'UsersController@index')->name('admin.users');
+
+        Route::group(['prefix' => 'users/{user}', 'where' => ['user' => '[0-9]+']], function ($user) {
+            Route::get('edit', 'UsersController@edit')->name('admin.users.edit');
+            Route::patch('update', 'UsersController@update')->name('admin.users.update');
+        });
+
+        Route::get('players', 'PlayersController@index')->name('admin.players');
+
+        Route::group(['prefix' => 'players/{player}', 'where' => ['player' => '[0-9]+']], function ($player) {
+            Route::get('edit', 'PlayersController@edit')->name('admin.players.edit');
+            Route::patch('update', 'PlayersController@update')->name('admin.players.update');
+        });
+
+        Route::get('roles', 'RolesController@index')->name('admin.roles');
+        Route::get('create', 'RolesController@create')->name('admin.roles.create');
+        Route::post('store', 'RolesController@store')->name('admin.roles.store');
+
+        Route::group(['prefix' => 'roles/{role}', 'where' => ['role' => '[0-9]+']], function ($role) {
+            Route::get('edit', 'RolesController@edit')->name('admin.roles.edit');
+            Route::patch('update', 'RolesController@update')->name('admin.roles.update');
+        });
+
+    });
+
+
+
 });

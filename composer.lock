@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52a3f03b35ae2c8417d913ecd63b8dea",
-    "content-hash": "fc6f753b26fae28b87ae46454433dbdd",
+    "hash": "a40b7850cd2ba910cc742b2b74bfd291",
+    "content-hash": "f8f0b068dc1aa5b480f5d747eadb800f",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2350,6 +2350,46 @@
                 "environment"
             ],
             "time": "2015-12-29 15:10:30"
+        },
+        {
+            "name": "yangqi/htmldom",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yangqi/Htmldom.git",
+                "reference": "eee67c01f0a82c6c5e6252880d382e586e331da7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yangqi/Htmldom/zipball/eee67c01f0a82c6c5e6252880d382e586e331da7",
+                "reference": "eee67c01f0a82c6c5e6252880d382e586e331da7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Yangqi\\Htmldom": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yangqi",
+                    "email": "i@yangqi.me"
+                }
+            ],
+            "description": "Simple Html Dom Parser for Laravel 4",
+            "keywords": [
+                "HTML Parser",
+                "laravel"
+            ],
+            "time": "2015-09-10 13:45:37"
         }
     ],
     "packages-dev": [
@@ -3529,7 +3569,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "yangqi/htmldom": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -160,7 +160,7 @@ return [
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        VK\VK::class,
+        Yangqi\Htmldom\HtmldomServiceProvider::class,
 
     ],
 
@@ -235,6 +235,7 @@ return [
         'Table' => 'Bootstrapper\Facades\Table',
         'Thumbnail' => 'Bootstrapper\Facades\Thumbnail',
         'Flash' => 'Laracasts\Flash\Flash',
+        'Htmldom' => Yangqi\Htmldom\Htmldom::class,
 
     ],
 
