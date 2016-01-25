@@ -11,6 +11,9 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+
+    @include('flash::message')
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -44,10 +47,19 @@
                                     <td>{{ $role->name }}</td>
                                     <td>{{ $role->description }}</td>
                                     <td align="center">
-                                        <a href="{{ route('admin.roles.edit', ['id' => $role->id]) }}"
-                                           type="button" class="btn btn-warning btn-circle">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+
+                                        {!! Form::open(['class' => 'form-inline', 'method' => 'delete',
+                                            'route' => ['admin.roles.delete', $role->id]]) !!}
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.roles.edit', ['id' => $role->id]) }}"
+                                                   type="button" class="btn btn-warning btn-circle">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <button type="submit" class="btn btn-danger btn-circle">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach

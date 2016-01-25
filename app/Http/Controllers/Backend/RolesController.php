@@ -45,4 +45,13 @@ class RolesController extends Controller
 
         return redirect(route('admin.roles'));
     }
+
+    public function destroy(Role $role)
+    {
+        $role->delete();
+
+        Flash::success(trans('general.delete_msg'));
+
+        return redirect(route('admin.roles'));
+    }
 }

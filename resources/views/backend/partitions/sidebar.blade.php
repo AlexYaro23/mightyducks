@@ -14,6 +14,9 @@
                 <a href="{{ route('admin.players') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.players') }}</a>
             </li>
             <li>
+                <a href="{{ route('admin.games') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.games') }}</a>
+            </li>
+            <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>

@@ -58,13 +58,24 @@ Route::group(['middleware' => ['web']], function () {
             Route::patch('update', 'PlayersController@update')->name('admin.players.update');
         });
 
+        Route::get('games', 'GamesController@index')->name('admin.games');
+        Route::get('games/create', 'GamesController@create')->name('admin.games.create');
+        Route::post('games/store', 'GamesController@store')->name('admin.games.store');
+
+        Route::group(['prefix' => 'games/{game}', 'where' => ['game' => '[0-9]+']], function ($game) {
+            Route::get('edit', 'GamesController@edit')->name('admin.games.edit');
+            Route::patch('update', 'GamesController@update')->name('admin.games.update');
+            Route::delete('delete', 'GamesController@destroy')->name('admin.games.delete');
+        });
+
         Route::get('roles', 'RolesController@index')->name('admin.roles');
-        Route::get('create', 'RolesController@create')->name('admin.roles.create');
-        Route::post('store', 'RolesController@store')->name('admin.roles.store');
+        Route::get('roles/create', 'RolesController@create')->name('admin.roles.create');
+        Route::post('roles/store', 'RolesController@store')->name('admin.roles.store');
 
         Route::group(['prefix' => 'roles/{role}', 'where' => ['role' => '[0-9]+']], function ($role) {
             Route::get('edit', 'RolesController@edit')->name('admin.roles.edit');
             Route::patch('update', 'RolesController@update')->name('admin.roles.update');
+            Route::delete('delete', 'RolesController@destroy')->name('admin.roles.delete');
         });
 
     });

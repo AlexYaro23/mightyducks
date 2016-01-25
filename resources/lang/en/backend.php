@@ -76,11 +76,34 @@ return [
         'role' => 'Role',
 
     ],
+    'games' => [
+        'list' => [
+            'title' => 'Games List',
+            'panel_header' => 'Games',
+            'subtitle' => 'Game current fields',
+        ],
+        'edit' => [
+            'title' => 'Game',
+            'subtitle' => 'Update needed fields',
+        ],
+        'create' => [
+            'title' => 'Game',
+            'subtitle' => 'Update needed fields',
+        ],
+        'team' => 'Team against',
+        'date' => 'Game date',
+        'score1' => 'Home Goals',
+        'score2' => 'Visitors Goals',
+        'home' => 'Home/Visitor',
+        'place' => 'Stadium',
+        'status' => 'Status'
+    ],
     'menu' => [
         'teams' => 'Team',
         'users' => 'Users',
         'roles' => 'Roles',
-        'players' => 'Players'
+        'players' => 'Players',
+        'games' => 'Games'
     ],
     'home' => 'Home',
     'list' => 'List',

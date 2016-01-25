@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>MightyDuck Admin</title>
+    <title>MightyDucks Admin</title>
 
     <link href="{{ asset('/libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">

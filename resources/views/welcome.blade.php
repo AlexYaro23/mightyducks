@@ -39,6 +39,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+                <div>
+                    <a href="{{ route('auth') }}">Login</a>
+                </div>
             </div>
         </div>
     </body>

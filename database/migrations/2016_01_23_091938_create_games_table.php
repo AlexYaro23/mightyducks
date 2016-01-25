@@ -16,10 +16,11 @@ class CreateGamesTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('team');
             $table->timestamp('date');
-            $table->tinyInteger('score1');
-            $table->tinyInteger('scrore2');
+            $table->tinyInteger('score1')->nullable();
+            $table->tinyInteger('score2')->nullable();
             $table->tinyInteger('home')->default(1);
             $table->tinyInteger('status')->default(1);
+            $table->string('place')->nullable();
             $table->timestamps();
         });
     }
