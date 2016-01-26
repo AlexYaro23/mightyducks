@@ -93,7 +93,7 @@ class ParseSchedule extends Command
             }
 
             $gameEntity = $this->fillGameMlsEntityForTeam($row, $roundValue);
-
+dd($gameEntity);
             if ($gameEntity->isValid()) {
                 array_push($gameList, $gameEntity);
             }
@@ -140,9 +140,12 @@ class ParseSchedule extends Command
             $gameEntity->setLink($gameLinkPlayed->href);
         }
 
-        $place = $row->find('td', 6);
-        if ($place) {
-            $gameEntity->setPlace($place->innertext);
+        $placeTd = $row->find('td', 6);
+        if ($placeTd) {
+            $place = $placeTd->find('a', 0);
+            if ($place) {
+                $gameEntity->setPlace($place->innertext);
+            }
         }
 
         return $gameEntity;
@@ -150,8 +153,8 @@ class ParseSchedule extends Command
 
     private function checkIfNeededTeamRow($row, $team)
     {
-        $home = $row->find('', 0);
-        $visitor = $row->find('', 0);
+        $home = $row->find('td.team-h a', 0);
+        $visitor = $row->find('td.team-a a', 0);
 
         if (
             $home != null && $visitor != null &&
