@@ -21,6 +21,10 @@ class CreateGamesTable extends Migration
             $table->tinyInteger('home')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->string('place')->nullable();
+            $table->string('round')->nullabe();
+            $table->integer('tournament_id')->defautl(1);
+            $table->integer('mls_id')->nullable();
+            $table->string('mls_url')->nullable();
             $table->timestamps();
         });
     }

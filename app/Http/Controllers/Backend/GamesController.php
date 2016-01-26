@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Game;
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Backend\GameRequest;
@@ -25,7 +26,8 @@ class GamesController extends Controller
     {
         return view('backend.games.create')
             ->with('homeList', Game::getHomeList())
-            ->with('statusList', Game::getStatusList());
+            ->with('statusList', Game::getStatusList())
+            ->with('tournamentList', Tournament::lists('name', 'id'));
     }
 
     public function store(GameRequest $request)
@@ -42,7 +44,8 @@ class GamesController extends Controller
         return view('backend.games.edit')
             ->with('game', $game)
             ->with('homeList', Game::getHomeList())
-            ->with('statusList', Game::getStatusList());
+            ->with('statusList', Game::getStatusList())
+            ->with('tournamentList', Tournament::lists('name', 'id'));
     }
 
     public function update(Game $game, GameRequest $request)

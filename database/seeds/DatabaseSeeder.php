@@ -52,3 +52,14 @@ class TeamTableSeeder extends Seeder
         ]);
     }
 }
+
+class TournamenttableSeeder extends Seeder
+{
+    public function run()
+    {
+        Tournament::create([
+            'id' => '1',
+            'name' => 'Friendly'
+        ]);
+    }
+}

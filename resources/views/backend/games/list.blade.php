@@ -41,6 +41,7 @@
                                 <th>{{ trans('backend.games.home') }}</th>
                                 <th>{{ trans('backend.games.place') }}</th>
                                 <th>{{ trans('backend.games.status') }}</th>
+                                <th>{{ trans('backend.games.tournament_id') }}</th>
                                 <th>{{ trans('general.actions') }}</th>
                             </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td>{{ $game->home }}</td>
                                     <td>{{ $game->place }}</td>
                                     <td>{{ $game->status }}</td>
+                                    <td>{{ $game->tournament_id }}</td>
                                     <td align="center">
                                         {!! Form::open(['class' => 'form-inline',
                                             'method' => 'delete','route' => ['admin.games.delete', $game->id]]) !!}

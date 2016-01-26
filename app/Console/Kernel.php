@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Inspire::class,
-        Commands\ParseTeam::class
+        Commands\ParseTeam::class,
+        Commands\ParseSchedule::class,
     ];
 
     /**

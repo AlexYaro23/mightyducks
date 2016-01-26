@@ -78,6 +78,28 @@ Route::group(['middleware' => ['web']], function () {
             Route::delete('delete', 'RolesController@destroy')->name('admin.roles.delete');
         });
 
+
+        Route::get('stats', 'StatsController@index')->name('admin.stats');
+        Route::get('stats/create', 'StatsController@create')->name('admin.stats.create');
+        Route::post('stats/store', 'StatsController@store')->name('admin.stats.store');
+
+        Route::group(['prefix' => 'stats/{stat}', 'where' => ['stat' => '[0-9]+']], function ($stat) {
+            Route::get('edit', 'StatsController@edit')->name('admin.stats.edit');
+            Route::patch('update', 'StatsController@update')->name('admin.stats.update');
+            Route::delete('delete', 'StatsController@destroy')->name('admin.stats.delete');
+        });
+
+
+        Route::get('tournaments', 'TournamentsController@index')->name('admin.tournaments');
+        Route::get('tournaments/create', 'TournamentsController@create')->name('admin.tournaments.create');
+        Route::post('tournaments/store', 'TournamentsController@store')->name('admin.tournaments.store');
+
+        Route::group(['prefix' => 'tournaments/{tournament}', 'where' => ['tournament' => '[0-9]+']], function ($tournament) {
+            Route::get('edit', 'TournamentsController@edit')->name('admin.tournaments.edit');
+            Route::patch('update', 'TournamentsController@update')->name('admin.tournaments.update');
+            Route::delete('delete', 'TournamentsController@destroy')->name('admin.tournaments.delete');
+        });
+
     });
 
 

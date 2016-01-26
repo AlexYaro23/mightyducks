@@ -96,14 +96,56 @@ return [
         'score2' => 'Visitors Goals',
         'home' => 'Home/Visitor',
         'place' => 'Stadium',
-        'status' => 'Status'
+        'status' => 'Status',
+        'tournament_id' => 'Tournament'
+    ],
+    'stats' => [
+        'list' => [
+            'title' => 'Stats List',
+            'panel_header' => 'Stats',
+            'subtitle' => 'Stat current fields',
+        ],
+        'edit' => [
+            'title' => 'Stats',
+            'subtitle' => 'Update needed fields',
+        ],
+        'add' => [
+            'title' => 'Stats',
+            'subtitle' => 'Set needed fields',
+        ],
+        'id' => 'Id',
+        'game_id' => 'Game',
+        'player_id' => 'Player',
+        'parameter' => 'Parameter',
+        'value' => 'Value'
+    ],
+    'tournaments' => [
+        'list' => [
+            'title' => 'Tournaments List',
+            'panel_header' => 'Tournaments',
+            'subtitle' => 'Tournament current fields',
+        ],
+        'edit' => [
+            'title' => 'Tournaments',
+            'subtitle' => 'Update needed fields',
+        ],
+        'add' => [
+            'title' => 'Tournaments',
+            'subtitle' => 'Set needed fields',
+        ],
+        'id' => 'Id',
+        'name' => 'Name',
+        'link' => 'Tournament URL',
+        'status' => 'Status',
     ],
     'menu' => [
         'teams' => 'Team',
         'users' => 'Users',
         'roles' => 'Roles',
         'players' => 'Players',
-        'games' => 'Games'
+        'games' => 'Games',
+        'stats' => 'Stats',
+        'tournaments' => 'Tournaments'
     ],
     'home' => 'Home',
     'list' => 'List',

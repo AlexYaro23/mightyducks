@@ -34,5 +34,10 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('tournament_id', trans('backend.games.tournament_id')) !!}
+    {!! Form::select('tournament_id', $tournamentList, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
 </div>

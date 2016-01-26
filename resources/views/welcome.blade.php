@@ -42,6 +42,13 @@
                 <div>
                     <a href="{{ route('auth') }}">Login</a>
                 </div>
+                @if(Auth::user() != null && Auth::user()->isAdmin())
+                <div>
+                    <a href="{{ route('admin.main') }}">
+                        Admin
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
     </body>

@@ -14,7 +14,11 @@ class Game extends Model
         'score2',
         'home',
         'status',
-        'place'
+        'place',
+        'round',
+        'tournament_id',
+        'mls_id',
+        'mls_url'
     ];
 
     protected static $statusList = [

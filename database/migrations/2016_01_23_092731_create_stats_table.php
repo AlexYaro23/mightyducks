@@ -15,6 +15,7 @@ class CreateStatsTable extends Migration
         Schema::create('stats', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('game_id')->unsigned();
+            $table->integer('player_id')->unsigned();
             $table->string('parameter');
             $table->integer('value');
             $table->timestamps();
