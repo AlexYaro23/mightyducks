@@ -12,6 +12,7 @@ class GameMlsEntity
     protected $link;
     protected $place;
     protected $round;
+    protected $tournamentId;
 
     /**
      * @return mixed
@@ -141,9 +142,27 @@ class GameMlsEntity
         $this->round = $round;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTournamentId()
+    {
+        return $this->tournamentId;
+    }
+
+    /**
+     * @param mixed $tournamentId
+     */
+    public function setTournamentId($tournamentId)
+    {
+        $this->tournamentId = $tournamentId;
+    }
+
+
+
     public function isValid()
     {
-        if ($this->match_day && $this->teamHome && $this->teamVisit && $this->link) {
+        if ($this->match_date && $this->teamHome && $this->teamVisit && $this->link) {
             return true;
         }
 

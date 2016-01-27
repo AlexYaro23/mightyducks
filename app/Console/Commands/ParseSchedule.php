@@ -71,6 +71,14 @@ class ParseSchedule extends Command
             }
 
             $gameList = $this->parseGameLinks($table, $team);
+
+            $gameList = collect($gameList);
+
+            foreach($gameList->reverse() as $game) {
+                $game->setTournamentId($tournament->id);
+
+
+            }
         }
 
         $this->info('Script end');
@@ -93,7 +101,7 @@ class ParseSchedule extends Command
             }
 
             $gameEntity = $this->fillGameMlsEntityForTeam($row, $roundValue);
-dd($gameEntity);
+
             if ($gameEntity->isValid()) {
                 array_push($gameList, $gameEntity);
             }
@@ -127,9 +135,9 @@ dd($gameEntity);
             $gameEntity->setTeamVisitIcon($teamVisitIcon->src);
         }
 
-        $teamDate = $row->find('td.match-day-date', 0);
-        if ($teamDate) {
-            $gameEntity->setMatchDate(Carbon::parse(trim($teamDate->innertext)));
+        $gameDate = $row->find('td.match-day-date', 0);
+        if ($gameDate) {
+            $gameEntity->setMatchDate(Carbon::parse(trim($gameDate->innertext)));
         }
 
         $gameLinkNotPlayed = $row->find('span.score a.so_not_played', 0);
