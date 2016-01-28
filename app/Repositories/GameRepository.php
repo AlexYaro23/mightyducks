@@ -33,4 +33,9 @@ class GameRepository
 
         return false;
     }
+
+    public function getOpenned()
+    {
+        return Game::where('status', Game::getNonePlayedStatus())->get();
+    }
 }

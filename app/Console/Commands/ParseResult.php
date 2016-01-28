@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\GameRepository;
 use Illuminate\Console\Command;
+use Yangqi\Htmldom\Htmldom;
 
 class ParseResult extends Command
 {
@@ -11,20 +13,16 @@ class ParseResult extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'parseresult';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Parsing games results';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -37,6 +35,33 @@ class ParseResult extends Command
      */
     public function handle()
     {
-        //
+        $this->info('Script start');
+
+        $games = (new GameRepository())->getOpenned();
+
+        $this->info('Games to parse: ' . $games->count());
+
+        foreach ($games as $game) {
+            $result = $this->parseResult($game);
+        }
+
+        $this->info(PHP_EOL . 'Script end');
+    }
+
+    private function parseResult($game)
+    {
+        dd($this->getGameUrl($game->mls_url));
+        $html = new Htmldom($this->getGameUrl($game->mls_url));
+
+        if ($html == null) {
+            $this->error('Invalid URL for game_id ' . $game->id);
+            exit;
+        }
+
+    }
+
+    private function getGameUrl($url)
+    {
+        return config('mls.domain') . '/raspisanie/' . $url;
     }
 }

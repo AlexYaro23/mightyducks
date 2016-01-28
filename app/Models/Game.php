@@ -48,6 +48,11 @@ class Game extends Model
         return self::$homeList;
     }
 
+    public static function getNonePlayedStatus()
+    {
+        return 1;
+    }
+
 
     public function setScore1Attribute($score1)
     {

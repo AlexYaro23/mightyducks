@@ -152,6 +152,8 @@ class ParseSchedule extends Command
             $gameEntity->setLink($gameLinkPlayed->href);
         }
 
+        dd($gameEntity);
+
         $placeTd = $row->find('td', -2);
 
         if ($placeTd) {
