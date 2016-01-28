@@ -10,7 +10,6 @@
     <link href="{{ asset('/libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('/libs/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/select2/css/select2.min.css') }}" rel="stylesheet">
 
