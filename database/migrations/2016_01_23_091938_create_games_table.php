@@ -14,6 +14,7 @@ class CreateGamesTable extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id')->unsigned();
+            $table->integer('team_id')->unsigned();
             $table->string('team');
             $table->timestamp('date');
             $table->tinyInteger('score1')->nullable();
@@ -22,7 +23,7 @@ class CreateGamesTable extends Migration
             $table->tinyInteger('status')->default(1);
             $table->string('place')->nullable();
             $table->string('round')->nullabe();
-            $table->integer('tournament_id')->defautl(1);
+            $table->integer('tournament_id')->default(1)->unsigned();
             $table->integer('mls_id')->nullable();
             $table->string('mls_url')->nullable();
             $table->timestamps();

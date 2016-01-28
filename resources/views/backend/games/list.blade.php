@@ -38,7 +38,6 @@
                                 <th>{{ trans('backend.games.date') }}</th>
                                 <th>{{ trans('backend.games.score1') }}</th>
                                 <th>{{ trans('backend.games.score2') }}</th>
-                                <th>{{ trans('backend.games.home') }}</th>
                                 <th>{{ trans('backend.games.place') }}</th>
                                 <th>{{ trans('backend.games.status') }}</th>
                                 <th>{{ trans('backend.games.tournament_id') }}</th>
@@ -52,7 +51,6 @@
                                     <td>{{ $game->date }}</td>
                                     <td>{{ $game->score1 }}</td>
                                     <td>{{ $game->score2 }}</td>
-                                    <td>{{ $game->home }}</td>
                                     <td>{{ $game->place }}</td>
                                     <td>{{ $game->status }}</td>
                                     <td>{{ $game->tournament_id }}</td>

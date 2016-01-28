@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Game;
+use App\Models\Team;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ class GamesController extends Controller
     public function create()
     {
         return view('backend.games.create')
+            ->with('teamList', Team::lists('name', 'id'))
             ->with('homeList', Game::getHomeList())
             ->with('statusList', Game::getStatusList())
             ->with('tournamentList', Tournament::lists('name', 'id'));

@@ -27,6 +27,6 @@ class CreateTournamentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tournament');
+        Schema::drop('tournaments');
     }
 }

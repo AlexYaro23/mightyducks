@@ -11,8 +11,10 @@ class GameMlsEntity
     protected $teamVisitIcon;
     protected $link;
     protected $place;
-    protected $round;
+    protected $round = null;
     protected $tournamentId;
+    protected $teamId;
+    protected $searchTeamName;
 
     /**
      * @return mixed
@@ -158,7 +160,37 @@ class GameMlsEntity
         $this->tournamentId = $tournamentId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTeamId()
+    {
+        return $this->teamId;
+    }
 
+    /**
+     * @param mixed $teamId
+     */
+    public function setTeamId($teamId)
+    {
+        $this->teamId = $teamId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSearchTeamName()
+    {
+        return $this->searchTeamName;
+    }
+
+    /**
+     * @param mixed $searchTeamName
+     */
+    public function setSearchTeamName($searchTeamName)
+    {
+        $this->searchTeamName = $searchTeamName;
+    }
 
     public function isValid()
     {

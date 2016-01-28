@@ -6,6 +6,15 @@ use App\Http\Requests\Request;
 
 class GameRequest extends Request
 {
+    protected static $rules = [
+        'team' => 'required|string',
+        'date' => 'required|date',
+        'score1' => 'integer',
+        'score2' => 'integer',
+        'home' => 'integer',
+        'status' => 'integer',
+        'place' => 'string'
+    ];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,14 +32,11 @@ class GameRequest extends Request
      */
     public function rules()
     {
-        return [
-            'team' => 'required|string',
-            'date' => 'required|date',
-            'score1' => 'integer',
-            'score2' => 'integer',
-            'home' => 'integer',
-            'status' => 'integer',
-            'place' => 'string'
-        ];
+        return self::$rules;
+    }
+
+    public static function getRules()
+    {
+        return self::$rules;
     }
 }

@@ -39,5 +39,15 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('mls_id', trans('backend.games.mls_id')) !!}
+    {!! Form::text('mls_id', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('mls_url', trans('backend.games.mls_url')) !!}
+    {!! Form::text('mls_url', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
 </div>

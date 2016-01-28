@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Console\GameMlsEntity;
 use App\Models\Team;
+use App\Repositories\GameRepository;
 use App\Repositories\TournamentRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -74,10 +75,13 @@ class ParseSchedule extends Command
 
             $gameList = collect($gameList);
 
+            $this->info('Games found: ' . $gameList->count());
+
             foreach($gameList->reverse() as $game) {
                 $game->setTournamentId($tournament->id);
-
-
+                $game->setTeamId($team->id);
+                $game->setSearchTeamName($team->name);
+                (new GameRepository())->addParsedGame($game);
             }
         }
 
@@ -148,7 +152,8 @@ class ParseSchedule extends Command
             $gameEntity->setLink($gameLinkPlayed->href);
         }
 
-        $placeTd = $row->find('td', 6);
+        $placeTd = $row->find('td', -2);
+
         if ($placeTd) {
             $place = $placeTd->find('a', 0);
             if ($place) {

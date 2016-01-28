@@ -2,6 +2,7 @@
 
 use App\Models\Role;
 use App\Models\Team;
+use App\Models\Tournament;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(TeamTableSeeder::class);
+        $this->call(TournamentTableSeeder::class);
     }
 }
 
@@ -53,7 +55,7 @@ class TeamTableSeeder extends Seeder
     }
 }
 
-class TournamenttableSeeder extends Seeder
+class TournamentTableSeeder extends Seeder
 {
     public function run()
     {

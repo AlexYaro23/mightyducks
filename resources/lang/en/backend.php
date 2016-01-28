@@ -97,7 +97,9 @@ return [
         'home' => 'Home/Visitor',
         'place' => 'Stadium',
         'status' => 'Status',
-        'tournament_id' => 'Tournament'
+        'tournament_id' => 'Tournament',
+        'mls_id' => 'MLS Id',
+        'mls_url' => 'MLS URL'
     ],
     'stats' => [
         'list' => [

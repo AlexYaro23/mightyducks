@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\Inspire::class,
         Commands\ParseTeam::class,
         Commands\ParseSchedule::class,
+        Commands\ParseResult::class,
     ];
 
     /**
