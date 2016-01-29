@@ -11,3 +11,12 @@ function fixMlsUrl($url) {
 
     return $url;
 }
+
+
+function parseInt($str) {
+    return preg_replace("/[^0-9]/", "", trim($str));
+}
+
+function clearPlayerName($str) {
+    return trim(str_replace('&nbsp;', '', $str));
+}

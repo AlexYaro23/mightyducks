@@ -24,7 +24,8 @@ class Game extends Model
 
     protected static $statusList = [
         1 => 'None played',
-        2 => 'Played'
+        2 => 'Played',
+        3 => 'Only result'
     ];
 
     protected static $homeList = [
@@ -53,6 +54,20 @@ class Game extends Model
         return 1;
     }
 
+    public static function getPlayedStatus()
+    {
+        return 2;
+    }
+
+    public static function getOnlyResultStatus()
+    {
+        return 3;
+    }
+
+    public function isHome()
+    {
+        return $this->home == 1 ? true : false;
+    }
 
     public function setScore1Attribute($score1)
     {

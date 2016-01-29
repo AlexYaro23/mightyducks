@@ -6,6 +6,18 @@ use App\Http\Requests\Request;
 
 class StatRequest extends Request
 {
+    protected static $rules = [
+        'game_id' => 'required|integer|exists:games,id',
+        'player_id' => 'required|integer|exists:players,id',
+        'parameter' => 'required|alpha_num',
+        'value' => 'required|integer'
+    ];
+
+    public static function getRules()
+    {
+        return self::$rules;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,11 +35,6 @@ class StatRequest extends Request
      */
     public function rules()
     {
-        return [
-            'game_id' => 'required|integer|exists:games,id',
-            'player_id' => 'required|integer|exists:players,id',
-            'parameter' => 'required|alpha_num',
-            'value' => 'required|integer'
-        ];
+        return self::getRules();
     }
 }
