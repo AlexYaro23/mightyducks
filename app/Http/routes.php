@@ -23,9 +23,10 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
+    Route::group(['namespace' => 'Frontend'], function () {
+        Route::get('/', 'MainController@index');
     });
+
 
 
     Route::group(['namespace' => 'Frontend\Auth'], function () {
