@@ -7,6 +7,10 @@ return [
         'contact' => 'Contact',
         'login' => 'Login',
         'logout' => 'Logout',
-        'main' => 'Main'
+        'main' => 'Main',
+        'dropdown' => 'Dropdown',
+        'profile' => 'Profile',
+        'player' => 'Player',
+        'admin' => 'Admin'
     ],
 ];

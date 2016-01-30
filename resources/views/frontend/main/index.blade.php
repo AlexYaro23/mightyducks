@@ -2,6 +2,8 @@
 
 @section('content')
 <section>
-    123
+    <table class="table table-hover">
+
+    </table>
 </section>
 @endsection

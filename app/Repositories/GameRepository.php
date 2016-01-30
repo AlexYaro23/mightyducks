@@ -113,4 +113,11 @@ class GameRepository
 
         return $result;
     }
+
+    public static function getNextGameByTeamId($teamId)
+    {
+        return Game::where('team_id', $teamId)
+            ->where('status', Game::getNonePlayedStatus())
+            ->orderBy('date', 'asc')->first();
+    }
 }
