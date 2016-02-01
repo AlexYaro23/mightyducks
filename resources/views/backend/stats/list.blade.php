@@ -48,7 +48,7 @@
                                     <td>{{ $stat->id }}</td>
                                     <td>{{ $stat->game->team }}</td>
                                     <td>{{ $stat->player->name }}</td>
-                                    <td>{{ $parameterList[$stat->parameter] }}</td>
+                                    <td>{{ $stat->parameter }}</td>
                                     <td>{{ $stat->value }}</td>
                                     <td align="center">
                                         {!! Form::open(['class' => 'form-inline', 'method' => 'delete',

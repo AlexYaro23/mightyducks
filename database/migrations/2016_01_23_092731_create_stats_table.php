@@ -16,8 +16,11 @@ class CreateStatsTable extends Migration
             $table->increments('id')->unsigned();
             $table->integer('game_id')->unsigned();
             $table->integer('player_id')->unsigned();
-            $table->string('parameter');
-            $table->integer('value');
+            $table->integer('visit')->nullable()->default(null);
+            $table->integer('goal')->nullable()->default(null);
+            $table->integer('assist')->nullable()->default(null);
+            $table->integer('yc')->nullable()->default(null);
+            $table->integer('rc')->nullable()->default(null);
             $table->timestamps();
         });
     }

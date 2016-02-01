@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Game;
+use App\Models\Stat;
 use App\Repositories\GameRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
@@ -151,19 +152,19 @@ class ParseResult extends Command
             $title = $img->title;
             if ($href && $title) {
                 if (strtolower($title) == 'Гол' || strpos($href, 'ball.png') !== false) {
-                    return 'goal';
+                    return Stat::GOAL;
                 }
 
                 if (strtolower($title) == 'Голевые пасы' || strpos($href, 'boot.png') !== false) {
-                    return 'assist';
+                    return Stat::ASSIST;
                 }
 
                 if (strtolower($title) == 'Жёлтая' || strpos($href, 'yellow_card.png') !== false) {
-                    return 'yc';
+                    return Stat::YELLOW_CARD;
                 }
 
                 if (strtolower($title) == 'Красная' || strpos($href, 'red_card.png') !== false) {
-                    return 'rc';
+                    return Stat::RED_CARD;
                 }
             }
         }

@@ -30,7 +30,11 @@ class StatsController extends Controller
 
     public function store(StatRequest $request)
     {
-        Stat::create($request->all());
+        Stat::create([
+            'game_id' => $request->get('game_id'),
+            'player_id' => $request->get('player_id'),
+            $request->get('parameter') => $request->get('value')
+        ]);
 
         Flash::success(trans('general.created_msg'));
 
@@ -39,12 +43,20 @@ class StatsController extends Controller
 
     public function edit(Stat $stat)
     {
-        return view('backend.stats.edit')->with('stat', $stat);
+        return view('backend.stats.edit')
+            ->with('stat', $stat)
+            ->with('gameList', Game::lists('team', 'id'))
+            ->with('playerList', Player::lists('name', 'id'))
+            ->with('parameterList', Stat::getParameterList());
     }
 
     public function update(Stat $stat, StatRequest $request)
     {
-        $stat->update($request->all());
+        $stat->update([
+            'game_id' => $request->get('game_id'),
+            'player_id' => $request->get('player_id'),
+            $request->get('parameter') => $request->get('value')
+        ]);
 
         Flash::success(trans('general.updated_msg'));
 

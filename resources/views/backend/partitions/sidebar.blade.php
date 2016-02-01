@@ -22,6 +22,9 @@
             <li>
                 <a href="{{ route('admin.tournaments') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.tournaments') }}</a>
             </li>
+            <li>
+                <a href="{{ route('admin.visits') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.visits') }}</a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

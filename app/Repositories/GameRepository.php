@@ -70,13 +70,18 @@ class GameRepository
         if (!$validator->fails()) {
             $statElem = Stat::where('game_id', $stat['game_id'])
                 ->where('player_id', $stat['player_id'])
-                ->where('parameter', $stat['parameter'])
+                ->whereNotNull($stat['parameter'])
                 ->first();
 
+            $data = [
+                'game_id' => $stat['game_id'],
+                'player_id' => $stat['player_id'],
+                $stat['parameter'] => $stat['value']
+            ];
             if ($statElem) {
-                $statElem->update($stat);
+                $statElem->update($data);
             } else {
-                Stat::create($stat);
+                Stat::create($data);
             }
         }
     }
@@ -118,7 +123,21 @@ class GameRepository
     {
         return Game::where('team_id', $teamId)
             ->where('status', Game::getNonePlayedStatus())
-            ->where('date', '>=', date('Y-m-d'))
+            ->where('date', '>=', date('Y-m-d', time()))
             ->orderBy('date', 'asc')->first();
+    }
+
+    public static function getSiblings(Game $game)
+    {
+        $siblings = [];
+        $siblings['prev'] = Game::where('team_id', $game->team_id)
+            ->where('date', '<', $game->date)
+            ->orderBy('date', 'desc')->first();
+
+        $siblings['next'] = Game::where('team_id', $game->team_id)
+            ->where('date', '>', $game->date)
+            ->orderBy('date', 'asc')->first();;
+
+        return $siblings;
     }
 }

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Game;
+use App\Models\Stat;
+use App\Models\Team;
+use App\Repositories\GameRepository;
+use App\Repositories\PlayerRepository;
 use App\Repositories\StatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,5 +42,32 @@ class GameController extends Controller
         }
 
         return json_encode(['msg' => trans('frontend.main.visit_add_err'), 'status' => 'error']);
+    }
+
+    public function showVisit(Game $game)
+    {
+        $team = Team::find(config('mls.team_id'));
+        $playerList = PlayerRepository::getListByTeamId($team->id);
+
+        if (!isset($game->id)) {
+            $game = GameRepository::getNextGameByTeamId($team->id);
+        }
+
+        if (!$game) {
+            return view('frontend.main.no_game');
+        }
+
+        $gameSiblings = GameRepository::getSiblings($game);
+
+        $visitList = StatRepository::getVisitsForGame($game->id);
+
+        $visitList = $visitList->lists(Stat::VISIT, 'player_id');
+
+        return view('frontend.game.index')
+            ->with('team', $team)
+            ->with('playerList', $playerList)
+            ->with('game', $game)
+            ->with('visitList', $visitList)
+            ->with('gameSiblings', $gameSiblings);
     }
 }

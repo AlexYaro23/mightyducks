@@ -86,4 +86,14 @@ class Game extends Model
     {
         $this->attributes['date'] = Carbon::parse($date);
     }
+
+    public function isEditable()
+    {
+        return $this->date >= Carbon::now() ? true : false;
+    }
+
+    public function tournament()
+    {
+        return $this->belongsTo('App\Models\Tournament');
+    }
 }

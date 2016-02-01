@@ -140,6 +140,21 @@ return [
         'link' => 'Tournament URL',
         'status' => 'Status',
     ],
+    'visits' => [
+        'list' => [
+            'title' => 'Visit List',
+            'panel_header' => 'Visits',
+            'subtitle' => 'Visits current fields',
+        ],
+        'edit' => [
+            'title' => 'Visit',
+            'subtitle' => 'Update needed fields',
+        ],
+        'id' => 'Id',
+        'team' => 'Team',
+        'date' => 'Date',
+        'tournament_id' => 'Tournament',
+    ],
     'menu' => [
         'teams' => 'Team',
         'users' => 'Users',
@@ -147,7 +162,8 @@ return [
         'players' => 'Players',
         'games' => 'Games',
         'stats' => 'Stats',
-        'tournaments' => 'Tournaments'
+        'tournaments' => 'Tournaments',
+        'visits' => 'Quick visits'
     ],
     'home' => 'Home',
     'list' => 'List',

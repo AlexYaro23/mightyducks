@@ -23,8 +23,9 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
-        Route::get('/', 'MainController@index');
+        Route::get('/', 'GameController@showVisit');
         Route::post('game/visit', 'GameController@addVisit');
+        Route::get('game/visit/{game}', ['uses' => 'GameController@showVisit', 'where' => ['game' => '[0-9]+']])->name('game.visit');
     });
 
 
@@ -98,6 +99,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('edit', 'TournamentsController@edit')->name('admin.tournaments.edit');
             Route::patch('update', 'TournamentsController@update')->name('admin.tournaments.update');
             Route::delete('delete', 'TournamentsController@destroy')->name('admin.tournaments.delete');
+        });
+
+        Route::get('visits', 'VisitsController@index')->name('admin.visits');
+        Route::group(['prefix' => 'visits/{game}', 'where' => ['game' => '[0-9]+']], function ($game) {
+            Route::get('edit', 'VisitsController@edit')->name('admin.visits.edit');
+            Route::post('store', 'VisitsController@edit')->name('admin.visits.store');
         });
 
     });
