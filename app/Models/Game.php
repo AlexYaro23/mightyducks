@@ -22,6 +22,8 @@ class Game extends Model
         'mls_url'
     ];
 
+    protected $dates = ['date'];
+
     protected static $statusList = [
         1 => 'None played',
         2 => 'Played',

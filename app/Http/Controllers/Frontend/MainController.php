@@ -12,12 +12,12 @@ class MainController extends Controller
     public function index()
     {
         $team = Team::find(config('mls.team_id'));
-        $players = PlayerRepository::getListByTeamId($team->id);
+        $playerList = PlayerRepository::getListByTeamId($team->id);
         $game = GameRepository::getNextGameByTeamId($team->id);
 
         return view('frontend.main.index')
             ->with('team', $team)
-            ->with('players', $players)
+            ->with('playerList', $playerList)
             ->with('game', $game);
     }
 }

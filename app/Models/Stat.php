@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stat extends Model
 {
+    const PLAYED = 'played';
+
     protected $fillable = [
         'game_id',
         'player_id',
@@ -14,7 +16,7 @@ class Stat extends Model
     ];
 
     protected static $parameterList = [
-        'played' => 'Played',
+        self::PLAYED => 'Played',
         'goal' => 'Goal',
         'assist' => 'Assist',
         'yc' => 'Yellow Card',
@@ -24,6 +26,16 @@ class Stat extends Model
     public static function getParameterList()
     {
         return self::$parameterList;
+    }
+
+    public static function getParameterVisit()
+    {
+        return self::PLAYED;
+    }
+
+    public static function getValueVisit($visit)
+    {
+        return $visit == 'true' ? 1: 2;
     }
 
     public function player()
