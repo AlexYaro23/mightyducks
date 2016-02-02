@@ -27,7 +27,8 @@ class TrainingRequest extends Request
             'name' => 'required|string',
             'address' => 'required|string',
             'day_of_week' => 'required|integer',
-            'time' => 'required'
+            'time' => 'required',
+            'team_id' => 'required|integer|exists:teams,id'
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Team;
 use App\Models\Training;
 use Illuminate\Http\Request;
 
@@ -16,21 +17,25 @@ class TrainingsController extends Controller
         $trainings = Training::all();
         $dayList = Training::getDayOfWeekList();
         $statusList = Training::getStatusList();
+        $teamList = Team::lists('name', 'id');
 
         return view('backend.trainings.list')
             ->with('trainings', $trainings)
             ->with('dayList', $dayList)
-            ->with('statusList', $statusList);
+            ->with('statusList', $statusList)
+            ->with('teamList', $teamList);
     }
 
     public function create()
     {
         $dayList = Training::getDayOfWeekList();
         $statusList = Training::getStatusList();
+        $teamList = Team::lists('name', 'id');
 
         return view('backend.trainings.create')
             ->with('dayList', $dayList)
-            ->with('statusList', $statusList);
+            ->with('statusList', $statusList)
+            ->with('teamList', $teamList);
     }
 
     public function store(TrainingRequest $request)
@@ -46,11 +51,13 @@ class TrainingsController extends Controller
     {
         $dayList = Training::getDayOfWeekList();
         $statusList = Training::getStatusList();
+        $teamList = Team::lists('name', 'id');
 
         return view('backend.trainings.edit')
             ->with('training', $training)
             ->with('dayList', $dayList)
-            ->with('statusList', $statusList);
+            ->with('statusList', $statusList)
+            ->with('teamList', $teamList);
     }
 
     public function update(Training $training, TrainingRequest $request)

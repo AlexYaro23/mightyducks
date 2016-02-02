@@ -20,6 +20,7 @@ class CreateTrainingsTable extends Migration
             $table->time('time');
             $table->tinyInteger('status')->default(1);
             $table->timestamp('next_date');
+            $table->integer('team_id')->unsigned();
         });
     }
 

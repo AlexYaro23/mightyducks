@@ -46,3 +46,7 @@
 section h3.section-subheading {
     margin-bottom: 30px;
 }
+
+.nav .dropdown-menu li a {
+    color: black;
+}

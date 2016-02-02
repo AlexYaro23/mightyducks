@@ -10,37 +10,59 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">{{ $teamData->name }}</a>
+            <a class="navbar-brand page-scroll" href="{{ route('main') }}">{{ $teamData->name }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#">{{ trans('frontend.menu.team') }}</a>
+                    <a class="page-scroll" href="{{ route('team') }}">{{ trans('frontend.menu.team') }}</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#">{{ trans('frontend.menu.schedule') }}</a>
+                    <a class="page-scroll" href="{{ route('schedule') }}">{{ trans('frontend.menu.schedule') }}</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#">{{ trans('frontend.menu.contact') }}</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"
+                       aria-expanded="false">
+                        {{ trans('frontend.menu.trainings') }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($trainingData as $training)
+                            <li>
+                                <a href="{{ route('training.visit', ['id' => $training->id]) }}">
+                                    {{ $training->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
                 @if(Auth::check())
-                    <li>
-                        <a class="page-scroll" href="#">{{ trans('frontend.menu.profile') }}</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#">{{ trans('frontend.menu.player') }}</a>
-                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"
+                           aria-expanded="false">
+                            {{ trans('frontend.menu.settings') }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="page-scroll" href="#">{{ trans('frontend.menu.profile') }}</a>
+                            </li>
+                            <li>
+                                <a class="page-scroll" href="#">{{ trans('frontend.menu.player') }}</a>
+                            </li>
 
-                    @if(Auth::user()->isAdmin())
-                        <li>
-                            <a class="page-scroll" href="{{ route('admin.main') }}">{{ trans('frontend.menu.admin') }}</a>
-                        </li>
-                    @endif
+                            @if(Auth::user()->isAdmin())
+                                <li>
+                                    <a class="page-scroll"
+                                       href="{{ route('admin.main') }}">{{ trans('frontend.menu.admin') }}</a>
+                                </li>
+                            @endif
 
-                    <li>
-                        <a class="page-scroll" href="{{ route('logout') }}">{{ trans('frontend.menu.logout') }}</a>
+                            <li>
+                                <a class="page-scroll"
+                                   href="{{ route('logout') }}">{{ trans('frontend.menu.logout') }}</a>
+                            </li>
+                        </ul>
                     </li>
                 @else
                     <li>

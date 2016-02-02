@@ -23,12 +23,14 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
-        Route::get('/', 'GameController@showVisit');
+        Route::get('/', 'GameController@showVisit')->name('main');
+        Route::get('schedule', 'GameController@showVisit')->name('schedule');
         Route::post('game/visit', 'GameController@addVisit');
         Route::get('game/visit/{game}', ['uses' => 'GameController@showVisit', 'where' => ['game' => '[0-9]+']])->name('game.visit');
         Route::get('trainings', 'TrainingsController@index')->name('trainings');
         Route::get('trainings/{training}', ['uses' => 'TrainingsController@edit', 'where' => ['training' => '[0-9]+']])->name('training.visit');
         Route::post('trainings/{training}/visit/', ['uses' => 'TrainingsController@addVisit', 'where' => ['training' => '[0-9]+']])->name('training.visit.add');
+        Route::get('team', 'TeamsController@index')->name('team');
     });
 
 

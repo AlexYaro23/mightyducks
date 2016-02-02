@@ -38,6 +38,7 @@ class TrainingsController extends Controller
             Auth::user()->player->team->id == $request->get('team_id')
         ) {
             $data['team_id'] = $request->get('team_id');
+            $data['training_id'] = $request->get('training_id');
             $data['player_id'] = Auth::user()->player->id;
             TrainingVisitRepository::createOrUpdateVisit($data, $request->get('visit'));
 

@@ -35,10 +35,6 @@ class Stat extends Model
         self::RED_CARD => 'Red Card'
     ];
 
-    public static function getGameVisitedValue()
-    {
-    }
-
     public static function convertVisitValue($visit)
     {
         return $visit == 'true' ? self::GAME_VISITED : self::GAME_NOT_VISITED;

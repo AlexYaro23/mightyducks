@@ -59,7 +59,7 @@
     <script>
         $('.switcher').on('change', function () {
             $.ajax({
-                url: '/training/{{ $training->id }}/visit/',
+                url: '{{ route('training.visit.add', ['id' => $training->id]) }}',
                 type: 'POST',
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),

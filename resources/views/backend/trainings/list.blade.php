@@ -40,6 +40,7 @@
                                 <th>{{ trans('backend.trainings.day_of_week') }}</th>
                                 <th>{{ trans('backend.trainings.time') }}</th>
                                 <th>{{ trans('backend.trainings.status') }}</th>
+                                <th>{{ trans('backend.trainings.team_id') }}</th>
                                 <th>{{ trans('general.actions') }}</th>
                             </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                     <td>{{ $training->day_of_week }}</td>
                                     <td>{{ $training->time }}</td>
                                     <td>{{ $training->status }}</td>
+                                    <td>{{ $teamList[$training->team_id] }}</td>
                                     <td align="center">
 
                                         {!! Form::open(['class' => 'form-inline', 'method' => 'delete',

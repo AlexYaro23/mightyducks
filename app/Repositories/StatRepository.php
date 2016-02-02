@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Stat;
+use Illuminate\Support\Facades\DB;
 
 class StatRepository
 {
@@ -49,4 +50,41 @@ class StatRepository
             ]);
         }
     }
+
+    public static function getPlayersStatistics($playerList)
+    {
+        $data = [];
+
+        $stats = DB::table('stats')
+            ->select(DB::raw('player_id, COALESCE(sum(visit),0) as visits, COALESCE(sum(goal),0) as goals,
+            COALESCE(sum(assist),0) as assists, COALESCE(sum(yc),0) as ycs, COALESCE(sum(rc),0) as rcs'))
+            ->whereIn('player_id', $playerList->lists('id')->all())
+            ->groupBy('player_id')
+            ->get();
+
+        foreach ($stats as $stat) {
+            $data[$stat->player_id] = $stat;
+        }
+
+        $result = [];
+
+        foreach ($playerList as $player) {
+            $result[$player->id] = isset($data[$player->id]) ? $data[$player->id] : self::getEmptyStat();
+        }
+
+        return $result;
+    }
+
+    private static function getEmptyStat()
+    {
+        $emptyStat = new \stdClass();
+        $emptyStat->visits = 0;
+        $emptyStat->goals = 0;
+        $emptyStat->assists = 0;
+        $emptyStat->ycs = 0;
+        $emptyStat->rcs = 0;
+
+        return $emptyStat;
+    }
+
 }

@@ -176,7 +176,8 @@ return [
         'address' => 'Address',
         'day_of_week' => 'Day',
         'time' => 'Time',
-        'status' => 'Status'
+        'status' => 'Status',
+        'team_id' => 'Team'
     ],
     'training_visits' => [
         'list' => [

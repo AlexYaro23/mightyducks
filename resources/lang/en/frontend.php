@@ -11,7 +11,9 @@ return [
         'dropdown' => 'Dropdown',
         'profile' => 'Profile',
         'player' => 'Player',
-        'admin' => 'Admin'
+        'admin' => 'Admin',
+        'trainings' => 'Trainings',
+        'settings' => 'Settings'
     ],
     'main' => [
         'player_name' => 'Player',
@@ -36,6 +38,23 @@ return [
     ],
     'game' => [
         'move_to_sibling' => 'Move to other games'
+    ],
+    'team' => [
+        'team' => 'Team statistics',
+        'player_name' => 'Player',
+        'visits' => 'M',
+        'goals' => 'G',
+        'assists' => 'GP',
+        'ycs' => 'YC',
+        'rcs' => 'RC',
+        'calendar' => 'Calendar',
+        'date' => 'Date',
+        'tournament' => 'Tournament',
+        'opponent' => 'Against',
+        'score' => 'Score',
+        'place' => 'Place',
+        'home' => 'Home',
+        'guest' => 'Guest'
     ]
 
 ];

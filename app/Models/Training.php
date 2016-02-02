@@ -20,7 +20,8 @@ class Training extends Model
         'day_of_week',
         'time',
         'status',
-        'next_date'
+        'next_date',
+        'team_id'
     ];
 
     protected $dates = ['next_date'];

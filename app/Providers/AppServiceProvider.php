@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\TrainingRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Team;
 
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('frontend.main', function($view)
         {
             $view->with('teamData', Team::find(config('mls.team_id')));
+            $view->with('trainingData', TrainingRepository::getActiveList(config('mls.team_id')));
         });
     }
 

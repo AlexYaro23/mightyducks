@@ -34,9 +34,9 @@ class GameRepository
         }
     }
 
-    public static function getTraining()
+    public static function getListByTeamId($id)
     {
-
+        return Game::where('team_id', $id)->orderBy('date', 'asc')->get();
     }
 
     public function addParsedGame(GameMlsEntity $gameEntity)
