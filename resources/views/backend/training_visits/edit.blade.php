@@ -2,12 +2,12 @@
 
 @section('content')
 
-    @include('backend.partitions.breadcrumbs', ['route' => 'admin.visits',
-        'parent_title' => trans('backend.visits.list.title'), 'title' => trans('backend.visits.edit.title')])
+    @include('backend.partitions.breadcrumbs', ['route' => 'admin.trainingvisits',
+        'parent_title' => trans('backend.training_visits.list.title'), 'title' => trans('backend.training_visits.edit.title')])
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">{{ trans('backend.visits.edit.title') }}</h1>
+            <h1 class="page-header">{{ trans('backend.training_visits.edit.title') }}</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -16,7 +16,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ $game->team . ' | ' . $game->date->format('H:i d-m-Y') }}
+                    {{ $training->name . ' | ' . $training->day_of_week . ' ' . $training->time }}
                 </div>
                 <div class="panel-body">
 
@@ -24,13 +24,13 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            {!! Form::open(['route' => ['admin.visits.store', $game->id]]) !!}
+                            {!! Form::open(['route' => ['admin.trainingvisits.store', $training->id]]) !!}
 
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>{{ trans('backend.visits.player_name') }}</th>
-                                    <th>{{ trans('backend.visits.game_visit') }}</th>
+                                    <th>{{ trans('backend.training_visits.player_name') }}</th>
+                                    <th>{{ trans('backend.training_visits.game_training_visit') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,7 +50,7 @@
                             </table>
 
                             <div class="form-group">
-                                {!! Form::hidden('game_id', $game->id) !!}
+                                {!! Form::hidden('training_id', $training->id) !!}
                                 {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
                             </div>
                             {!! Form::close() !!}
@@ -62,12 +62,4 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-@endsection
-
-@section('footer')
-    <script>
-        $(function(){
-            $('#roleList').select2();
-        });
-    </script>
 @endsection

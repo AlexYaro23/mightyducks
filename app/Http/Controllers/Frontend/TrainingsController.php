@@ -6,23 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Stat;
 use App\Models\Team;
+use App\Models\Training;
+use App\Models\TrainingVisit;
 use App\Repositories\GameRepository;
 use App\Repositories\PlayerRepository;
 use App\Repositories\StatRepository;
+use App\Repositories\TrainingVisitRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class GameController extends Controller
+class TrainingsController extends Controller
 {
     public function addVisit(Request $request)
     {
         $validator = Validator::make(
             $request->all(),
             [
-                'game_id' => 'required|integer|exists:games,id',
                 'team_id' => 'required|integer|exists:teams,id',
+                'training_id' => 'required|integer|exists:trainings,id',
                 'visit' => 'required|in:true,false'
             ]
 
@@ -34,9 +37,9 @@ class GameController extends Controller
             isset(Auth::user()->player->team->id) &&
             Auth::user()->player->team->id == $request->get('team_id')
         ) {
-            $data['game_id'] = $request->get('game_id');
+            $data['team_id'] = $request->get('team_id');
             $data['player_id'] = Auth::user()->player->id;
-            StatRepository::createOrUpdateGameVisit($data, $request->get('visit'));
+            TrainingVisitRepository::createOrUpdateVisit($data, $request->get('visit'));
 
             return json_encode(['msg' => trans('frontend.main.visit_added'), 'status' => 'success']);
         }
@@ -44,30 +47,32 @@ class GameController extends Controller
         return json_encode(['msg' => trans('frontend.main.visit_add_err'), 'status' => 'error']);
     }
 
-    public function showVisit(Game $game)
+    public function index()
+    {
+        $team = Team::find(config('mls.team_id'));
+        $trainingList = Training::all();
+        $dayList = Training::getDayOfWeekList();
+
+        return view('frontend.trainings.index')
+            ->with('team', $team)
+            ->with('trainingList', $trainingList)
+            ->with('dayList', $dayList);
+    }
+
+    public function edit(Training $training)
     {
         $team = Team::find(config('mls.team_id'));
         $playerList = PlayerRepository::getListByTeamId($team->id);
+        $dayList = Training::getDayOfWeekList();
+        $visitList = TrainingVisitRepository::getTrainingVisits($training->id);
 
-        if (!isset($game->id)) {
-            $game = GameRepository::getNextGameByTeamId($team->id);
-        }
+        $visitList = $visitList->lists('visit', 'player_id');
 
-        if (!$game) {
-            return view('frontend.game.no_game');
-        }
-
-        $gameSiblings = GameRepository::getSiblings($game);
-
-        $visitList = StatRepository::getVisitsForGame($game->id);
-
-        $visitList = $visitList->lists(Stat::VISIT, 'player_id');
-
-        return view('frontend.game.index')
+        return view('frontend.trainings.edit')
+            ->with('training', $training)
             ->with('team', $team)
             ->with('playerList', $playerList)
-            ->with('game', $game)
-            ->with('visitList', $visitList)
-            ->with('gameSiblings', $gameSiblings);
+            ->with('dayList', $dayList)
+            ->with('visitList', $visitList);
     }
 }

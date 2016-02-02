@@ -154,6 +154,46 @@ return [
         'team' => 'Team',
         'date' => 'Date',
         'tournament_id' => 'Tournament',
+        'player_name' => 'Player',
+        'game_visit' => 'Game Visit'
+    ],
+    'trainings' => [
+        'list' => [
+            'title' => 'Trainings List',
+            'panel_header' => 'Trainings',
+            'subtitle' => 'Training current fields',
+        ],
+        'edit' => [
+            'title' => 'Trainings',
+            'subtitle' => 'Update needed fields',
+        ],
+        'add' => [
+            'title' => 'Trainings',
+            'subtitle' => 'Set needed fields',
+        ],
+        'id' => 'Id',
+        'name' => 'Name',
+        'address' => 'Address',
+        'day_of_week' => 'Day',
+        'time' => 'Time',
+        'status' => 'Status'
+    ],
+    'training_visits' => [
+        'list' => [
+            'title' => 'Visit List',
+            'panel_header' => 'Visits',
+            'subtitle' => 'Visits current fields',
+        ],
+        'edit' => [
+            'title' => 'Visit',
+            'subtitle' => 'Update needed fields',
+        ],
+        'id' => 'Id',
+        'name' => 'Training',
+        'day_of_week' => 'Date',
+        'status' => 'Status',
+        'player_name' => 'Player',
+        'game_training_visit' => 'Visit'
     ],
     'menu' => [
         'teams' => 'Team',
@@ -163,7 +203,9 @@ return [
         'games' => 'Games',
         'stats' => 'Stats',
         'tournaments' => 'Tournaments',
-        'visits' => 'Quick visits'
+        'visits' => 'Quick visits',
+        'trainings' => 'Trainings',
+        'training_visits' => 'Training visits'
     ],
     'home' => 'Home',
     'list' => 'List',

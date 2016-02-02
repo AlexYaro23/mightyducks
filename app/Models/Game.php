@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
+    const TRAINING_ID = 99999999;
+
     protected $fillable = [
         'team_id',
         'team',

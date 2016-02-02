@@ -7,41 +7,43 @@ use App\Models\Game;
 use App\Models\Player;
 use App\Models\Stat;
 use App\Models\Team;
+use App\Models\Training;
 use App\Repositories\GameRepository;
+use App\Repositories\TrainingVisitRepository;
 use App\Repositories\StatRepository;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 
-class VisitsController extends Controller
+class TrainingVisitsController extends Controller
 {
     public function index()
     {
-        $gameList = Game::all();
+        $trainingList = Training::all();
 
-        return view('backend.visits.list')->with('gameList', $gameList);
+        return view('backend.training_visits.list')->with('trainingList', $trainingList);
     }
 
-    public function edit(Game $game)
+    public function edit(Training $training)
     {
         $team = Team::find(config('mls.team_id'));
         $playerList = Player::where('team_id', $team->id)->get();
 
-        $visitList = StatRepository::getVisitsForGame($game->id);
+        $visitList = TrainingVisitRepository::getTrainingVisits($training->id);
 
-        $visitList = $visitList->lists(Stat::VISIT, 'player_id');
+        $visitList = $visitList->lists('visit', 'player_id');
 
-        return view('backend.visits.edit')
+        return view('backend.training_visits.edit')
             ->with('playerList', $playerList)
             ->with('visitList', $visitList)
-            ->with('game', $game);
+            ->with('training', $training);
     }
 
     public function store(Request $request)
     {
-        GameRepository::saveQuickVisit($request);
+        TrainingVisitRepository::saveQuickVisits($request);
 
         Flash::success(trans('general.updated_msg'));
 
-        return redirect(route('admin.visits'));
+        return redirect(route('admin.trainingvisits'));
     }
 }

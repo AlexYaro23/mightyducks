@@ -26,6 +26,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/', 'GameController@showVisit');
         Route::post('game/visit', 'GameController@addVisit');
         Route::get('game/visit/{game}', ['uses' => 'GameController@showVisit', 'where' => ['game' => '[0-9]+']])->name('game.visit');
+        Route::get('trainings', 'TrainingsController@index')->name('trainings');
+        Route::get('trainings/{training}', ['uses' => 'TrainingsController@edit', 'where' => ['training' => '[0-9]+']])->name('training.visit');
+        Route::post('trainings/{training}/visit/', ['uses' => 'TrainingsController@addVisit', 'where' => ['training' => '[0-9]+']])->name('training.visit.add');
     });
 
 
@@ -37,6 +40,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['admin']], function () {
         Route::get('/', 'MainController@index')->name('admin.main');
+
+        Route::get('trainingvisits', 'TrainingVisitsController@index')->name('admin.trainingvisits');
+        Route::group(['prefix' => 'trainingvisits/{training}', 'where' => ['training' => '[0-9]+']], function ($training) {
+            Route::get('edit', 'TrainingVisitsController@edit')->name('admin.trainingvisits.edit');
+            Route::post('store', 'TrainingVisitsController@store')->name('admin.trainingvisits.store');
+        });
 
         Route::get('teams', 'TeamsController@index')->name('admin.team');
 
@@ -104,7 +113,18 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('visits', 'VisitsController@index')->name('admin.visits');
         Route::group(['prefix' => 'visits/{game}', 'where' => ['game' => '[0-9]+']], function ($game) {
             Route::get('edit', 'VisitsController@edit')->name('admin.visits.edit');
-            Route::post('store', 'VisitsController@edit')->name('admin.visits.store');
+            Route::post('store', 'VisitsController@store')->name('admin.visits.store');
+        });
+
+
+        Route::get('trainings', 'TrainingsController@index')->name('admin.trainings');
+        Route::get('trainings/create', 'TrainingsController@create')->name('admin.trainings.create');
+        Route::post('trainings/store', 'TrainingsController@store')->name('admin.trainings.store');
+
+        Route::group(['prefix' => 'trainings/{training}', 'where' => ['training' => '[0-9]+']], function ($training) {
+            Route::get('edit', 'TrainingsController@edit')->name('admin.trainings.edit');
+            Route::patch('update', 'TrainingsController@update')->name('admin.trainings.update');
+            Route::delete('delete', 'TrainingsController@destroy')->name('admin.trainings.delete');
         });
 
     });

@@ -9,3 +9,7 @@
 .table tr td:last-child {
     min-width: 80px;
 }
+
+ul.error {
+    padding-left: 20px;
+}

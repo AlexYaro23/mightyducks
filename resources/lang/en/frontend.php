@@ -29,6 +29,11 @@ return [
             'yes' => 'Yes'
         ]
     ],
+    'training' => [
+        'training' => 'Trainings',
+        'player_name' => 'Player',
+        'visit' => 'Visit'
+    ],
     'game' => [
         'move_to_sibling' => 'Move to other games'
     ]

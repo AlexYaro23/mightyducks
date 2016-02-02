@@ -25,6 +25,12 @@
             <li>
                 <a href="{{ route('admin.visits') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.visits') }}</a>
             </li>
+            <li>
+                <a href="{{ route('admin.trainings') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.trainings') }}</a>
+            </li>
+            <li>
+                <a href="{{ route('admin.trainingvisits') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.training_visits') }}</a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

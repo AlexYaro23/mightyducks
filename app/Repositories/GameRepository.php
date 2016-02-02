@@ -9,11 +9,36 @@ use App\Models\Console\GameMlsEntity;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Stat;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class GameRepository
 {
+    public static function saveQuickVisit(Request $request)
+    {
+        if (!Game::find($request->get('game_id'))) {
+            return;
+        }
+
+        self::setNotVisited($request->get('game_id'));
+        foreach ($request->all() as $key => $input) {
+            if (strpos($key, 'player_') !== false) {
+                $id = str_replace('player_', '', $key);
+                if (Player::find($id)) {
+
+                    StatRepository::addVisit($request->get('game_id'), $id);
+                }
+            }
+        }
+    }
+
+    public static function getTraining()
+    {
+
+    }
+
     public function addParsedGame(GameMlsEntity $gameEntity)
     {
         $gameBO = new GameMlsBO($gameEntity);
@@ -139,5 +164,12 @@ class GameRepository
             ->orderBy('date', 'asc')->first();;
 
         return $siblings;
+    }
+
+    private static function setNotVisited($id)
+    {
+        Stat::where('game_id', $id)
+            ->whereNotNull(Stat::VISIT)
+            ->update([Stat::VISIT => Stat::GAME_NOT_VISITED]);
     }
 }
