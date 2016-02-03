@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Game;
+
 function fixMlsUrl($url) {
     $domain = config('mls.domain');
     if (strpos($url, $domain) === false) {
@@ -19,4 +21,16 @@ function parseInt($str) {
 
 function clearPlayerName($str) {
     return trim(str_replace('&nbsp;', '', $str));
+}
+
+function getCircleClass(Game $game) {
+    if ($game->score1 == $game->score2) {
+        return 'draw';
+    } elseif ($game->score1 < $game->score2 && $game->isHome()) {
+        return 'loose';
+    } elseif ($game->score1 > $game->score2 && !$game->isHome()) {
+        return 'loose';
+    }
+
+    return 'win';
 }

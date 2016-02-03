@@ -50,3 +50,15 @@ section h3.section-subheading {
 .nav .dropdown-menu li a {
     color: black;
 }
+
+i.win {
+    color: green;
+}
+
+i.loose {
+    color: red;
+}
+
+i.draw {
+    color: yellow;
+}

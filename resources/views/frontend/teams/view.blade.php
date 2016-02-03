@@ -71,7 +71,7 @@
                                         <td>{{ $game->isHome() ? trans('frontend.team.home') : trans('frontend.team.guest') }}</td>
                                         @if($game->isPlayed())
                                             <td>{{ $game->score1 . ' : ' . $game->score2 }}</td>
-                                            <td><span class="{{ $game->score1 > $game->score2 ? 'win' : $game->score1 == $game->score2 ? 'draw' : 'lose' }}"></span></td>
+                                            <td><i class="fa fa-circle {{ getCircleClass($game)  }}"></i></td>
                                         @else
                                             <td>- : -</td>
                                             <td>&nbsp;</td>
