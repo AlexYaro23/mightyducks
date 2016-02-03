@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    const TRAINING_ID = 99999999;
+    const PHOTO_PATH = '/img/team_logos/';
+    const PHOTO_TYPE = '.png';
+    const DEFAULT_PHOTO = '/img/team_logos/default.png';
 
     protected $fillable = [
         'team_id',
@@ -97,5 +99,23 @@ class Game extends Model
     public function tournament()
     {
         return $this->belongsTo('App\Models\Tournament');
+    }
+
+    public function getTeanPhotoLink()
+    {
+        if (file_exists(public_path() . self::PHOTO_PATH . $this->team . self::PHOTO_TYPE)) {
+            return self::PHOTO_PATH . $this->team . self::PHOTO_TYPE;
+        } else {
+            return self::DEFAULT_PHOTO;
+        }
+    }
+
+    public function isPlayed()
+    {
+        if (isset($this->score1) && $this->score1) {
+            return true;
+        }
+
+        return false;
     }
 }
