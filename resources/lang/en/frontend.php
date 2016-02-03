@@ -54,7 +54,14 @@ return [
         'score' => 'Score',
         'place' => 'Place',
         'home' => 'Home',
-        'guest' => 'Guest'
+        'guest' => 'Guest',
+        'player_count' => 'Players count',
+        'games_played' => 'Games played',
+        'goals_scored_missed' => 'Goals',
+        'wins' => 'Wins',
+        'draws'=> 'Draws',
+        'looses' => 'Looses',
+        'goals_scored_missed' => 'Scored/Missed'
     ]
 
 ];

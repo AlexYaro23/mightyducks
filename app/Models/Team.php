@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
+    const LOGO = '/img/mightyducks/md_final.png';
+    const SHIRT = '/img/mightyducks/final_final.jpg';
+
     protected $fillable = [
         'mls_id',
         'name',
@@ -17,5 +20,15 @@ class Team extends Model
     public function player()
     {
         return $this->hasOne('App\Models\Player');
+    }
+
+    public function getLogoLink()
+    {
+        return self::LOGO;
+    }
+
+    public function getShirtLink()
+    {
+        return self::SHIRT;
     }
 }

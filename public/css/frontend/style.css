@@ -62,3 +62,27 @@ i.loose {
 i.draw {
     color: yellow;
 }
+
+.team-header-logo img {
+    max-height: 300px;
+}
+
+.team-header-block {
+    background-color: #323232;
+    padding: 20px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.team-header-info table {
+    max-width: 300px;
+    margin-top: 30px;
+}
+
+.team-header-shirt img {
+    max-width: 300px;
+}
+
+.team-header-logo {
+    margin-right: 100px;
+}
