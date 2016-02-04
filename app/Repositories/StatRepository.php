@@ -87,4 +87,16 @@ class StatRepository
         return $emptyStat;
     }
 
+    public static function getByPlayerId($player_id)
+    {
+        $stats = DB::table('stats')
+            ->select(DB::raw('COALESCE(sum(visit),0) as visits, COALESCE(sum(goal),0) as goals,
+            COALESCE(sum(assist),0) as assists, COALESCE(sum(yc),0) as ycs, COALESCE(sum(rc),0) as rcs'))
+            ->where('player_id', $player_id)
+            ->groupBy('player_id')
+            ->first();
+
+        return $stats ? $stats : self::getEmptyStat();
+    }
+
 }

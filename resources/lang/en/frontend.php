@@ -62,6 +62,13 @@ return [
         'draws'=> 'Draws',
         'looses' => 'Looses',
         'goals_scored_missed' => 'Scored/Missed'
-    ]
+    ],
+    'players' => [
+        'games_played' => 'Games played',
+        'goals' => 'Goals',
+        'assists' => 'Assists',
+        'ycs' => 'Yellow Cards',
+        'rcs' => 'Red Cards'
+    ],
 
 ];

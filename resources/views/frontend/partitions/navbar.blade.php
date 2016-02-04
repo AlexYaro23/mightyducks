@@ -38,31 +38,15 @@
                     </ul>
                 </li>
                 @if(Auth::check())
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"
-                           aria-expanded="false">
-                            {{ trans('frontend.menu.settings') }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="page-scroll" href="#">{{ trans('frontend.menu.profile') }}</a>
-                            </li>
-                            <li>
-                                <a class="page-scroll" href="#">{{ trans('frontend.menu.player') }}</a>
-                            </li>
-
-                            @if(Auth::user()->isAdmin())
-                                <li>
-                                    <a class="page-scroll"
-                                       href="{{ route('admin.main') }}">{{ trans('frontend.menu.admin') }}</a>
-                                </li>
-                            @endif
-
-                            <li>
-                                <a class="page-scroll"
-                                   href="{{ route('logout') }}">{{ trans('frontend.menu.logout') }}</a>
-                            </li>
-                        </ul>
+                    @if(Auth::user()->isAdmin())
+                        <li>
+                            <a class="page-scroll"
+                               href="{{ route('admin.main') }}">{{ trans('frontend.menu.admin') }}</a>
+                        </li>
+                    @endif
+                    <li>
+                        <a class="page-scroll"
+                           href="{{ route('logout') }}">{{ trans('frontend.menu.logout') }}</a>
                     </li>
                 @else
                     <li>

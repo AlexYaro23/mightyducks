@@ -134,10 +134,8 @@ class ParseTeam extends Command
                     $src = self::DOMAIN . $src;
                 }
 
-                Storage::put(
-                    'avatars/players/' . $player->id . '.jpg',
-                    file_get_contents($src)
-                );
+
+                copy($src, public_path() . '/img/avatars/players/' . $player->id . '.jpg');
             }
 
             $bar->advance();

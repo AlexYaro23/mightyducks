@@ -50,10 +50,7 @@ class GameRepository
             if (!$game) {
                 $game = Game::create($data);
 
-                Storage::put(
-                    config('img.team_logo') . $game->team . '.png',
-                    file_get_contents($data['icon'])
-                );
+                copy($data['icon'], public_path() . '/img/team_logos/' . $game->team . '.png');
 
                 return $game;
             }

@@ -76,8 +76,10 @@
                                 @foreach($playerList as $player)
                                     <tr>
                                         <td>
-                                            <img height="20px" src="{{ $player->getPhotoLink() }}" class="player-logo"/>
-                                            {{ $player->name }}
+                                            <a href="{{ route('player', ['id' => $player->id]) }}">
+                                                <img height="20px" src="{{ $player->getPhotoLink() }}" class="player-logo"/>
+                                                {{ $player->name }}
+                                            </a>
                                         </td>
                                         <td>{{ $statList[$player->id]->visits }}</td>
                                         <td>{{ $statList[$player->id]->goals }}</td>

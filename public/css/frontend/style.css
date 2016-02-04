@@ -1,3 +1,8 @@
+body, html {
+    height:100%;
+}
+
+
 .material-switch > input[type="checkbox"] {
     display: none;
 }
@@ -85,4 +90,36 @@ i.draw {
 
 .team-header-logo {
     margin-right: 100px;
+}
+
+.player-header-block {
+    background-color: #323232;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.player-header-block h2.section-heading {
+    font-size: 30px;
+}
+
+.player-header-logo img {
+    max-height: 250px;
+    max-width: 300px;
+    margin-right: 50px;
+}
+
+.player-header-info table {
+    max-width: 400px;
+    margin: 0px auto;
+}
+
+.player-team-block {
+    max-width: 300px;
+    max-height: 200px;
+    padding-right: 50px;
+}
+
+.player-team-logo {
+    height: 30px;
 }

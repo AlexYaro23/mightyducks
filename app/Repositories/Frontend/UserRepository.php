@@ -35,10 +35,7 @@ class UserRepository
 
         $user->roles()->attach(Role::getDefaultRole());
 
-        Storage::put(
-            'avatars/users/'.$user->id . '.jpg',
-            file_get_contents($vkData['photo_big'])
-        );
+        copy($vkData['photo_big'], public_path() . '/img/avatars/users/' . $user->id . '.jpg');
 
         return $user;
     }
