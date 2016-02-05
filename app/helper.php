@@ -120,3 +120,24 @@ function countPlayedGames($gameList) {
 
     return $games;
 }
+
+function sendVkMsg($msg)
+{
+    $url = 'https://api.vk.com/method/messages.send';
+    $params = array(
+        'chat_id' => env('VK_CHAT_ID'),
+        'message' => $msg,
+        'access_token' => env('VK_TOKEN'),
+        'v' => '5.38',
+    );
+
+    $result = file_get_contents($url, false, stream_context_create(array(
+        'http' => array(
+            'method'  => 'POST',
+            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'content' => http_build_query($params)
+        )
+    )));
+
+    return $result;
+}

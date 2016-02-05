@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 
 class Reminder extends Command
 {
-    const PERIOD = 2;
+    const PERIOD = 3;
     /**
      * The name and signature of the console command.
      *
@@ -21,13 +21,9 @@ class Reminder extends Command
      *
      * @var string
      */
-    protected $description = 'Remindes about nearest games into VK team chart';
+    protected $description = 'Reminds about nearest games into VK team chart';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -42,10 +38,12 @@ class Reminder extends Command
     {
         $this->info('Script start');
 
-        $date = Carbon::now()->addDays(self::PERIOD);
+        $date = Carbon::now();
 
         $gameList = Game::where('date', '>=', $date->format('Y-m-d 00:00:00'))
-            ->where('date', '<=', $date->format('Y-m-d 23:59:59'))->get();
+            ->where('date', '<=', $date->addDays(self::PERIOD)->format('Y-m-d 23:59:59'))
+            ->where('reminder', Game::MSG_NOT_SENT)->get();
+
 
         if ($gameList->count() < 1) {
             $this->error('No games to remind');
@@ -53,7 +51,20 @@ class Reminder extends Command
         }
 
         foreach ($gameList as $game) {
-            dd(route('game.visit', ['id' => $game->id]));
+
+            $msg = config('mls.chat_game_msg');
+            $msg = str_replace('%game%', $game->date->format('H:i d-m-Y') . ' ' . $game->team,  $msg);
+            $msg = str_replace('%url%', route('game.visit', ['id' => $game->id]), $msg);
+
+            $result = sendVkMsg($msg);
+
+            if (preg_match('/"response":[0-9]+/', $result)) {
+                $game->reminder = Game::MSG_SENT;
+                $game->save();
+
+                $this->comment($result);
+                $this->comment('Sent msg for game: ' . $game->id);
+            }
         }
 
         $this->info('Script end');

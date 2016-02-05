@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\UserRepository;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Laracasts\Flash\Flash;
 use \VK\VK as vk;
@@ -54,7 +55,16 @@ class AuthVkController extends Controller
             Session::set('user', $user);
         };
 
-        return redirect($this->default_redirect);
+        if (
+            url()->previous() &&
+            strpos(url()->previous(), url('/')) !== false &&
+            url()->previous() != route('auth')
+
+        ) {
+            return redirect(url()->previous());
+        }
+
+        return  redirect($this->default_redirect);
     }
 
     public function logout()

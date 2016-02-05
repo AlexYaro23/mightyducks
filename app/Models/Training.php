@@ -47,4 +47,9 @@ class Training extends Model
     {
         return self::$statusList;
     }
+
+    public function getTime()
+    {
+        return date('H:i', strtotime($this->time));
+    }
 }

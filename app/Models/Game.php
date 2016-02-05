@@ -10,6 +10,8 @@ class Game extends Model
     const PHOTO_PATH = '/img/team_logos/';
     const PHOTO_TYPE = '.png';
     const DEFAULT_PHOTO = '/img/team_logos/default.png';
+    const MSG_SENT = 2;
+    const MSG_NOT_SENT = 1;
 
     protected $fillable = [
         'team_id',
@@ -19,6 +21,7 @@ class Game extends Model
         'score2',
         'home',
         'status',
+        'reminder',
         'place',
         'round',
         'tournament_id',

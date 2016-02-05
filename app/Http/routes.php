@@ -23,7 +23,7 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
-        Route::get('/', 'GameController@showVisit')->name('main');
+        Route::get('/', 'TeamsController@index')->name('main');
         Route::get('schedule', 'GameController@showVisit')->name('schedule');
         Route::post('game/visit', 'GameController@addVisit');
         Route::get('game/visit/{game}', ['uses' => 'GameController@showVisit', 'where' => ['game' => '[0-9]+']])->name('game.visit');

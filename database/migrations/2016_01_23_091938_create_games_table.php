@@ -21,6 +21,7 @@ class CreateGamesTable extends Migration
             $table->tinyInteger('score2')->nullable();
             $table->tinyInteger('home')->default(1);
             $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('reminder')->default(1);
             $table->string('place')->nullable();
             $table->string('round')->nullabe();
             $table->integer('tournament_id')->default(1)->unsigned();

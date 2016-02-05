@@ -52,7 +52,7 @@ class TrainingVisitRepository
         }
     }
 
-    private static function setNotVisited($training_id)
+    public static function setNotVisited($training_id)
     {
         TrainingVisit::where('training_id', $training_id)
             ->update(['visit' => TrainingVisit::NOT_VISITED]);
