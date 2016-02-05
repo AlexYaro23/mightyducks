@@ -119,7 +119,7 @@
                                             </td>
                                             <td>{{ $game->isHome() ? trans('frontend.team.home') : trans('frontend.team.guest') }}</td>
                                             @if($game->isPlayed())
-                                                <td>{{ $game->score1 . ' : ' . $game->score2 }}</td>
+                                                <td><a href="{{ route('game.result', ['id' => $game->id]) }}">{{ $game->score1 . ' : ' . $game->score2 }}</a></td>
                                                 <td><i class="fa fa-circle {{ getCircleClass($game)  }}"></i></td>
                                             @else
                                                 <td>- : -</td>

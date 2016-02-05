@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
+    public function view(Game $game)
+    {
+        dd($game);
+    }
+
     public function addVisit(Request $request)
     {
         $validator = Validator::make(

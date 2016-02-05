@@ -32,6 +32,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('trainings/{training}/visit/', ['uses' => 'TrainingsController@addVisit', 'where' => ['training' => '[0-9]+']])->name('training.visit.add');
         Route::get('team', 'TeamsController@index')->name('team');
         Route::get('players/{player}', ['uses' => 'PlayersController@view', 'where' => ['player' => '[0-9]+']])->name('player');
+        Route::get('game/result/{game}', ['uses' => 'GameController@view', 'where' => ['game' => '[0-9]+']])->name('game.result');
     });
 
 

@@ -147,11 +147,14 @@ i.draw {
 }
 
 .football-bg a {
-    color: black;
+    color: #36648B;
 }
 
-.football-bg a:hover {
+.football-bg a:hover,
+.football-bg a:visited,
+.football-bg a:focus {
     text-decoration: none;
+
 }
 
 .football-bg .nav-tabs {
