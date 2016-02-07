@@ -3,22 +3,20 @@
 @section('content')
     <section class="bg-light-gray football-bg">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="team-header-block">
-                        <div class="team-header-logo pull-left">
-                            <img src="{{ $team->getLogoLink() }}" title=""/>
-                        </div>
+            <div class="row team-header-block">
+                <div class="col-md-5">
+                    <div class="team-header-logo">
+                        <img src="{{ $team->getLogoLink() }}" title="{{ $team->name }}"/>
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-1">
+                    <div class="team-header">
+                        <h2 class="section-heading">{{ $team->name }}</h2>
 
-                        <div class="team-header">
-                            <h2 class="section-heading">{{ $team->name }}</h2>
-                            <div class="team-header-info">
+                        <div class="row team-header-info">
+                            <div class="col-md-8">
                                 <table class="table">
                                     <tbody>
-                                    <tr>
-                                        <td>{{ trans('frontend.team.player_count') }}</td>
-                                        <td>{{ $playerList->count() }}</td>
-                                    </tr>
                                     <tr>
                                         <td>{{ trans('frontend.team.games_played') }}</td>
                                         <td>{{ countPlayedGames($gameList) }}</td>
@@ -44,7 +42,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -113,13 +110,15 @@
                                             <td>{{ $game->date->format('d-m-Y | H:i') }}</td>
                                             <td>{{ $game->tournament->name }}</td>
                                             <td>
-                                                <img height="20px" src="{{ $game->getTeanPhotoLink() }}"
+                                                <img height="20px" src="{{ $game->getTeamPhotoLink() }}"
                                                      class="player-logo"/>
                                                 {{ $game->team }}
                                             </td>
                                             <td>{{ $game->isHome() ? trans('frontend.team.home') : trans('frontend.team.guest') }}</td>
                                             @if($game->isPlayed())
-                                                <td><a href="{{ route('game.result', ['id' => $game->id]) }}">{{ $game->score1 . ' : ' . $game->score2 }}</a></td>
+                                                <td>
+                                                    <a href="{{ route('game.result', ['id' => $game->id]) }}">{{ $game->score1 . ' : ' . $game->score2 }}</a>
+                                                </td>
                                                 <td><i class="fa fa-circle {{ getCircleClass($game)  }}"></i></td>
                                             @else
                                                 <td>- : -</td>

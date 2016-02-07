@@ -1,54 +1,58 @@
 @extends('frontend.main')
 
 @section('content')
-    <section class="bg-light-gray">
+    <section class="bg-light-gray football-bg-2">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">{{ $training->name }}</h2>
-                    <h3 class="section-subheading text-muted">
-                        {{ $dayList[$training->day_of_week] . ' ' . $training->time }}
-                    </h3>
+            <div class="football-block">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">{{ $training->name }}</h2>
+
+                        <h3 class="section-subheading text-muted">
+                            {{ trans('frontend.training.' . $dayList[$training->day_of_week]) . ' ' . $training->getTime() }}
+                        </h3>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
 
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>{{ trans('frontend.training.player_name') }}</th>
-                            <th>{{ trans('frontend.training.visit') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($playerList as $player)
+                        <table class="table table-hover">
+                            <thead>
                             <tr>
-                                <td>{{ $player->name }}</td>
-                                <td>
-                                    <div class="material-switch pull-right">
-                                        @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id)
-                                            <input {{ isset($visitList[$player->id]) ? 'checked="checked"' : '' }}
-                                                    data-team="{{ $team->id }}"
-                                                    data-training="{{ $training->id }}" class="switcher"
-                                                    id="someSwitchOptionSuccess_{{ $player->id }}" name="someSwitchOption001"
-                                                    type="checkbox"/>
-                                            <label for="someSwitchOptionSuccess_{{ $player->id }}"
-                                                   class="label-success"></label>
-                                        @else
-                                            @if(isset($visitList[$player->id]))
-                                                <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
-                                            @else
-                                                <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
-                                            @endif
-                                        @endif
-                                    </div>
-                                </td>
+                                <th>{{ trans('frontend.training.player_name') }}</th>
+                                <th>{{ trans('frontend.training.visit') }}</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($playerList as $player)
+                                <tr>
+                                    <td>{{ $player->name }}</td>
+                                    <td>
+                                        <div class="material-switch pull-right">
+                                            @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id)
+                                                <input {{ isset($visitList[$player->id]) ? 'checked="checked"' : '' }}
+                                                        data-team="{{ $team->id }}"
+                                                        data-training="{{ $training->id }}" class="switcher"
+                                                        id="someSwitchOptionSuccess_{{ $player->id }}"
+                                                        name="someSwitchOption001"
+                                                        type="checkbox"/>
+                                                <label for="someSwitchOptionSuccess_{{ $player->id }}"
+                                                       class="label-success"></label>
+                                            @else
+                                                @if(isset($visitList[$player->id]))
+                                                    <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
+                                                @else
+                                                    <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

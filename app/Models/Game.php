@@ -104,7 +104,7 @@ class Game extends Model
         return $this->belongsTo('App\Models\Tournament');
     }
 
-    public function getTeanPhotoLink()
+    public function getTeamPhotoLink()
     {
         if (file_exists(public_path() . self::PHOTO_PATH . $this->team . self::PHOTO_TYPE)) {
             return self::PHOTO_PATH . $this->team . self::PHOTO_TYPE;

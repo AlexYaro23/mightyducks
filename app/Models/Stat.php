@@ -55,8 +55,6 @@ class Stat extends Model
         return self::VISIT;
     }
 
-
-
     public function player()
     {
         return $this->belongsTo('App\Models\Player');

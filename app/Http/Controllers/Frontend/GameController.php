@@ -18,7 +18,17 @@ class GameController extends Controller
 {
     public function view(Game $game)
     {
-        dd($game);
+        $team = Team::find(config('mls.team_id'));
+        $statList = StatRepository::getStatsByGameId($game->id);
+        $playerList = PlayerRepository::getListByTeamId($game->team_id);
+        $statGroupList = Stat::getParameterKeys();
+
+        return view('frontend.game.view')
+            ->with('game', $game)
+            ->with('statList', $statList)
+            ->with('playerList', $playerList->lists('name', 'id'))
+            ->with('team', $team)
+            ->with('statGroupList', $statGroupList);
     }
 
     public function addVisit(Request $request)

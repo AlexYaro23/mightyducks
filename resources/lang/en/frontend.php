@@ -34,10 +34,21 @@ return [
     'training' => [
         'training' => 'Trainings',
         'player_name' => 'Player',
-        'visit' => 'Visit'
+        'visit' => 'Visit',
+        'Tuesday' => 'Tuesday',
+        'Monday' => 'Monday',
+        'Wednesday' => 'Wednesday',
+        'Thursday' => 'Thursday',
+        'Friday' => 'Friday',
+        'Saturday' => 'Saturday',
+        'Sunday' => 'Sunday'
     ],
     'game' => [
-        'move_to_sibling' => 'Move to other games'
+        'move_to_sibling' => 'Move to other games',
+        'goal' => 'Goals',
+        'assist' => 'Assists',
+        'yc'=> 'Yellow Cards',
+        'rc' => 'Red Cards'
     ],
     'team' => [
         'team' => 'Team statistics',

@@ -106,7 +106,7 @@ function getGoalsRow($gameList) {
     }
 
     $diff = $scored - $missed;
-    return $scored . ' - ' . $missed . ' ( ' . (string) $diff . ' )';
+    return $scored . ' / ' . $missed . ' ( ' . (string) $diff . ' )';
 }
 
 function countPlayedGames($gameList) {

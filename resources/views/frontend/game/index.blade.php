@@ -1,57 +1,65 @@
 @extends('frontend.main')
 
 @section('content')
-    <section class="bg-light-gray">
+    <section class="bg-light-gray football-bg-2">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">{{ $game->team }}</h2>
-                    <h3 class="section-subheading text-muted">
-                        {{ trans('frontend.main.game_date') . ': ' . $game->date->format('H:i d-m-Y') }} |
-                        {{ trans('frontend.main.stadium') . ': ' . $game->place }}
-                    </h3>
+
+            <div class="football-block">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">{{ $game->team }}</h2>
+
+                        <div class="game-team-logo">
+                            <img src="{{ $game->getTeamPhotoLink() }}" />
+                        </div>
+
+                        <h3 class="section-subheading text-muted">
+                            {{ trans('frontend.main.game_date') . ': ' . $game->date->format('H:i d-m-Y') }} |
+                            {{ trans('frontend.main.stadium') . ': ' . $game->place }}
+                        </h3>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        @include('frontend.game.partitions.siblings', ['siblings' => $gameSiblings])
 
-                    @include('frontend.game.partitions.siblings', ['siblings' => $gameSiblings])
-
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>{{ trans('frontend.main.player_name') }}</th>
-                            <th>{{ trans('frontend.main.game_visit') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($playerList as $player)
+                        <table class="table table-hover">
+                            <thead>
                             <tr>
-                                <td>{{ $player->name }}</td>
-                                <td>
-                                    <div class="material-switch pull-right">
-                                        @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id && $game->isEditable())
-                                        <input {{ isset($visitList[$player->id]) ? 'checked="checked"' : '' }}
-                                               data-team="{{ $team->id }}"
-                                               data-game="{{ $game->id }}" class="switcher"
-                                               id="someSwitchOptionSuccess_{{ $player->id }}" name="someSwitchOption001"
-                                               type="checkbox"/>
-                                        <label for="someSwitchOptionSuccess_{{ $player->id }}"
-                                               class="label-success"></label>
-                                        @else
-                                            @if(isset($visitList[$player->id]))
-                                                <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
-                                            @else
-                                                <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
-                                            @endif
-                                        @endif
-                                    </div>
-                                </td>
+                                <th>{{ trans('frontend.main.player_name') }}</th>
+                                <th>{{ trans('frontend.main.game_visit') }}</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($playerList as $player)
+                                <tr>
+                                    <td>{{ $player->name }}</td>
+                                    <td>
+                                        <div class="material-switch pull-right">
+                                            @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id && $game->isEditable())
+                                                <input {{ isset($visitList[$player->id]) ? 'checked="checked"' : '' }}
+                                                        data-team="{{ $team->id }}"
+                                                        data-game="{{ $game->id }}" class="switcher"
+                                                        id="someSwitchOptionSuccess_{{ $player->id }}"
+                                                        name="someSwitchOption001"
+                                                        type="checkbox"/>
+                                                <label for="someSwitchOptionSuccess_{{ $player->id }}"
+                                                       class="label-success"></label>
+                                            @else
+                                                @if(isset($visitList[$player->id]))
+                                                    <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
+                                                @else
+                                                    <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

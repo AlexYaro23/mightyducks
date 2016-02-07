@@ -99,4 +99,13 @@ class StatRepository
         return $stats ? $stats : self::getEmptyStat();
     }
 
+    public static function getStatsByGameId($game_id)
+    {
+        $stats[Stat::GOAL] = Stat::where('game_id', $game_id)->whereNotNull(Stat::GOAL)->get();
+        $stats[Stat::ASSIST] = Stat::where('game_id', $game_id)->whereNotNull(Stat::ASSIST)->get();
+        $stats[Stat::YELLOW_CARD] = Stat::where('game_id', $game_id)->whereNotNull(Stat::YELLOW_CARD)->get();
+        $stats[Stat::RED_CARD] = Stat::where('game_id', $game_id)->whereNotNull(Stat::RED_CARD)->get();
+
+        return $stats;
+    }
 }

@@ -145,7 +145,7 @@ class GameRepository
     {
         return Game::where('team_id', $teamId)
             ->where('status', Game::getNonePlayedStatus())
-            ->where('date', '>=', date('Y-m-d', time()))
+            ->where('date', '>=', date('Y-m-d H:i:s', time()))
             ->orderBy('date', 'asc')->first();
     }
 
