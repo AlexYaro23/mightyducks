@@ -217,3 +217,72 @@ i.draw {
     max-width: 200px;
     max-height: 200px;
 }
+
+.football-bg-2 {
+    min-height: calc(100% - 70px);
+}
+
+.no-game-block {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.ic {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-size: 100% 100%;
+}
+
+.ic-visits {
+    background-image: url("../../img/football/playground.png");
+}
+
+.ic-goals {
+    background-image: url("../../img/football/ball.png");
+}
+
+.ic-assists {
+    background-image: url("../../img/football/foot.png");
+}
+
+.ic-yc {
+    background-image: url("../../img/football/yellow_card.png");
+    width: 20px;
+    height: 20px;
+}
+
+.ic-rc {
+    background-image: url("../../img/football/red_card.png");
+    width: 20px;
+    height: 20px;
+}
+
+table.player-stats,
+table.player-stats th {
+    text-align: center;
+}
+
+table.player-stats th:first-child,
+table.player-stats td:first-child {
+    text-align: left;
+}
+
+.stats-block {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.stats-block a {
+    color: #36648B;
+}
+
+.stats-filter {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 50px;
+}
+
+.stats-filter {
+    color: white;
+}

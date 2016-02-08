@@ -13,7 +13,8 @@ return [
         'player' => 'Player',
         'admin' => 'Admin',
         'trainings' => 'Trainings',
-        'settings' => 'Settings'
+        'settings' => 'Settings',
+        'stats' => 'Statistics'
     ],
     'main' => [
         'player_name' => 'Player',
@@ -53,11 +54,11 @@ return [
     'team' => [
         'team' => 'Team statistics',
         'player_name' => 'Player',
-        'visits' => 'M',
-        'goals' => 'G',
-        'assists' => 'GP',
-        'ycs' => 'YC',
-        'rcs' => 'RC',
+        'visits' => 'Game visits',
+        'goals' => 'Goal',
+        'assists' => 'Assist',
+        'ycs' => 'Yellow Card',
+        'rcs' => 'Red Card',
         'calendar' => 'Calendar',
         'date' => 'Date',
         'tournament' => 'Tournament',
@@ -81,5 +82,8 @@ return [
         'ycs' => 'Yellow Cards',
         'rcs' => 'Red Cards'
     ],
+    'stats' => [
+        'filter' => 'Statistics filter'
+    ]
 
 ];

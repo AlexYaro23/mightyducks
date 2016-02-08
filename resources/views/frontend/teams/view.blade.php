@@ -60,15 +60,15 @@
 
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="players">
-                                <table class="table table-hover">
+                                <table class="table table-hover player-stats">
                                     <thead>
                                     <tr>
                                         <th>{{ trans('frontend.team.player_name') }}</th>
-                                        <th>{{ trans('frontend.team.visits') }}</th>
-                                        <th>{{ trans('frontend.team.goals') }}</th>
-                                        <th>{{ trans('frontend.team.assists') }}</th>
-                                        <th>{{ trans('frontend.team.ycs') }}</th>
-                                        <th>{{ trans('frontend.team.rcs') }}</th>
+                                        <th><i class="ic ic-visits" title="{{ trans('frontend.team.visits') }}"></i> </th>
+                                        <th><i class="ic ic-goals" title="{{ trans('frontend.team.goals') }}"></i> </th>
+                                        <th><i class="ic ic-assists" title="{{ trans('frontend.team.assists') }}"></i> </th>
+                                        <th><i class="ic ic-yc" title="{{ trans('frontend.team.ycs') }}"></i> </th>
+                                        <th><i class="ic ic-rc" title="{{ trans('frontend.team.rcs') }}"></i> </th>
                                     </tr>
                                     </thead>
                                     <tbody>

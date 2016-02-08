@@ -16,13 +16,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li class="{{ url()->current() == route('team') ? 'active' : '' }}">
                     <a class="page-scroll" href="{{ route('team') }}">{{ trans('frontend.menu.team') }}</a>
                 </li>
-                <li>
+                <li class="{{ url()->current() == route('stats') ? 'active' : '' }}">
+                    <a class="page-scroll" href="{{ route('stats') }}">{{ trans('frontend.menu.stats') }}</a>
+                </li>
+                <li class="{{ url()->current() == route('schedule') ? 'active' : '' }}">
                     <a class="page-scroll" href="{{ route('schedule') }}">{{ trans('frontend.menu.schedule') }}</a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown {{ strpos(url()->current(), 'training') !== false ? 'active' : '' }}">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"
                        aria-expanded="false">
                         {{ trans('frontend.menu.trainings') }} <span class="caret"></span>
