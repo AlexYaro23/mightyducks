@@ -20,6 +20,8 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+use Illuminate\Support\Facades\Artisan;
+
 Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
@@ -131,9 +133,22 @@ Route::group(['middleware' => ['web']], function () {
             Route::patch('update', 'TrainingsController@update')->name('admin.trainings.update');
             Route::delete('delete', 'TrainingsController@destroy')->name('admin.trainings.delete');
         });
-
     });
+});
 
 
+Route::get('console/migrate', function () {
+    Artisan::call('migrate');
+});
 
+Route::get('console/parseteam', function () {
+    Artisan::call('parseteam');
+});
+
+Route::get('console/parseschedule', function () {
+    Artisan::call('parseschedule');
+});
+
+Route::get('console/parseresult', function () {
+    Artisan::call('parseresult');
 });
