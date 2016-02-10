@@ -141,6 +141,10 @@ Route::get('console/migrate', function () {
     Artisan::call('migrate');
 });
 
+Route::get('console/seed', function () {
+    Artisan::call('db:seed');
+});
+
 Route::get('console/parseteam', function () {
     Artisan::call('parseteam');
 });
