@@ -246,17 +246,28 @@ i.draw {
     background-image: url("../../img/football/foot.png");
 }
 
-.ic-yc {
+.ic-yc, .ic-ycs {
     background-image: url("../../img/football/yellow_card.png");
     width: 20px;
     height: 20px;
 }
 
-.ic-rc {
+.ic-rc, .ic-rcs {
     background-image: url("../../img/football/red_card.png");
     width: 20px;
     height: 20px;
 }
+
+.game-player-stats .ic {
+    width: 20px;
+    height: 20px;
+}
+
+.game-player-stats th:last-child,
+.game-player-stats td:last-child {
+    text-align: center;
+}
+
 
 table.player-stats,
 table.player-stats th {
@@ -285,4 +296,12 @@ table.player-stats td:first-child {
 
 .stats-filter {
     color: white;
+}
+
+.stats-filter .select2 li {
+    color: black;
+}
+
+.mls-logo {
+    background-color: gray;
 }

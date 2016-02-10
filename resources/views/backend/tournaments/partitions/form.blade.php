@@ -14,5 +14,10 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('team_id', trans('backend.tournaments.team_id')) !!}
+    {!! Form::select('team_id', $teamList, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
 </div>

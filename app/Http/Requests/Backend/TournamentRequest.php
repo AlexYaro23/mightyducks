@@ -26,7 +26,8 @@ class TournamentRequest extends Request
         return [
             'name' => 'required|string',
             'link' => 'url',
-            'status' => 'required|integer'
+            'status' => 'required|integer',
+            'team_id' => 'required|integer|exists:teams,id'
         ];
     }
 }

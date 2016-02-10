@@ -20,26 +20,46 @@
                         </h3>
 
                         <div class="player-header-info">
-                            <table class="table">
+                            <table class="table" width="200px">
                                 <tbody>
                                 <tr>
-                                    <td>{{ trans('frontend.players.games_played') }}</td>
+                                    <td>
+                                        <i class="ic ic-visits" title="{{ trans('frontend.players.games_played') }}">
+                                            &nbsp;
+                                        </i>
+                                    </td>
                                     <td>{{ $stats->visits }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ trans('frontend.players.goals') }}</td>
+                                    <td>
+                                        <i class="ic ic-goals" title="{{ trans('frontend.players.goals') }}">
+                                            &nbsp;
+                                        </i>
+                                    </td>
                                     <td>{{ $stats->goals }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ trans('frontend.players.assists') }}</td>
+                                    <td>
+                                        <i class="ic ic-assists" title="{{ trans('frontend.players.assists') }}">
+                                            &nbsp;
+                                        </i>
+                                    </td>
                                     <td>{{ $stats->assists }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ trans('frontend.players.ycs') }}</td>
+                                    <td>
+                                        <i class="ic ic-yc" title="{{ trans('frontend.players.ycs') }}">
+                                            &nbsp;
+                                        </i>
+                                    </td>
                                     <td>{{ $stats->ycs }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ trans('frontend.players.rcs') }}</td>
+                                    <td>
+                                        <i class="ic ic-rc" title="{{ trans('frontend.players.rcs') }}">
+                                            &nbsp;
+                                        </i>
+                                    </td>
                                     <td>{{ $stats->rcs }}</td>
                                 </tr>
                                 </tbody>

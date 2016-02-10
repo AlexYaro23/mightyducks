@@ -20,6 +20,8 @@
 
     <link href="{{ asset('/css/frontend/agency.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    <link href="{{ asset('/libs/select2/css/select2.min.css') }}" rel="stylesheet">
+
     <link href="{{ asset('/css/frontend/style.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,6 +40,7 @@
     <script src="{{ asset('/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/libs/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('/libs/select2/js/select2.min.js') }}"></script>
 
     <script src="{{ asset('/js/frontend/script.js') }}"></script>
 

@@ -17,6 +17,7 @@ class CreateTournamentsTable extends Migration
             $table->string('name');
             $table->string('link')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->integer('team_id')->unsigned()->nullable();
         });
     }
 
