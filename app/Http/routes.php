@@ -34,7 +34,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('players/{player}', ['uses' => 'PlayersController@view', 'where' => ['player' => '[0-9]+']])->name('player');
         Route::get('game/result/{game}', ['uses' => 'GameController@view', 'where' => ['game' => '[0-9]+']])->name('game.result');
         Route::get('statistics', 'StatsController@index')->name('stats');
-        Route::post('statistics/filter', 'StatsController@view')->name('stats.filter');
     });
 
 

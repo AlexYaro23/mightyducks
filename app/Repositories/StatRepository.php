@@ -51,6 +51,7 @@ class StatRepository
         }
     }
 
+
     public static function getPlayersStatistics($playerList)
     {
         $data = [];
@@ -70,6 +71,38 @@ class StatRepository
 
         foreach ($playerList as $player) {
             $result[$player->id] = isset($data[$player->id]) ? $data[$player->id] : self::getEmptyStat();
+        }
+
+        return $result;
+    }
+
+
+    public static function getFilteredPlayersStatistics($playerList, $selectedTournamentList)
+    {
+        $data = [];
+
+        $query = DB::table('stats')
+            ->select(DB::raw('stats.player_id, COALESCE(sum(stats.visit),0) as visits,
+            COALESCE(sum(stats.goal),0) as goals, COALESCE(sum(stats.assist),0) as assists,
+            COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
+            ->whereIn('stats.player_id', $playerList)
+            ->groupBy('stats.player_id');
+
+        if ($selectedTournamentList) {
+            $query->join('games', 'games.id', '=', 'stats.game_id');
+            $query->whereIn('games.tournament_id', $selectedTournamentList);
+        }
+
+        $stats = $query->get();
+
+        foreach ($stats as $stat) {
+            $data[$stat->player_id] = $stat;
+        }
+
+        $result = [];
+
+        foreach ($playerList as $player) {
+            $result[$player] = isset($data[$player]) ? $data[$player] : self::getEmptyStat();
         }
 
         return $result;

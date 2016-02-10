@@ -83,7 +83,14 @@ return [
         'rcs' => 'Red Cards'
     ],
     'stats' => [
-        'filter' => 'Statistics filter'
+        'filter' => 'Statistics filter',
+        'playerList' => 'Players',
+        'tournamentList' => 'Tournaments',
+        'filter' => 'Filter'
+    ],
+    'general' => [
+        'mls_site' => 'MLS',
+        'mls_vk' => 'MLS VK group'
     ]
 
 ];

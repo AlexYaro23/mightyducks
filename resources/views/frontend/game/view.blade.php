@@ -51,11 +51,14 @@
                         @foreach($statGroupList as $statGroup)
                             @if(isset($statList[$statGroup]) && $statList[$statGroup]->count())
                                 <div class="col-md-4 col-md-offset-4">
-                                    <table class="table text-left">
+                                    <table class="table text-left game-player-stats">
                                         <thead>
                                         <tr>
-                                            <th colspan="2">
+                                            <th>
                                                 {{ trans('frontend.game.' . $statGroup) }}
+                                            </th>
+                                            <th>
+                                                <i class="ic ic-{{ $statGroup }}s">&nbsp;</i>
                                             </th>
                                         </tr>
                                         </thead>
