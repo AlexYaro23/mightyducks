@@ -22,7 +22,7 @@ return [
         'game_date' => 'Дата',
         'stadium' => 'Поле',
         'visit_added' => 'Данные добавлены',
-        'visit_add_err' => 'Sorry! Error occur! Try later',
+        'visit_add_error' => 'Sorry! Error occur! Try later',
         'no_game' => [
             'title' => 'Нет игр в расписании!',
             'msg' => 'Проверьте позже'

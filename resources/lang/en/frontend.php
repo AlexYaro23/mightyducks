@@ -22,7 +22,7 @@ return [
         'game_date' => 'Date',
         'stadium' => 'Stadium',
         'visit_added' => 'Data added',
-        'visit_add_err' => 'Sorry! Error occur! Try later',
+        'visit_add_error' => 'Sorry! Error occur! Try later',
         'no_game' => [
             'title' => 'No game in schedule',
             'msg' => 'Sorry! Try later.'

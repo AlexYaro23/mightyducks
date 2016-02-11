@@ -70,7 +70,7 @@
     <script>
         $('.switcher').on('change', function () {
             $.ajax({
-                url: '/game/visit/',
+                url: '/game/visit',
                 type: 'POST',
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
