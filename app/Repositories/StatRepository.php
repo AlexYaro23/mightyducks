@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Game;
 use App\Models\Stat;
 use Illuminate\Support\Facades\DB;
 
@@ -57,10 +58,12 @@ class StatRepository
         $data = [];
 
         $stats = DB::table('stats')
-            ->select(DB::raw('player_id, COALESCE(sum(visit),0) as visits, COALESCE(sum(goal),0) as goals,
-            COALESCE(sum(assist),0) as assists, COALESCE(sum(yc),0) as ycs, COALESCE(sum(rc),0) as rcs'))
-            ->whereIn('player_id', $playerList->lists('id')->all())
-            ->groupBy('player_id')
+            ->select(DB::raw('stats.player_id, COALESCE(sum(stats.visit),0) as visits, COALESCE(sum(stats.goal),0) as goals,
+            COALESCE(sum(stats.assist),0) as assists, COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
+            ->whereIn('stats.player_id', $playerList->lists('id')->all())
+            ->join('games', 'games.id', '=', 'stats.game_id')
+            ->where('games.status', Game::getPlayedStatus())
+            ->groupBy('stats.player_id')
             ->get();
 
         foreach ($stats as $stat) {
@@ -86,10 +89,11 @@ class StatRepository
             COALESCE(sum(stats.goal),0) as goals, COALESCE(sum(stats.assist),0) as assists,
             COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
             ->whereIn('stats.player_id', $playerList)
+            ->join('games', 'games.id', '=', 'stats.game_id')
+            ->where('games.status', Game::getPlayedStatus())
             ->groupBy('stats.player_id');
 
         if ($selectedTournamentList) {
-            $query->join('games', 'games.id', '=', 'stats.game_id');
             $query->whereIn('games.tournament_id', $selectedTournamentList);
         }
 

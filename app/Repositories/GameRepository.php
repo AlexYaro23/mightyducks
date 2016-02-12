@@ -82,7 +82,8 @@ class GameRepository
             $this->saveGameStat($stat);
         }
 
-        $game->update(['status', Game::getPlayedStatus()]);
+        $game->status = Game::getPlayedStatus();
+        $game->save();
     }
 
     private function saveGameStat(array $stat)

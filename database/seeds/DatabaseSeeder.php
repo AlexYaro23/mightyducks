@@ -48,6 +48,7 @@ class TeamTableSeeder extends Seeder
     public function run()
     {
         Team::create([
+            'id' => 1,
             'mls_id' => '182',
             'name' => 'MightyDucks',
             'link' => 'http://mls.od.ua/component/joomsport/team/70/182'
@@ -61,7 +62,8 @@ class TournamentTableSeeder extends Seeder
     {
         Tournament::create([
             'id' => '1',
-            'name' => 'Friendly'
+            'name' => 'Friendly',
+            'team_id' => 1
         ]);
     }
 }

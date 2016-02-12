@@ -63,10 +63,10 @@ class ParseResult extends Command
 
             $stats = $this->parseStats($game, $html);
 
-            if (count($stats) < 1) {
+            /*if (count($stats) < 1) {
                 $this->info('No stats parsed');
                 continue;
-            }
+            }*/
 
             $this->info('Parse stats: ' . count($stats));
 

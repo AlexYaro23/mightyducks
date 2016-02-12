@@ -44,7 +44,6 @@ class Reminder extends Command
             ->where('date', '<=', $date->addDays(self::PERIOD)->format('Y-m-d 23:59:59'))
             ->where('reminder', Game::MSG_NOT_SENT)->get();
 
-
         if ($gameList->count() < 1) {
             $this->error('No games to remind');
             exit;

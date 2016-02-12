@@ -11,7 +11,8 @@ class Tournament extends Model
     protected $fillable = [
         'name',
         'link',
-        'status'
+        'status',
+        'team_id'
     ];
 
     protected static $statusList = [
