@@ -127,10 +127,12 @@ class StatRepository
     public static function getByPlayerId($player_id)
     {
         $stats = DB::table('stats')
-            ->select(DB::raw('COALESCE(sum(visit),0) as visits, COALESCE(sum(goal),0) as goals,
-            COALESCE(sum(assist),0) as assists, COALESCE(sum(yc),0) as ycs, COALESCE(sum(rc),0) as rcs'))
-            ->where('player_id', $player_id)
-            ->groupBy('player_id')
+            ->select(DB::raw('COALESCE(sum(stats.visit),0) as visits, COALESCE(sum(stats.goal),0) as goals,
+            COALESCE(sum(stats.assist),0) as assists, COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
+            ->where('stats.player_id', $player_id)
+            ->join('games', 'games.id', '=', 'stats.game_id')
+            ->where('games.status', Game::getPlayedStatus())
+            ->groupBy('stats.player_id')
             ->first();
 
         return $stats ? $stats : self::getEmptyStat();
