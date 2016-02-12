@@ -85,6 +85,7 @@ i.draw {
 
 .player-header-logo img {
     border: 2px solid lightgray;
+    max-width: 100%;
 }
 
 .player-header-info table {
