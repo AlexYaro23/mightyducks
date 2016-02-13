@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Yangqi\Htmldom\Htmldom;
 
-class ParseTeam extends Command
+class ParseTeam extends CommandParent
 {
     const TEAM_ID = 1;
     const DOMAIN = 'http://mls.od.ua';
@@ -46,7 +46,7 @@ class ParseTeam extends Command
      */
     public function handle()
     {
-        $this->info('Script start');
+        $this->startLog();
 
         $team = Team::find(self::TEAM_ID);
 
@@ -144,7 +144,7 @@ class ParseTeam extends Command
         $bar->finish();
 
 
-        $this->info(PHP_EOL . 'Script end');
+        $this->endLog();
     }
 
     private function parseIdFromUrl($link)

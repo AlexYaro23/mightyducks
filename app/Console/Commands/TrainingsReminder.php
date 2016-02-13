@@ -7,7 +7,7 @@ use App\Models\Training;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class TrainingsReminder extends Command
+class TrainingsReminder extends CommandParent
 {
     const PERIOD = 1;
     /**
@@ -37,7 +37,7 @@ class TrainingsReminder extends Command
      */
     public function handle()
     {
-        $this->info('Script start');
+        $this->startLog();
 
         $dayOfWeek = Carbon::now()->addDays(self::PERIOD)->dayOfWeek;
 
@@ -60,6 +60,6 @@ class TrainingsReminder extends Command
             $this->comment($result);
         }
 
-        $this->info('Script end');
+        $this->endLog();
     }
 }

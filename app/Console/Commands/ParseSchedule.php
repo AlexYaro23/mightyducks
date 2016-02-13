@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Yangqi\Htmldom\Htmldom;
 
-class ParseSchedule extends Command
+class ParseSchedule extends CommandParent
 {
     const TEAM_ID = 1;
     /**
@@ -43,7 +43,7 @@ class ParseSchedule extends Command
      */
     public function handle()
     {
-        $this->info('Script start');
+        $this->startLog();
         $team = Team::find(self::TEAM_ID);
 
         if ($team == null) {
@@ -85,7 +85,7 @@ class ParseSchedule extends Command
             }
         }
 
-        $this->info('Script end');
+        $this->endLog();
     }
 
     private function parseGameLinks($table, $team)

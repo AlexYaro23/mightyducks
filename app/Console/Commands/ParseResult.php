@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Yangqi\Htmldom\Htmldom;
 
-class ParseResult extends Command
+class ParseResult extends CommandParent
 {
     /**
      * The name and signature of the console command.
@@ -38,7 +38,7 @@ class ParseResult extends Command
      */
     public function handle()
     {
-        $this->info('Script start');
+        $this->startLog();
 
         $games = (new GameRepository())->getOpenned();
 
@@ -73,7 +73,7 @@ class ParseResult extends Command
             (new GameRepository())->saveGameStats($game, $stats);
         }
 
-        $this->info(PHP_EOL . 'Script end');
+        $this->endLog();
     }
 
     private function parseResult(Game $game, Htmldom $html)

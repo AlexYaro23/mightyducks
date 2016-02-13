@@ -6,7 +6,7 @@ use App\Models\Game;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class Reminder extends Command
+class Reminder extends CommandParent
 {
     const PERIOD = 3;
     /**
@@ -36,7 +36,7 @@ class Reminder extends Command
      */
     public function handle()
     {
-        $this->info('Script start');
+        $this->startLog();
 
         $date = Carbon::now();
 
@@ -64,7 +64,7 @@ class Reminder extends Command
             }
         }
 
-        $this->info('Script end');
+        $this->endLog();
     }
 
     private function getMsg(Game $game)
