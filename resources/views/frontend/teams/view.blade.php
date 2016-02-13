@@ -60,7 +60,7 @@
 
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="players">
-                                <table class="table table-hover player-stats">
+                                <table class="table table-hover player-stats table-mobile">
                                     <thead>
                                     <tr>
                                         <th>{{ trans('frontend.team.player_name') }}</th>
@@ -74,7 +74,7 @@
                                     <tbody>
                                     @foreach($playerList as $player)
                                         <tr>
-                                            <td>
+                                            <td class="mobile-row-fix">
                                                 <a href="{{ route('player', ['id' => $player->id]) }}">
                                                     <img height="20px" src="{{ $player->getPhotoLink() }}"
                                                          class="player-logo"/>
@@ -92,7 +92,7 @@
                                 </table>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="schedule">
-                                <table class="table table-hover">
+                                <table class="table table-hover tablesaw tablesaw-stack" data-tablesaw-mode="stack">
                                     <thead>
                                     <tr>
                                         <th>{{ trans('frontend.team.date') }}</th>

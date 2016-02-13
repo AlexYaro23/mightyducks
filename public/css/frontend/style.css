@@ -311,3 +311,16 @@ table.player-stats td:first-child {
     display: inline-block;
     min-width: 30px;
 }
+
+@media screen and (max-width: 600px) {
+    .table-mobile .mobile-row-fix {
+        max-width: 70px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+
+.tablesaw-stack td {
+    text-align: center;
+}

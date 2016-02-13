@@ -35,7 +35,7 @@
 
             <div class="row stats-block">
                 <div class="col-md-12">
-                    <table class="table table-hover player-stats">
+                    <table class="table table-hover player-stats table-mobile">
                         <thead>
                         <tr>
                             <th>{{ trans('frontend.team.player_name') }}</th>
@@ -50,7 +50,7 @@
                         @foreach($playerList as $player)
                             @if (isset($statList[$player->id]))
                                 <tr>
-                                    <td>
+                                    <td class="mobile-row-fix">
                                         <a href="{{ route('player', ['id' => $player->id]) }}">
                                             <img height="20px" src="{{ $player->getPhotoLink() }}"
                                                  class="player-logo"/>

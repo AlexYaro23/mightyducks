@@ -13,6 +13,7 @@
 
     <link href="{{ asset('/libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/libs/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -41,6 +42,7 @@
     <script src="{{ asset('/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/libs/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('/libs/stackonly/tablesaw.stackonly.js') }}"></script>
 
     <script src="{{ asset('/js/frontend/script.js') }}"></script>
 
