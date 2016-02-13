@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\Reminder::class,
         Commands\TrainingsReminder::class,
         Commands\TrainingsReset::class,
+        Commands\ParseHistorySchedule::class,
     ];
 
     /**
