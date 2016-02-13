@@ -318,6 +318,12 @@ table.player-stats td:first-child {
         overflow: hidden;
         white-space: nowrap;
     }
+
+    section h2.section-heading {
+        font-size: 20px;
+        overflow: hidden;
+        max-width: 100%;
+    }
 }
 
 
