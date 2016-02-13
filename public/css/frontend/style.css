@@ -306,3 +306,8 @@ table.player-stats td:first-child {
 .mls-logo {
     background-color: gray;
 }
+
+.prev-game, .next-game {
+    display: inline-block;
+    min-width: 30px;
+}

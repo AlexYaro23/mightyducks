@@ -91,5 +91,9 @@
                 }
             });
         });
+
+        $(".football-block").on("swipeleft",function(){
+            alert("You swiped left!");
+        });
     </script>
 @endsection
