@@ -77,7 +77,7 @@ class ParseHistorySchedule extends CommandParent
 
             $this->info('Games found: ' . $gameList->count());
 
-            foreach($gameList->reverse() as $game) {
+            foreach($gameList as $game) {
                 $game->setTournamentId($tournament->id);
                 $game->setTeamId($team->id);
                 $game->setSearchTeamName($team->name);
@@ -112,19 +112,23 @@ class ParseHistorySchedule extends CommandParent
     {
         $gameEntity = new GameMlsEntity();
 
-        $round = $row->find('td.m_name', 0);
-        if ($round) {
-            $round = $round->innertext;
+        $roundRow = $row->find('td.m_name', 0);
+        if ($roundRow) {
+            $round = $roundRow->innertext;
             $round = substr($round, 0, strpos($round, '(Группа'));
             $round = trim($round);
             $gameEntity->setRound($round);
+            preg_match('/>([^<]+)</', $roundRow->innertext, $matches);
+            if (isset($matches[1]) && $matches[1]) {
+                $gameEntity->setMatchDate(Carbon::parse($matches[1]));
+            }
         }
         $teamHome = $row->find('td.team-h span', 0);
         if ($teamHome) {
             $gameEntity->setTeamHome($teamHome->innertext);
         }
 
-        $teamHomeIcon = $row->find('td.team-ico-h div.team-embl img', 0);
+        $teamHomeIcon = $row->find('td.team-ico-h-l div.team-embl img', 0);
         if ($teamHomeIcon) {
             $gameEntity->setTeamHomeIcon($teamHomeIcon->src);
         }
@@ -139,17 +143,12 @@ class ParseHistorySchedule extends CommandParent
             $gameEntity->setTeamVisitIcon($teamVisitIcon->src);
         }
 
-        $gameDate = $row->find('td.match-day-date', 0);
-        if ($gameDate) {
-            $gameEntity->setMatchDate(Carbon::parse(trim($gameDate->innertext)));
-        }
-
-        $gameLinkPlayed = $row->find('span.score a.bdtooltip', 0);
+        $gameLinkPlayed = $row->find('a.button-details', 0);
         if ($gameLinkPlayed) {
             $gameEntity->setLink($gameLinkPlayed->href);
         }
 
-        $placeTd = $row->find('td', -2);
+        $placeTd = $row->find('td', -3);
 
         if ($placeTd) {
             $place = $placeTd->find('a', 0);
@@ -157,7 +156,7 @@ class ParseHistorySchedule extends CommandParent
                 $gameEntity->setPlace($place->innertext);
             }
         }
-        dd($gameEntity);
+
         return $gameEntity;
     }
 

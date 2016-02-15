@@ -18,6 +18,6 @@ class TournamentRepository
 
     public static function getListByTeamId($teamId)
     {
-        return Tournament::whereNotNull('link')->where('team_id', $teamId)->where('status', Tournament::STATUS_ACTIVE)->get();
+        return Tournament::whereNotNull('link')->where('team_id', $teamId)->get();
     }
 }

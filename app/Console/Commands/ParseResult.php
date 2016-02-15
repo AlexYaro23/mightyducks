@@ -38,7 +38,7 @@ class ParseResult extends CommandParent
      */
     public function handle()
     {
-        $this->startLog();
+        $this->info('Script start');
 
         $games = (new GameRepository())->getOpenned();
 
@@ -73,7 +73,7 @@ class ParseResult extends CommandParent
             (new GameRepository())->saveGameStats($game, $stats);
         }
 
-        $this->endLog();
+        $this->info(PHP_EOL . 'Script end');
     }
 
     private function parseResult(Game $game, Htmldom $html)
@@ -107,6 +107,10 @@ class ParseResult extends CommandParent
 
     private function getGameUrl($url)
     {
+        if (strpos($url, '/chempionat/') !== false) {
+            return config('mls.domain') . $url;
+        }
+
         return config('mls.domain') . '/raspisanie/' . $url;
     }
 
