@@ -61,28 +61,41 @@
 
 @section('footer')
     <script>
-        $('.switcher').on('change', function () {
-            $.ajax({
-                url: '{{ route('training.visit.add', ['id' => $training->id]) }}',
-                type: 'POST',
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    visit: this.checked,
-                    training_id: $(this).data('training'),
-                    team_id: $(this).data('team')
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        swal(data.msg, "", "success")
-                    } else if (data.status == 'error') {
-                        swal(data.msg, "", "error")
-                    }
-                },
-                error: function (error) {
-                    swal("{{ trans('frontend.main.visit_add_error') }}", "", "error");
-                }
+
+        (function () {
+            var pusher = new Pusher('4cbafc53eb5fa82e05c2', {
+                encrypted: true
             });
-        });
+
+            var channel = pusher.subscribe('trainingVisit');
+
+            channel.bind('App\\Events\\TrainingVisitAdded', function(data) {
+                console.log(124);
+            });
+
+            $('.switcher').on('change', function () {
+                $.ajax({
+                    url: '{{ route('training.visit.add', ['id' => $training->id]) }}',
+                    type: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        visit: this.checked,
+                        training_id: $(this).data('training'),
+                        team_id: $(this).data('team')
+                    },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            swal(data.msg, "", "success")
+                        } else if (data.status == 'error') {
+                            swal(data.msg, "", "error")
+                        }
+                    },
+                    error: function (error) {
+                        swal("{{ trans('frontend.main.visit_add_error') }}", "", "error");
+                    }
+                });
+            });
+        })();
     </script>
 @endsection
