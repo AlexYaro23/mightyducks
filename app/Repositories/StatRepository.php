@@ -61,7 +61,10 @@ class StatRepository
             ->select(DB::raw('stats.player_id, COALESCE(sum(stats.visit),0) as visits, COALESCE(sum(stats.goal),0) as goals,
             COALESCE(sum(stats.assist),0) as assists, COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
             ->whereIn('stats.player_id', $playerList->lists('id')->all())
-            ->where('stats.visit', '<>', Stat::GAME_NOT_VISITED)
+            ->where(function ($query) {
+                $query->whereNull('stats.visit')
+                    ->orWhere('stats.visit', '=', Stat::GAME_VISITED);
+            })
             ->join('games', 'games.id', '=', 'stats.game_id')
             ->where('games.status', Game::getPlayedStatus())
             ->groupBy('stats.player_id')
@@ -90,7 +93,10 @@ class StatRepository
             COALESCE(sum(stats.goal),0) as goals, COALESCE(sum(stats.assist),0) as assists,
             COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
             ->whereIn('stats.player_id', $playerList)
-            ->where('stats.visit', '<>', Stat::GAME_NOT_VISITED)
+            ->where(function ($query) {
+                $query->whereNull('stats.visit')
+                    ->orWhere('stats.visit', '=', Stat::GAME_VISITED);
+            })
             ->join('games', 'games.id', '=', 'stats.game_id')
             ->where('games.status', Game::getPlayedStatus())
             ->groupBy('stats.player_id');
@@ -132,7 +138,10 @@ class StatRepository
             ->select(DB::raw('COALESCE(sum(stats.visit),0) as visits, COALESCE(sum(stats.goal),0) as goals,
             COALESCE(sum(stats.assist),0) as assists, COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
             ->where('stats.player_id', $player_id)
-            ->where('stats.visit', '<>', Stat::GAME_NOT_VISITED)
+            ->where(function ($query) {
+                $query->whereNull('stats.visit')
+                    ->orWhere('stats.visit', '=', Stat::GAME_VISITED);
+            })
             ->join('games', 'games.id', '=', 'stats.game_id')
             ->where('games.status', Game::getPlayedStatus())
             ->groupBy('stats.player_id')

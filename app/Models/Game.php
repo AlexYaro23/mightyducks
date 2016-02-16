@@ -115,7 +115,7 @@ class Game extends Model
 
     public function isPlayed()
     {
-        if (isset($this->score1) && $this->score1) {
+        if (isset($this->score1) && $this->score1 !== null) {
             return true;
         }
 
