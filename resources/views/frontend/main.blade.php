@@ -43,6 +43,7 @@
     <script src="{{ asset('/libs/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('/libs/stackonly/tablesaw.stackonly.js') }}"></script>
+    <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
 
     <script src="{{ asset('/js/frontend/script.js') }}"></script>
 

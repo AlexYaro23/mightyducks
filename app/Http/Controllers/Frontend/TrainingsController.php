@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\TrainingVisitAdded;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Stat;
@@ -41,6 +42,8 @@ class TrainingsController extends Controller
             $data['training_id'] = $request->get('training_id');
             $data['player_id'] = Auth::user()->player->id;
             TrainingVisitRepository::createOrUpdateVisit($data, $request->get('visit'));
+
+            event(new TrainingVisitAdded());
 
             return json_encode(['msg' => trans('frontend.main.visit_added'), 'status' => 'success']);
         }
