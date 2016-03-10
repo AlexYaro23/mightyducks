@@ -15,21 +15,27 @@ class StatRepository
             ->whereNotNull(Stat::VISIT)->first();
 
         if (!$stat) {
-            Stat::create([
-                'game_id' => $data['game_id'],
-                'player_id' => $data['player_id'],
-                Stat::VISIT => Stat::convertVisitValue($visit)
-            ]);
+            if ($visit) {
+                Stat::create([
+                    'game_id' => $data['game_id'],
+                    'player_id' => $data['player_id'],
+                    Stat::VISIT => $visit
+                ]);
+            }
         } else {
-            $stat->visit = Stat::convertVisitValue($visit);
+            if ($visit) {
+                $stat->visit = $visit;
 
-            $stat->save();
+                $stat->save();
+            } else {
+                $stat->delete();
+            }
         }
     }
 
     public static function getVisitsForGame($gameId)
     {
-        return Stat::where('game_id', $gameId)->where(Stat::VISIT, Stat::GAME_VISITED)->get();
+        return Stat::where('game_id', $gameId)->whereNotNull(Stat::VISIT)->get();
     }
 
     public static function addVisit($game_id, $player_id)

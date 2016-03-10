@@ -38,7 +38,7 @@ class GameController extends Controller
             [
                 'game_id' => 'required|integer|exists:games,id',
                 'team_id' => 'required|integer|exists:teams,id',
-                'visit' => 'required|in:true,false'
+                'visit' => 'in:' . Stat::GAME_VISITED . ',' . Stat::GAME_NOT_VISITED
             ]
 
         );
@@ -75,7 +75,6 @@ class GameController extends Controller
         $gameSiblings = GameRepository::getSiblings($game);
 
         $visitList = StatRepository::getVisitsForGame($game->id);
-
         $visitList = $visitList->lists(Stat::VISIT, 'player_id');
 
         return view('frontend.game.index')
@@ -83,6 +82,8 @@ class GameController extends Controller
             ->with('playerList', $playerList)
             ->with('game', $game)
             ->with('visitList', $visitList)
-            ->with('gameSiblings', $gameSiblings);
+            ->with('gameSiblings', $gameSiblings)
+            ->with('statusVisited', Stat::GAME_VISITED)
+            ->with('statusNotVisited', Stat::GAME_NOT_VISITED);
     }
 }

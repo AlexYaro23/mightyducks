@@ -36,21 +36,27 @@
                                 <tr>
                                     <td>{{ $player->name }}</td>
                                     <td>
-                                        <div class="material-switch pull-right">
+                                        <div class="visit-label-block pull-right">
                                             @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id && $game->isEditable())
-                                                <input {{ isset($visitList[$player->id]) ? 'checked="checked"' : '' }}
-                                                        data-team="{{ $team->id }}"
-                                                        data-game="{{ $game->id }}" class="switcher"
-                                                        id="someSwitchOptionSuccess_{{ $player->id }}"
-                                                        name="someSwitchOption001"
-                                                        type="checkbox"/>
-                                                <label for="someSwitchOptionSuccess_{{ $player->id }}"
-                                                       class="label-success"></label>
+                                                <select data-team="{{ $team->id }}" data-game="{{ $game->id }}"
+                                                        class="switcher">
+                                                    <option value="">&nbsp;</option>
+                                                    <option value="{{ $statusVisited }}"
+                                                            {{ isset($visitList[$player->id]) && $visitList[$player->id] == $statusVisited ? 'selected="selected"' : ''}}>
+                                                        {{ trans('frontend.main.visit.yes') }}
+                                                    </option>
+                                                    <option value="{{ $statusNotVisited }}"
+                                                            {{ isset($visitList[$player->id]) && $visitList[$player->id] == $statusNotVisited ? 'selected="selected"' : ''}}>
+                                                        {{ trans('frontend.main.visit.no') }}
+                                                    </option>
+                                                </select>
                                             @else
-                                                @if(isset($visitList[$player->id]))
+                                                @if(isset($visitList[$player->id]) && $visitList[$player->id] == $statusVisited)
                                                     <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
-                                                @else
+                                                @elseif(isset($visitList[$player->id]) && $visitList[$player->id] == $statusNotVisited)
                                                     <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
+                                                @else
+                                                    <span class="label label-default">...</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -74,7 +80,7 @@
                 type: 'POST',
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
-                    visit: this.checked,
+                    visit: this.value,
                     game_id: $(this).data('game'),
                     team_id: $(this).data('team')
                 },

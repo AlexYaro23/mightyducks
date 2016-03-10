@@ -12,7 +12,7 @@ class TrainingVisitRepository
     public static function getTrainingVisits($training_id)
     {
         return TrainingVisit::where('training_id', $training_id)
-            ->where('visit', TrainingVisit::VISITED)->get();
+            ->whereNotNull('visit')->get();
     }
 
     public static function saveQuickVisits($request)
@@ -64,17 +64,22 @@ class TrainingVisitRepository
             ->where('player_id', $data['player_id'])
             ->first();
 
-        $visit = TrainingVisit::convetValue($visit);
         if (!$stat) {
-            TrainingVisit::create([
-                'training_id' => $data['training_id'],
-                'player_id' => $data['player_id'],
-                'visit' => $visit
-            ]);
+            if ($visit) {
+                TrainingVisit::create([
+                    'training_id' => $data['training_id'],
+                    'player_id' => $data['player_id'],
+                    'visit' => $visit
+                ]);
+            }
         } else {
-            $stat->visit = $visit;
+            if ($visit) {
+                $stat->visit = $visit;
 
-            $stat->save();
+                $stat->save();
+            } else {
+                $stat->delete();
+            }
         }
     }
 }

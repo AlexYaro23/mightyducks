@@ -330,3 +330,9 @@ table.player-stats td:first-child {
 .tablesaw-stack td {
     text-align: center;
 }
+
+.visit-label-block .label {
+    display: inline-block;
+    padding: 5px 7px;
+    min-width: 50px;
+}

@@ -27,9 +27,8 @@ class TrainingsController extends Controller
             [
                 'team_id' => 'required|integer|exists:teams,id',
                 'training_id' => 'required|integer|exists:trainings,id',
-                'visit' => 'required|in:true,false'
+                'visit' => 'in:' . Stat::GAME_VISITED . ',' . Stat::GAME_NOT_VISITED
             ]
-
         );
 
         if (
@@ -43,7 +42,8 @@ class TrainingsController extends Controller
             $data['player_id'] = Auth::user()->player->id;
             TrainingVisitRepository::createOrUpdateVisit($data, $request->get('visit'));
 
-            event(new TrainingVisitAdded());
+            $data['visit'] = $request->get('visit');
+            event(new TrainingVisitAdded($data));
 
             return json_encode(['msg' => trans('frontend.main.visit_added'), 'status' => 'success']);
         }
@@ -77,6 +77,8 @@ class TrainingsController extends Controller
             ->with('team', $team)
             ->with('playerList', $playerList)
             ->with('dayList', $dayList)
-            ->with('visitList', $visitList);
+            ->with('visitList', $visitList)
+            ->with('statusVisited', Stat::GAME_VISITED)
+            ->with('statusNotVisited', Stat::GAME_NOT_VISITED);
     }
 }

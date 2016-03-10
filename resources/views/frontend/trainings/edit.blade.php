@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
 
-                        <table class="table table-hover">
+                        <table class="table table-hover" data-training="{{ $training->id }}">
                             <thead>
                             <tr>
                                 <th>{{ trans('frontend.training.player_name') }}</th>
@@ -26,24 +26,30 @@
                             </thead>
                             <tbody>
                             @foreach($playerList as $player)
-                                <tr>
+                                <tr data-player="{{ $player->id }}">
                                     <td>{{ $player->name }}</td>
                                     <td>
-                                        <div class="material-switch pull-right">
+                                        <div class="pull-right visit-label-block">
                                             @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id)
-                                                <input {{ isset($visitList[$player->id]) ? 'checked="checked"' : '' }}
-                                                        data-team="{{ $team->id }}"
-                                                        data-training="{{ $training->id }}" class="switcher"
-                                                        id="someSwitchOptionSuccess_{{ $player->id }}"
-                                                        name="someSwitchOption001"
-                                                        type="checkbox"/>
-                                                <label for="someSwitchOptionSuccess_{{ $player->id }}"
-                                                       class="label-success"></label>
+                                                <select data-team="{{ $team->id }}" data-training="{{ $training->id }}"
+                                                        class="switcher">
+                                                    <option value="">&nbsp;</option>
+                                                    <option value="{{ $statusVisited }}"
+                                                            {{ isset($visitList[$player->id]) && $visitList[$player->id] == $statusVisited ? 'selected="selected"' : ''}}>
+                                                        {{ trans('frontend.main.visit.yes') }}
+                                                    </option>
+                                                    <option value="{{ $statusNotVisited }}"
+                                                            {{ isset($visitList[$player->id]) && $visitList[$player->id] == $statusNotVisited ? 'selected="selected"' : ''}}>
+                                                        {{ trans('frontend.main.visit.no') }}
+                                                    </option>
+                                                </select>
                                             @else
-                                                @if(isset($visitList[$player->id]))
+                                                @if(isset($visitList[$player->id]) && $visitList[$player->id] == $statusVisited)
                                                     <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
-                                                @else
+                                                @elseif(isset($visitList[$player->id]) && $visitList[$player->id] == $statusNotVisited)
                                                     <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
+                                                @else
+                                                    <span class="label label-default">...</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -67,10 +73,24 @@
                 encrypted: true
             });
 
-            var channel = pusher.subscribe('trainingVisit');
+            var channel = pusher.subscribe('trainingVisit.{{$training->id}}');
 
-            channel.bind('App\\Events\\TrainingVisitAdded', function(data) {
-                console.log(124);
+            channel.bind('App\\Events\\TrainingVisitAdded', function (data) {
+                if (data.trainingId != undefined && data.playerId != undefined && data.visit != undefined) {
+                    var label = $('table[data-training="' + data.trainingId + '"]').find('tr[data-player="' + data.playerId + '"]').find('.label');
+
+                    label.removeClass();
+                    if (data.visit == '2') {
+                        label.html('Нет');
+                        label.addClass('label label-danger');
+                    } else if (data.visit == '1') {
+                        label.html('Да');
+                        label.addClass('label label-success');
+                    } else {
+                        label.html('...');
+                        label.addClass('label label-default');
+                    }
+                }
             });
 
             $('.switcher').on('change', function () {
@@ -79,7 +99,7 @@
                     type: 'POST',
                     data: {
                         _token: $('meta[name="csrf-token"]').attr('content'),
-                        visit: this.checked,
+                        visit: this.value,
                         training_id: $(this).data('training'),
                         team_id: $(this).data('team')
                     },
