@@ -45,12 +45,12 @@ class TrainingsReset extends Command
 
 
         if ($trainingList->count() < 1) {
-            $this->error('No games to remind');
+            $this->error('No trainings to reset');
             exit;
         }
 
         foreach ($trainingList as $training) {
-            TrainingVisitRepository::setNotVisited($training->id);
+            TrainingVisitRepository::clearVisists($training->id);
         }
 
         $this->info('Script end');

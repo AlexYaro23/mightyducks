@@ -38,6 +38,11 @@ class StatRepository
         return Stat::where('game_id', $gameId)->whereNotNull(Stat::VISIT)->get();
     }
 
+    public static function getActiveVisitsForGame($gameId)
+    {
+        return Stat::where('game_id', $gameId)->where(Stat::VISIT, Stat::GAME_VISITED)->get();
+    }
+
     public static function addVisit($game_id, $player_id)
     {
         $stat = Stat::where('game_id', $game_id)

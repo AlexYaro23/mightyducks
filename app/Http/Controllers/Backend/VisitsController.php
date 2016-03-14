@@ -26,7 +26,7 @@ class VisitsController extends Controller
         $team = Team::find(config('mls.team_id'));
         $playerList = Player::where('team_id', $team->id)->get();
 
-        $visitList = StatRepository::getVisitsForGame($game->id);
+        $visitList = StatRepository::getActiveVisitsForGame($game->id);
 
         $visitList = $visitList->lists(Stat::VISIT, 'player_id');
 

@@ -58,6 +58,11 @@ class TrainingVisitRepository
             ->update(['visit' => TrainingVisit::NOT_VISITED]);
     }
 
+    public static function clearVisists($trainingId)
+    {
+        TrainingVisit::where('training_id', $trainingId)->delete();
+    }
+
     public static function createOrUpdateVisit(array $data, $visit)
     {
         $stat = TrainingVisit::where('training_id', $data['training_id'])
