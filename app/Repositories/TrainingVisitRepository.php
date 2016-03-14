@@ -15,6 +15,12 @@ class TrainingVisitRepository
             ->whereNotNull('visit')->get();
     }
 
+    public static function getActiveTrainingVisits($training_id)
+    {
+        return TrainingVisit::where('training_id', $training_id)
+            ->where('visit', TrainingVisit::VISITED)->get();
+    }
+
     public static function saveQuickVisits($request)
     {
         if (!Training::find($request->get('training_id'))) {

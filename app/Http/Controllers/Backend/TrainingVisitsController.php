@@ -28,7 +28,7 @@ class TrainingVisitsController extends Controller
         $team = Team::find(config('mls.team_id'));
         $playerList = Player::where('team_id', $team->id)->get();
 
-        $visitList = TrainingVisitRepository::getTrainingVisits($training->id);
+        $visitList = TrainingVisitRepository::getActiveTrainingVisits($training->id);
 
         $visitList = $visitList->lists('visit', 'player_id');
 
