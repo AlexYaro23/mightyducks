@@ -37,7 +37,7 @@
                                     <td>{{ $player->name }}</td>
                                     <td>
                                         <div class="visit-label-block pull-right">
-                                            @if(isset(Auth::user()->player->id) && Auth::user()->player->id == $player->id && $game->isEditable())
+                                            @if(Auth::user() != null && Auth::user()->player != null && Auth::user()->player->id == $player->id && $game->isEditable())
                                                 <select data-team="{{ $team->id }}" data-game="{{ $game->id }}"
                                                         class="switcher">
                                                     <option value="">&nbsp;</option>

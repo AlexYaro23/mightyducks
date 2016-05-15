@@ -35,7 +35,7 @@
                             <tbody>
                             @foreach($players as $player)
                                 <tr class="">
-                                    <td>{{ isset($player->user->name) ? $player->user->name : '' }}</td>
+                                    <td>{{ $player->user != null ? $player->user->name : '' }}</td>
                                     <td>{{ $player->mls_id }}</td>
                                     <td>{{ $player->team->name }}</td>
                                     <td>{{ $player->name }}</td>
