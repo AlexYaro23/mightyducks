@@ -41,7 +41,7 @@ class TrainingsReminder extends CommandParent
 
         $dayOfWeek = Carbon::now()->addDays(self::PERIOD)->dayOfWeek;
 
-        $trainingList = Training::where('day_of_week', $dayOfWeek)->get();
+        $trainingList = Training::where('day_of_week', $dayOfWeek)->where('status', Training::STATUS_ACITVE)->get();
 
         if ($trainingList->count() < 1) {
             $this->error('No games to remind');

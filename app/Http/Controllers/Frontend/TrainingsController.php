@@ -33,8 +33,9 @@ class TrainingsController extends Controller
 
         if (
             !$validator->fails() &&
-            isset(Auth::user()->player->id) &&
-            isset(Auth::user()->player->team->id) &&
+            Auth::user() != null &&
+            Auth::user()->player != null &&
+            Auth::user()->player->team != null &&
             Auth::user()->player->team->id == $request->get('team_id')
         ) {
             $data['team_id'] = $request->get('team_id');
