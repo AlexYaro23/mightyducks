@@ -15,6 +15,10 @@ class Stat extends Model
     const GAME_VISITED = 1;
     const GAME_NOT_VISITED = 2;
 
+    public static $visitList = [
+        self::GAME_VISITED => 'Yes',
+        self::GAME_NOT_VISITED => 'No'
+    ];
 
 
     protected $fillable = [

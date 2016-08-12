@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Events\TrainingVisitAdded;
+use App\Events\TrainingVisitChange;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Stat;
@@ -45,6 +46,7 @@ class TrainingsController extends Controller
 
             $data['visit'] = $request->get('visit');
             event(new TrainingVisitAdded($data));
+            event(new TrainingVisitChange($data));
 
             return json_encode(['msg' => trans('frontend.main.visit_added'), 'status' => 'success']);
         }

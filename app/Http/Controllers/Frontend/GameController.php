@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\GameVisitChange;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Stat;
@@ -53,6 +54,9 @@ class GameController extends Controller
             $data['game_id'] = $request->get('game_id');
             $data['player_id'] = Auth::user()->player->id;
             StatRepository::createOrUpdateGameVisit($data, $request->get('visit'));
+
+            $data['visit'] = $request->get('visit');
+            event(new GameVisitChange($data));
 
             return json_encode(['msg' => trans('frontend.main.visit_added'), 'status' => 'success']);
         }
