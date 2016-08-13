@@ -16,8 +16,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="{{ url()->current() == route('team') ? 'active' : '' }}">
-                    <a class="page-scroll" href="{{ route('team') }}">{{ trans('frontend.menu.team') }}</a>
+                <li class="{{ url()->current() == route('games') ? 'active' : '' }}">
+                    <a class="page-scroll" href="{{ route('games') }}">{{ trans('frontend.menu.games') }}</a>
                 </li>
                 <li class="{{ url()->current() == route('stats') ? 'active' : '' }}">
                     <a class="page-scroll" href="{{ route('stats') }}">{{ trans('frontend.menu.stats') }}</a>

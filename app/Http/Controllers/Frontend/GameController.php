@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Stat;
 use App\Models\Team;
+use App\Models\Tournament;
 use App\Repositories\GameRepository;
 use App\Repositories\PlayerRepository;
 use App\Repositories\StatRepository;
@@ -17,6 +18,20 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
+    public function index()
+    {
+        $team = Team::find(config('mls.team_id'));
+        $gameList = GameRepository::getListByTeamId($team->id);
+        $tournamentList = Tournament::all();
+        $tournamentList = $tournamentList->lists('name', 'id');
+
+        return view('frontend.game.list')
+            ->with('team', $team)
+            ->with('gameList', $gameList)
+            ->with('tournamentList', $tournamentList);
+    }
+
+
     public function view(Game $game)
     {
         $team = Team::find(config('mls.team_id'));

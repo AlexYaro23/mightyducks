@@ -328,7 +328,7 @@ table.player-stats td:first-child {
 
 
 .tablesaw-stack td {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .visit-label-block .label {

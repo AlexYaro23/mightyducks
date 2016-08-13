@@ -14,7 +14,8 @@ return [
         'admin' => 'Admin',
         'trainings' => 'Trainings',
         'settings' => 'Settings',
-        'stats' => 'Statistics'
+        'stats' => 'Statistics',
+        'games' => 'Games',
     ],
     'main' => [
         'player_name' => 'Player',
@@ -90,7 +91,8 @@ return [
     ],
     'general' => [
         'mls_site' => 'MLS',
-        'mls_vk' => 'MLS VK group'
+        'mls_vk' => 'MLS VK group',
+        'details' => 'Details',
     ]
 
 ];

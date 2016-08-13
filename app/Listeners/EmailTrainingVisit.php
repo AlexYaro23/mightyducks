@@ -12,7 +12,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Mail;
 use Log;
 
-class EmailTrainingVisit implements ShouldQueue
+//class EmailTrainingVisit implements ShouldQueue
+class EmailTrainingVisit
 {
     /**
      * Create the event listener.

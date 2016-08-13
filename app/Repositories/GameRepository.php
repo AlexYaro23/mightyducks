@@ -36,7 +36,7 @@ class GameRepository
 
     public static function getListByTeamId($id)
     {
-        return Game::where('team_id', $id)->orderBy('date', 'asc')->get();
+        return Game::where('team_id', $id)->orderBy('date', 'desc')->get();
     }
 
     public function addParsedGame(GameMlsEntity $gameEntity)
