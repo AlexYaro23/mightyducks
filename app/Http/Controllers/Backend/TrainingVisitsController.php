@@ -27,6 +27,7 @@ class TrainingVisitsController extends Controller
     {
         $team = Team::find(config('mls.team_id'));
         $playerList = Player::where('team_id', $team->id)->get();
+        $visitMap = ['' => ''] + Stat::$visitList;
 
         $visitList = TrainingVisitRepository::getActiveTrainingVisits($training->id);
 
@@ -35,7 +36,8 @@ class TrainingVisitsController extends Controller
         return view('backend.training_visits.edit')
             ->with('playerList', $playerList)
             ->with('visitList', $visitList)
-            ->with('training', $training);
+            ->with('training', $training)
+            ->with('visitMap', $visitMap);
     }
 
     public function store(Request $request)

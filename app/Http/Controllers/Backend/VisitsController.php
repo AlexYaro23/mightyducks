@@ -25,7 +25,7 @@ class VisitsController extends Controller
     {
         $team = Team::find(config('mls.team_id'));
         $playerList = Player::where('team_id', $team->id)->get();
-
+        $visitMap = ['' => ''] + Stat::$visitList;
         $visitList = StatRepository::getActiveVisitsForGame($game->id);
 
         $visitList = $visitList->lists(Stat::VISIT, 'player_id');
@@ -33,6 +33,7 @@ class VisitsController extends Controller
         return view('backend.visits.edit')
             ->with('playerList', $playerList)
             ->with('visitList', $visitList)
+            ->with('visitMap', $visitMap)
             ->with('game', $game);
     }
 

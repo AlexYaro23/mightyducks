@@ -40,10 +40,10 @@ class StatRepository
 
     public static function getActiveVisitsForGame($gameId)
     {
-        return Stat::where('game_id', $gameId)->where(Stat::VISIT, Stat::GAME_VISITED)->get();
+        return Stat::where('game_id', $gameId)->whereIn(Stat::VISIT, array_keys(Stat::$visitList))->get();
     }
 
-    public static function addVisit($game_id, $player_id)
+    public static function addVisit($game_id, $player_id, $visit = Stat::VISIT)
     {
         $stat = Stat::where('game_id', $game_id)
             ->where('player_id', $player_id)
@@ -51,14 +51,14 @@ class StatRepository
             ->first();
 
         if ($stat) {
-            $stat->{Stat::VISIT} = Stat::GAME_VISITED;
+            $stat->{Stat::VISIT} = $visit;
 
             $stat->save();
         } else {
             Stat::create([
                 'game_id' => $game_id,
                 'player_id' => $player_id,
-                Stat::VISIT => Stat::GAME_VISITED
+                Stat::VISIT => $visit
             ]);
         }
     }

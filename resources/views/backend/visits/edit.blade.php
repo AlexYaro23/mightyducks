@@ -38,10 +38,11 @@
                                     <tr>
                                         <td>{{ $player->name }}</td>
                                         <td>
-                                            {!! Form::checkbox(
+                                            {!! Form::select(
                                                 'player_' . $player->id,
-                                                null,
-                                                isset($visitList[$player->id]) ? true : false
+                                                $visitMap,
+                                                isset($visitList[$player->id]) ? $visitList[$player->id] : '',
+                                                ['class' => 'form-control']
                                             ) !!}
                                         </td>
                                     </tr>

@@ -22,13 +22,13 @@ class GameRepository
             return;
         }
 
-        self::setNotVisited($request->get('game_id'));
+        self::removeVisits($request->get('game_id'));
         foreach ($request->all() as $key => $input) {
-            if (strpos($key, 'player_') !== false) {
+            if (strpos($key, 'player_') !== false && $input > 0) {
                 $id = str_replace('player_', '', $key);
                 if (Player::find($id)) {
 
-                    StatRepository::addVisit($request->get('game_id'), $id);
+                    StatRepository::addVisit($request->get('game_id'), $id, $input);
                 }
             }
         }
@@ -169,5 +169,12 @@ class GameRepository
         Stat::where('game_id', $id)
             ->whereNotNull(Stat::VISIT)
             ->update([Stat::VISIT => Stat::GAME_NOT_VISITED]);
+    }
+
+    private static function removeVisits($id)
+    {
+        Stat::where('game_id', $id)
+            ->whereNotNull(Stat::VISIT)
+            ->delete();
     }
 }
