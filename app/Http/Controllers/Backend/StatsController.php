@@ -16,8 +16,14 @@ class StatsController extends Controller
     public function index()
     {
         $stats = Stat::all();
+        $teamMap = Game::all()->lists('team', 'id');
+        $playerMap = Player::all()->lists('name', 'id');
 
-        return view('backend.stats.list')->with('stats', $stats)->with('parameterList', Stat::getParameterList());
+        return view('backend.stats.list')
+            ->with('stats', $stats)
+            ->with('parameterList', Stat::getParameterList())
+            ->with('teamMap', $teamMap)
+            ->with('playerMap', $playerMap);
     }
 
     public function create()

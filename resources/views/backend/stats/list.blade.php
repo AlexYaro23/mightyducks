@@ -46,8 +46,8 @@
                             @foreach($stats as $stat)
                                 <tr class="">
                                     <td>{{ $stat->id }}</td>
-                                    <td>{{ $stat->game->team }}</td>
-                                    <td>{{ $stat->player->name }}</td>
+                                    <td>{{ isset($teamMap[$stat->game_id])?$teamMap[$stat->game_id]:'' }}</td>
+                                    <td>{{ isset($playerMap[$stat->player_id])?$playerMap[$stat->player_id]:'' }}</td>
                                     <td>{{ $stat->parameter }}</td>
                                     <td>{{ $stat->value }}</td>
                                     <td align="center">
