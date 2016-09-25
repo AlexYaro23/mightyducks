@@ -214,10 +214,12 @@
                                                             <p>
                                                                 {{ $player->name }} {{ trans('email.game.changed') }} <br />
                                                                 {{ $game->team }} :
-                                                                @if ($status == \App\Models\Stat::VISIT)
+                                                                @if ($status == 'Yes')
                                                                     <span class="label label-success">{{ trans('frontend.main.visit.yes') }}</span>
-                                                                @else
+                                                                @elseif ($status == 'No')
                                                                     <span class="label label-danger">{{ trans('frontend.main.visit.no') }}</span>
+                                                                @else
+                                                                    <span class="label label-danger">{{ trans('frontend.main.visit.cancelled') }}</span>
                                                                 @endif
                                                             </p>
                                                         </div>

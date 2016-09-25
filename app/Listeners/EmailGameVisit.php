@@ -36,9 +36,14 @@ class EmailGameVisit
         $player = Player::find($event->playerId);
         $game = Game::find($event->gameId);
         $users = \App\Models\User::whereNotNull('email')->where('email', '!=', '')->get();
-        $status = $event->visit;
         $visitList = Stat::$visitList;
-        $subject = trans('email.game.subject') . ' ' . str_limit($player->name, 10) . ' ' . str_limit($game->team, 10) . ' ' . $visitList[$status];
+        if (isset($event->visit) && $event->visit) {
+            $status = $visitList[$event->visit];
+        } else {
+            $status = 'Cancelled';
+        }
+
+        $subject = str_limit($player->name, 50) . ' ' . str_limit($game->team, 20) . ' ' . $status;
 
         Mail::send(
             'emails.game_visit',

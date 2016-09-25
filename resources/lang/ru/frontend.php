@@ -30,7 +30,8 @@ return [
         ],
         'visit' => [
             'no' => 'Нет',
-            'yes' => 'Да'
+            'yes' => 'Да',
+            'Cancelled' => 'Отменил'
         ]
     ],
     'training' => [
