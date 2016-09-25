@@ -49,8 +49,9 @@ class GameRepository
             $game = Game::where('mls_url', $data['mls_url'])->first();
             if (!$game) {
                 $game = Game::create($data);
-
-                copy($data['icon'], public_path() . '/img/team_logos/' . $game->team . '.png');
+                if (strpos($data['icon'], 'players-ico.png') === false && $data['icon'] != config('mls.domain')) {
+                    copy($data['icon'], public_path() . '/img/team_logos/' . str2url($game->team) . '.png');
+                }
 
                 return $game;
             }

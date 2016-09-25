@@ -106,8 +106,8 @@ class Game extends Model
 
     public function getTeamPhotoLink()
     {
-        if (file_exists(public_path() . self::PHOTO_PATH . $this->team . self::PHOTO_TYPE)) {
-            return self::PHOTO_PATH . $this->team . self::PHOTO_TYPE;
+        if (file_exists(public_path() . self::PHOTO_PATH . str2url($this->team) . self::PHOTO_TYPE)) {
+            return self::PHOTO_PATH . str2url($this->team) . self::PHOTO_TYPE;
         } else {
             return self::DEFAULT_PHOTO;
         }
