@@ -10,4 +10,9 @@ class PlayerRepository
     {
         return Player::where('team_id', $teamId)->get();
     }
+
+    public static function getActiveListByTeamId($teamId)
+    {
+        return Player::where('team_id', $teamId)->active()->get();
+    }
 }

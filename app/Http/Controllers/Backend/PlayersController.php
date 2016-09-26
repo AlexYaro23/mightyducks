@@ -22,13 +22,15 @@ class PlayersController extends Controller
 
     public function edit(Player $player)
     {
-        $users = User::lists('name', 'id');
+        $users = ['' => ''] + User::lists('name', 'id')->all();
         $teams = Team::lists('name', 'id');
+        $statuses = Player::$statuses;
 
         return view('backend.players.edit')
             ->with('player', $player)
             ->with('users', $users)
-            ->with('teams', $teams);
+            ->with('teams', $teams)
+            ->with('statuses', $statuses);
     }
 
     public function update(Player $player, PlayerRequest $request)

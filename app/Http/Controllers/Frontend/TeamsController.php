@@ -14,7 +14,7 @@ class TeamsController extends Controller
     public function index()
     {
         $team = Team::find(config('mls.team_id'));
-        $playerList = PlayerRepository::getListByTeamId($team->id);
+        $playerList = PlayerRepository::getActiveListByTeamId($team->id);
         $gameList = GameRepository::getListByTeamId($team->id);
         $trainingList = TrainingRepository::getActiveList($team->id);
         $statList = StatRepository::getPlayersStatistics($playerList);

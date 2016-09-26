@@ -57,6 +57,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    {!! Form::label('status', trans('backend.players.status')) !!}
+                                    {!! Form::select('status', $statuses, $player->status, ['class' => 'form-control']) !!}
+                                </div>
+
+                                <div class="form-group">
                                     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
                                 </div>
                             {!! Form::close() !!}

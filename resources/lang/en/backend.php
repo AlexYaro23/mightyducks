@@ -54,7 +54,8 @@ return [
         'team_id' => 'Team Id',
         'name' => 'Name',
         'date_of_birth' => 'Date of Birth',
-        'position' => 'Position'
+        'position' => 'Position',
+        'status' => 'Status'
     ],
     'roles' => [
         'list' => [

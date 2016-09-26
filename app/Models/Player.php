@@ -11,6 +11,14 @@ class Player extends Model
     const PHOTO_TYPE = '.jpg';
     const DEFAULT_PHOTO = '/img/avatars/default.png';
 
+    const ACTIVE = 1;
+    const FINISHED = 2;
+
+    public static $statuses = [
+        self::ACTIVE => 'active',
+        self::FINISHED => 'finished'
+    ];
+
     protected $fillable = [
         'user_id',
         'mls_id',
@@ -18,6 +26,7 @@ class Player extends Model
         'name',
         'date_of_birth',
         'position',
+        'status'
     ];
 
     public function user()
@@ -38,5 +47,10 @@ class Player extends Model
         } else {
             return self::DEFAULT_PHOTO;
         }
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::ACTIVE);
     }
 }

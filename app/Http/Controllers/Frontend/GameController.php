@@ -82,7 +82,7 @@ class GameController extends Controller
     public function showVisit(Game $game)
     {
         $team = Team::find(config('mls.team_id'));
-        $playerList = PlayerRepository::getListByTeamId($team->id);
+        $playerList = PlayerRepository::getActiveListByTeamId($team->id);
 
         if (!isset($game->id)) {
             $game = GameRepository::getNextGameByTeamId($team->id);
