@@ -25,21 +25,23 @@
                 <li class="{{ url()->current() == route('schedule') ? 'active' : '' }}">
                     <a class="page-scroll" href="{{ route('schedule') }}">{{ trans('frontend.menu.schedule') }}</a>
                 </li>
-                <li class="dropdown {{ strpos(url()->current(), 'training') !== false ? 'active' : '' }}">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"
-                       aria-expanded="false">
-                        {{ trans('frontend.menu.trainings') }} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($trainingData as $training)
-                            <li>
-                                <a href="{{ route('training.visit', ['id' => $training->id]) }}">
-                                    {{ $training->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
+                @if(!$trainingData->isEmpty())
+                    <li class="dropdown {{ strpos(url()->current(), 'training') !== false ? 'active' : '' }}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"
+                           aria-expanded="false">
+                            {{ trans('frontend.menu.trainings') }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach($trainingData as $training)
+                                <li>
+                                    <a href="{{ route('training.visit', ['id' => $training->id]) }}">
+                                        {{ $training->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
                 @if(Auth::check())
                     @if(Auth::user()->isAdmin())
                         <li>

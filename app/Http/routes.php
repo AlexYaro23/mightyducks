@@ -22,6 +22,11 @@
 */
 use Illuminate\Support\Facades\Artisan;
 
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], function () {
+    Route::get('next-games', 'GamesController@next');
+    Route::get('last-games', 'GamesController@last');
+});
+
 Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {

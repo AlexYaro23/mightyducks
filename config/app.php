@@ -161,6 +161,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Yangqi\Htmldom\HtmldomServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 

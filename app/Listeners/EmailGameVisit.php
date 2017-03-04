@@ -43,7 +43,7 @@ class EmailGameVisit
             $status = 'Cancelled';
         }
 
-        $subject = str_limit($player->name, 50) . ' ' . str_limit($game->team, 20) . ' ' . $status;
+        $subject = str_limit($player->name, 10) . ' ' . str_limit($game->team, 20) . ' ' . $status;
 
         Mail::send(
             'emails.game_visit',
