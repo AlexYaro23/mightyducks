@@ -151,6 +151,22 @@ class GameRepository
             ->orderBy('date', 'asc')->first();
     }
 
+    public static function getNextInSchedule($teamId, $count)
+    {
+        return Game::where('team_id', $teamId)
+            ->where('status', Game::getNonePlayedStatus())
+            ->where('date', '>=', date('Y-m-d H:i:s', time()))
+            ->orderBy('date', 'asc')->limit($count)->get();
+    }
+
+    public static function getLastFinished($teamId, $count)
+    {
+        return Game::where('team_id', $teamId)
+            ->where('status', Game::getPlayedStatus())
+//            ->where('date', '<=', date('Y-m-d H:i:s', time()))
+            ->orderBy('date', 'desc')->limit($count)->get();
+    }
+
     public static function getSiblings(Game $game)
     {
         $siblings = [];
