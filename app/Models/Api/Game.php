@@ -20,9 +20,9 @@ class Game
     public $rcs = [];
     public $championship;
 
-    public function __construct(GameModel $model)
+    public function __construct(GameModel $model, $teamName = null)
     {
-        $this->teamA = Team::find(config('mls.team_id'))->name;
+        $this->teamA = $teamName ? $teamName : Team::find(config('mls.team_id'))->name;
         $this->logoA = url(Team::LOGO);
         $this->teamB = $model->team;
         $this->logoB = url($model->getTeamPhotoLink());
@@ -44,12 +44,14 @@ class Game
 
     public function loadStats($stats, $players)
     {
-
         $data = ['goal' => 'scorers', 'assist' => 'assistants', 'yc' => 'ycs', 'rc' => 'rcs'];
         foreach ($data as $key => $property) {
             foreach ($stats[$key] as $stat) {
                 $count = $stat->$key > 1 ? ' (' . $stat->$key . ')' : '';
-                array_push($this->{$property}, $players[$stat->player_id] . $count);
+                if (isset($players[$stat->player_id])) {
+                    array_push($this->{$property}, $players[$stat->player_id] . $count);
+                }
+
             }
         }
     }

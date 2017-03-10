@@ -17,34 +17,40 @@ class GamesController extends Controller
 	const NEXT_GAMES_COUNT = 3;
 	const LAST_GAMES_COUNT = 3;
 
-	public function next()
+	public function next($limit)
     {
 		$team = Team::find(config('mls.team_id'));
 
-		$nextGames = GameRepository::getNextInSchedule($team->id, self::NEXT_GAMES_COUNT);
+        $limit = is_numeric($limit) ? $limit : self::LAST_GAMES_COUNT;
+
+		$nextGames = GameRepository::getNextInSchedule($team->id, $limit);
 
         $result = collect([]);
 
         foreach ($nextGames as $game) {
-            $result->push(new Game($game));
+            $result->push(new Game($game, $team->name));
         }
 
 		return $result;
     }
 
-    public function last()
+    public function last($limit)
     {
         $team = Team::find(config('mls.team_id'));
 
-        $lastGames = GameRepository::getLastFinished($team->id, self::LAST_GAMES_COUNT);
+        $limit = is_numeric($limit) ? $limit : self::LAST_GAMES_COUNT;
+
+        $lastGames = GameRepository::getLastFinished($team->id, $limit);
+
         $result = collect([]);
 
-        foreach ($lastGames as $game) {
-            $apiGame = new Game($game);
-            $stats = StatRepository::getStatsByGameId($game->id);
-            $players = PlayerRepository::getListByTeamId($team->id);
-            $playerIdNameMap = $players->lists('name', 'id');
+        $players = PlayerRepository::getListByTeamId($team->id);
+        $playerIdNameMap = $players->lists('name', 'id');
 
+        foreach ($lastGames as $game) {
+            $stats = StatRepository::getStatsByGameId($game->id);
+
+            $apiGame = new Game($game, $team->name);
             $apiGame->loadStats($stats, $playerIdNameMap);
 
             $result->push($apiGame);

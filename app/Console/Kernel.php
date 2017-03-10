@@ -22,6 +22,7 @@ class Kernel extends ConsoleKernel
         Commands\TrainingsReset::class,
         Commands\ParseHistorySchedule::class,
         Commands\FixTeamNames::class,
+        Commands\ParsePlayerPhotos::class,
     ];
 
     /**
