@@ -140,7 +140,29 @@ return [
         'name' => 'Name',
         'link' => 'Tournament URL',
         'status' => 'Status',
-        'team_id' => 'Team'
+        'team_id' => 'Team',
+        'league' => 'League',
+    ],
+    'leagues' => [
+        'list' => [
+            'title' => 'Leagues List',
+            'panel_header' => 'Leagues',
+            'subtitle' => 'League current fields',
+        ],
+        'edit' => [
+            'title' => 'Leagues',
+            'subtitle' => 'Update needed fields',
+        ],
+        'add' => [
+            'title' => 'Leagues',
+            'subtitle' => 'Set needed fields',
+        ],
+        'id' => 'Id',
+        'name' => 'Name',
+        'link' => 'League URL',
+        'status' => 'Status',
+        'info' => 'Info',
+        'logo' => 'Logo',
     ],
     'visits' => [
         'list' => [
@@ -206,6 +228,7 @@ return [
         'games' => 'Games',
         'stats' => 'Stats',
         'tournaments' => 'Tournaments',
+        'leagues' => 'Leagues',
         'visits' => 'Quick visits',
         'trainings' => 'Trainings',
         'training_visits' => 'Training visits'

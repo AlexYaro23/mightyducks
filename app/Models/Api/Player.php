@@ -6,6 +6,7 @@ use App\Models\Player as PlayerModel;
 
 class Player
 {
+    public $id;
     public $name;
     public $photo;
     public $visits;
@@ -24,6 +25,7 @@ class Player
 
     public function __construct(PlayerModel $player)
     {
+        $this->id = $player->id;
         $this->name = $player->name;
         $this->photo = url($player->getPhotoLink());
     }

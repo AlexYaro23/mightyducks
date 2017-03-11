@@ -4,7 +4,7 @@ namespace App\Http\Requests\Backend;
 
 use App\Http\Requests\Request;
 
-class TournamentRequest extends Request
+class leagueRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,7 @@ class TournamentRequest extends Request
             'name' => 'required|string',
             'link' => 'url',
             'status' => 'required|integer',
-            'team_id' => 'required|integer|exists:teams,id',
-            'league_id' => 'required|integer|exists:leagues,id',
+            'logo' => 'image'
         ];
     }
 }

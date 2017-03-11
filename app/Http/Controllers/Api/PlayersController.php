@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class PlayersController extends Controller
 {
-    public function list()
+    public function all()
     {
         $playersApi = [];
         $team = Team::find(config('mls.team_id'));

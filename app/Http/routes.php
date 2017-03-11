@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], function () {
     Route::get('next-games/{limit}', 'GamesController@next');
     Route::get('last-games/{limit}', 'GamesController@last');
-    Route::get('players', 'PlayersController@list');
+    Route::get('players', 'PlayersController@all');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -122,6 +122,17 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('edit', 'TournamentsController@edit')->name('admin.tournaments.edit');
             Route::patch('update', 'TournamentsController@update')->name('admin.tournaments.update');
             Route::delete('delete', 'TournamentsController@destroy')->name('admin.tournaments.delete');
+        });
+        
+        
+        Route::get('leagues', 'LeaguesController@index')->name('admin.leagues');
+        Route::get('leagues/create', 'LeaguesController@create')->name('admin.leagues.create');
+        Route::post('leagues/store', 'LeaguesController@store')->name('admin.leagues.store');
+
+        Route::group(['prefix' => 'leagues/{league}', 'where' => ['league' => '[0-9]+']], function ($league) {
+            Route::get('edit', 'LeaguesController@edit')->name('admin.leagues.edit');
+            Route::patch('update', 'LeaguesController@update')->name('admin.leagues.update');
+            Route::delete('delete', 'LeaguesController@destroy')->name('admin.leagues.delete');
         });
 
         Route::get('visits', 'VisitsController@index')->name('admin.visits');

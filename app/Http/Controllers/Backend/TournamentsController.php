@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\League;
 use App\Models\Team;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class TournamentsController extends Controller
     {
         return view('backend.tournaments.create')
             ->with('statusList', Tournament::getStatusList())
-            ->with('teamList', Team::lists('name', 'id'));
+            ->with('teamList', Team::lists('name', 'id'))
+            ->with('leagues', League::all()->pluck('name', 'id'));
     }
 
     public function store(TournamentRequest $request)
@@ -42,7 +44,8 @@ class TournamentsController extends Controller
         return view('backend.tournaments.edit')
             ->with('tournament', $tournament)
             ->with('statusList', Tournament::getStatusList())
-            ->with('teamList', Team::lists('name', 'id'));
+            ->with('teamList', Team::lists('name', 'id'))
+            ->with('leagues', League::all()->pluck('name', 'id'));
     }
 
     public function update(Tournament $tournament, TournamentRequest $request)

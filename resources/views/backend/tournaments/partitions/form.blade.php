@@ -1,4 +1,9 @@
 <div class="form-group">
+    {!! Form::label('league_id', trans('backend.tournaments.league')) !!}
+    {!! Form::select('league_id', $leagues, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('name', trans('backend.tournaments.name')) !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
