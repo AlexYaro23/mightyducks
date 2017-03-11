@@ -13,6 +13,7 @@ use Yangqi\Htmldom\Htmldom;
 class ParseSchedule extends CommandParent
 {
     const TEAM_ID = 1;
+    const LEAGUE_ID = 1;
     /**
      * The name and signature of the console command.
      *
@@ -25,7 +26,7 @@ class ParseSchedule extends CommandParent
      *
      * @var string
      */
-    protected $description = 'Parsing team schedule by tournaments table';
+    protected $description = 'Parsing team schedule for mls';
 
     protected $tournament;
 
@@ -51,7 +52,7 @@ class ParseSchedule extends CommandParent
             exit;
         }
 
-        $tournamentList = $this->tournament->getActiveScheduled();
+        $tournamentList = $this->tournament->getActiveScheduled(self::LEAGUE_ID);
 
         if ($tournamentList->count() < 1) {
             $this->error('No tournaments');

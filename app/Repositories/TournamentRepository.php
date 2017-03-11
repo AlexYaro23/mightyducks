@@ -6,9 +6,9 @@ use App\Models\Tournament;
 
 class TournamentRepository
 {
-    public function getActiveScheduled()
+    public function getActiveScheduled($league_id)
     {
-        return Tournament::whereNotNull('link')->where('status', Tournament::STATUS_ACTIVE)->get();
+        return Tournament::where('league_id', $league_id)->whereNotNull('link')->where('status', Tournament::STATUS_ACTIVE)->get();
     }
 
     public function getPassive()
