@@ -1,4 +1,9 @@
 <div class="form-group">
+    {!! Form::label('team_id', trans('backend.games.teamA')) !!}
+    {!! Form::select('team_id', $teams, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('team', trans('backend.games.team')) !!}
     {!! Form::text('team', null, ['class' => 'form-control']) !!}
 </div>
@@ -21,6 +26,11 @@
 <div class="form-group">
     {!! Form::label('home', trans('backend.games.home')) !!}
     {!! Form::select('home', $homeList, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('round', trans('backend.games.round')) !!}
+    {!! Form::text('round', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">

@@ -100,7 +100,9 @@ return [
         'status' => 'Status',
         'tournament_id' => 'Tournament',
         'mls_id' => 'MLS Id',
-        'mls_url' => 'MLS URL'
+        'mls_url' => 'MLS URL',
+        'teamA' => 'Team',
+        'round' => 'Round'
     ],
     'stats' => [
         'list' => [

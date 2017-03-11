@@ -29,7 +29,8 @@ class GamesController extends Controller
             ->with('teamList', Team::lists('name', 'id'))
             ->with('homeList', Game::getHomeList())
             ->with('statusList', Game::getStatusList())
-            ->with('tournamentList', Tournament::lists('name', 'id'));
+            ->with('tournamentList', Tournament::lists('name', 'id'))
+            ->with('teams', Team::all()->pluck('name', 'id'));
     }
 
     public function store(GameRequest $request)
@@ -47,7 +48,8 @@ class GamesController extends Controller
             ->with('game', $game)
             ->with('homeList', Game::getHomeList())
             ->with('statusList', Game::getStatusList())
-            ->with('tournamentList', Tournament::lists('name', 'id'));
+            ->with('tournamentList', Tournament::lists('name', 'id'))
+            ->with('teams', Team::all()->pluck('name', 'id'));
     }
 
     public function update(Game $game, GameRequest $request)
