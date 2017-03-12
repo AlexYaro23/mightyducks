@@ -9,14 +9,21 @@
 
     <title>{{ $teamData->name }}</title>
 
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
+    <script>
+        window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
 
     <link href="{{ asset('/libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <link href="{{ asset('/css/frontend/agency.css') }}" rel="stylesheet">
@@ -33,9 +40,11 @@
     <![endif]-->
 </head>
 <body id="page-top" class="index">
-    @include('frontend.partitions.navbar')
 
-    @yield('content')
+    @include('frontend.partitions.navbar')
+    <div id="app">
+        @yield('content')
+    </div>
 
     @include('frontend.partitions.footer')
     <script src="{{ asset('/libs/jquery/dist/jquery.min.js') }}"></script>
@@ -46,7 +55,9 @@
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
 
     <script src="{{ asset('/js/frontend/script.js') }}"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
 
     @yield('footer')
+
 </body>
 </html>
