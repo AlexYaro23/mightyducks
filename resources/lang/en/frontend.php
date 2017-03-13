@@ -88,7 +88,10 @@ return [
         'filter' => 'Statistics filter',
         'playerList' => 'Players',
         'tournamentList' => 'Tournaments',
-        'filter' => 'Filter'
+        'filter' => 'Filter',
+        'players' => 'Players',
+        'leagues' => 'Leagues',
+        'tournaments' => 'Tournaments'
     ],
     'general' => [
         'mls_site' => 'MLS',

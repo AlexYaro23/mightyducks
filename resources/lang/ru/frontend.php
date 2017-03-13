@@ -88,7 +88,10 @@ return [
         'filter' => 'Статистика',
         'playerList' => 'Игроки',
         'tournamentList' => 'Турниры',
-        'filter' => 'Фильтровать'
+        'filter' => 'Фильтровать',
+        'players' => 'Игроки',
+        'leagues' => 'Лиги',
+        'tournaments' => 'Турниры'
     ],
     'general' => [
         'mls_site' => 'MLS',

@@ -17,6 +17,19 @@
         ]); ?>
     </script>
 
+    <script>
+        window.trans = <?php
+        // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
+        $lang_files = File::files(resource_path() . '/lang/' . App::getLocale());
+        $trans = [];
+        foreach ($lang_files as $f) {
+            $filename = pathinfo($f)['filename'];
+            $trans[$filename] = trans($filename);
+        }
+        echo json_encode($trans);
+        ?>;
+    </script>
+
     <link href="{{ asset('/libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/stackonly/tablesaw.stackonly.css') }}" rel="stylesheet">
@@ -28,7 +41,8 @@
 
     <link href="{{ asset('/css/frontend/agency.css') }}" rel="stylesheet">
     <link href="{{ asset('/libs/sweetalert/sweetalert.css') }}" rel="stylesheet">
-    <link href="{{ asset('/libs/select2/css/select2.min.css') }}" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
     <link href="{{ asset('/css/frontend/style.css') }}" rel="stylesheet">
 
@@ -47,14 +61,15 @@
     </div>
 
     @include('frontend.partitions.footer')
-    <script src="{{ asset('/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/libs/sweetalert/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('/libs/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('/libs/stackonly/tablesaw.stackonly.js') }}"></script>
-    <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    {{--<script src="{{ asset('/libs/jquery/dist/jquery.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('/libs/sweetalert/sweetalert.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('/libs/select2/js/select2.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('/libs/stackonly/tablesaw.stackonly.js') }}"></script>--}}
+    {{--<script src="https://js.pusher.com/3.0/pusher.min.js"></script>--}}
 
-    <script src="{{ asset('/js/frontend/script.js') }}"></script>
+    {{--<script src="{{ asset('/js/frontend/script.js') }}"></script>--}}
+
     <script src="{{ asset('/js/app.js') }}"></script>
 
     @yield('footer')

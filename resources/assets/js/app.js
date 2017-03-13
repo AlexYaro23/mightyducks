@@ -12,7 +12,19 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.prototype.trans = (key) => {
+    return _.get(window.trans, key, key);
+};
+
+import TeamStats from './components/TeamStats.vue';
+import PlayersStats from './components/PlayersStats.vue';
+import Statistics from './components/Statistics.vue';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: {
+        'team-stats': TeamStats,
+        'players-stats': PlayersStats,
+        'statistics': Statistics
+    }
 });

@@ -20,12 +20,13 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-use Illuminate\Support\Facades\Artisan;
 
 Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], function () {
     Route::get('next-games/{limit}', 'GamesController@next');
     Route::get('last-games/{limit}', 'GamesController@last');
-    Route::get('players', 'PlayersController@all');
+    Route::get('players/stats', 'PlayersController@stats');
+    Route::get('team', 'TeamsController@stats');
+    Route::get('leagues/all', 'LeaguesController@all');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -152,25 +153,4 @@ Route::group(['middleware' => ['web']], function () {
             Route::delete('delete', 'TrainingsController@destroy')->name('admin.trainings.delete');
         });
     });
-});
-
-
-Route::get('console/migrate', function () {
-    Artisan::call('migrate');
-});
-
-Route::get('console/seed', function () {
-    Artisan::call('db:seed');
-});
-
-Route::get('console/parseteam', function () {
-    Artisan::call('parseteam');
-});
-
-Route::get('console/parseschedule', function () {
-    Artisan::call('parseschedule');
-});
-
-Route::get('console/parseresult', function () {
-    Artisan::call('parseresult');
 });

@@ -9,6 +9,7 @@ class Player
     public $id;
     public $name;
     public $photo;
+    public $url;
     public $visits;
     public $goals;
     public $assists;
@@ -28,6 +29,7 @@ class Player
         $this->id = $player->id;
         $this->name = $player->name;
         $this->photo = url($player->getPhotoLink());
+        $this->url = route('player', ['id' => $player->id]);
     }
 
     public function loadStats($stats)

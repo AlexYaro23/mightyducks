@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'http://mightyducks.dev',
+    'url' => env('APP_HOST', 'https://mightyducks.od.ua'),
 
     /*
     |--------------------------------------------------------------------------
