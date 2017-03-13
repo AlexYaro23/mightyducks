@@ -8,7 +8,7 @@
 
                     <div class="form-group">
                         <label>{{ trans('frontend.stats.players') }}</label>
-                        <select2 name="players" :options="playerOptions" multiple v-model="selectedPlayers" @input="updatePlayers"></select2>
+                        <select2 name="players" :options="playerOptions" multiple v-model="selectedPlayers" @input="updatedPlayers"></select2>
                     </div>
 
                     <div class="form-group">
@@ -70,6 +70,7 @@
         data () {
             return {
                 players: [],
+                playersAll: [],
                 leagues: [],
                 tournaments: [],
                 selectedPlayers: [],
@@ -78,9 +79,11 @@
             }
         },
         created () {
-            var self = this;
             axios.get('/api/players/stats')
-                .then(response => this.players = response.data)
+                .then(response => {
+                    this.players = response.data;
+                    this.playersAll = response.data;
+                })
                 .catch(error => console.log(error));
 
             axios.get('/api/leagues/all')
@@ -89,7 +92,7 @@
         },
         computed: {
             playerOptions () {
-                return this.players.map(function (player) {
+                return this.playersAll.map(function (player) {
                     return {id: player.id, text: player.name};
                 });
             },
@@ -105,8 +108,15 @@
             }
         },
         methods: {
-            updatePlayers () {
-                alert('x');
+            updatedPlayers () {
+                axios.post('/api/players/filter',
+                    {
+                        'players': this.selectedPlayers,
+                        'leagues': this.selectedLeagues,
+                        'tournaments': this.selectedTournaments
+                    }
+                ).then(response => this.players = response.data.players)
+                    .catch(error => console.log(error));
             }
         }
     }

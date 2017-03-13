@@ -49,13 +49,18 @@ return [
             'title' => 'Player',
             'subtitle' => 'Update needed fields',
         ],
+        'create' => [
+            'title' => 'Player',
+            'subtitle' => 'Set needed fields',
+        ],
         'user_id' => 'User',
         'mls_id' => 'MLS Id',
         'team_id' => 'Team Id',
         'name' => 'Name',
         'date_of_birth' => 'Date of Birth',
         'position' => 'Position',
-        'status' => 'Status'
+        'status' => 'Status',
+        'tournaments' => 'Tournaments'
     ],
     'roles' => [
         'list' => [

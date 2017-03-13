@@ -25,7 +25,7 @@ class PlayerRequest extends Request
     {
         return [
             'user_id' => 'integer|exists:users,id',
-            'mls_id' => 'required|integer',
+            'mls_id' => 'integer',
             'team_id' => 'required|integer|exists:teams,id',
             'name' => 'required|string',
             'date_of_birth' => '',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Request;
 use App\Models\Api\Player;
 use App\Models\Team;
 use App\Repositories\PlayerRepository;
@@ -25,6 +26,15 @@ class PlayersController extends Controller
 
             array_push($playersApi, $playerApi);
         }
+
+        return $playersApi;
+    }
+
+    public function filter(Request $request)
+    {
+        $playersApi = [];
+
+        $players = PlayerRepository::getFilteredPlayers($request);
 
         return $playersApi;
     }

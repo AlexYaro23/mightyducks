@@ -15,4 +15,9 @@ class PlayerRepository
     {
         return Player::where('team_id', $teamId)->active()->get();
     }
+
+    public static function getFilteredPlayers($request)
+    {
+
+    }
 }

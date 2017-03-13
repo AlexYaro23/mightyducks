@@ -53,4 +53,9 @@ class Player extends Model
     {
         return $query->where('status', self::ACTIVE);
     }
+
+    public function tournaments()
+    {
+        return $this->belongsToMany('App\Models\Tournament', 'player2tournament', 'player_id', 'tournament_id');
+    }
 }

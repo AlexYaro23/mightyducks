@@ -17,8 +17,17 @@
                 <div class="panel-heading">
                     {{ trans('backend.players.list.subtitle') }}
                 </div>
+
                 <!-- /.panel-heading -->
                 <div class="panel-body">
+
+                    <div class="pull-right" style="margin-bottom: 10px;">
+                        <a href="{{ route('admin.players.create') }}"
+                           type="button" class="btn btn-outline btn-success">
+                            <i class="fa fa-plus-square"></i> {{ trans('general.new') }}
+                        </a>
+                    </div>
+
                     <div class="dataTable_wrapper">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
@@ -42,10 +51,18 @@
                                     <td>{{ $player->date_of_birth }}</td>
                                     <td>{{ $player->position }}</td>
                                     <td align="center">
-                                        <a href="{{ route('admin.players.edit', ['id' => $player->id]) }}"
-                                           type="button" class="btn btn-warning btn-circle">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+                                        {!! Form::open(['class' => 'form-inline',
+                                            'method' => 'delete','route' => ['admin.players.delete', $player->id]]) !!}
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.players.edit', ['id' => $player->id]) }}"
+                                               type="button" class="btn btn-warning btn-circle">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-danger btn-circle">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                        {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach

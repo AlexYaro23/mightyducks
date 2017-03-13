@@ -33,4 +33,9 @@ class Tournament extends Model
     {
         return self::$statusList;
     }
+
+    public function players()
+    {
+        return $this->belongsToMany('App\Models\Player', 'player2tournament', 'tournament_id', 'player_id');
+    }
 }

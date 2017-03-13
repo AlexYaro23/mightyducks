@@ -27,6 +27,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], 
     Route::get('players/stats', 'PlayersController@stats');
     Route::get('team', 'TeamsController@stats');
     Route::get('leagues/all', 'LeaguesController@all');
+    Route::post('players/filter', 'PlayersController@filter');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -78,9 +79,13 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('players', 'PlayersController@index')->name('admin.players');
 
+        Route::get('players/create', 'PlayersController@create')->name('admin.players.create');
+        Route::post('players/store', 'PlayersController@store')->name('admin.players.store');
+
         Route::group(['prefix' => 'players/{player}', 'where' => ['player' => '[0-9]+']], function ($player) {
             Route::get('edit', 'PlayersController@edit')->name('admin.players.edit');
             Route::patch('update', 'PlayersController@update')->name('admin.players.update');
+            Route::delete('delete', 'PlayersController@destroy')->name('admin.players.delete');
         });
 
         Route::get('games', 'GamesController@index')->name('admin.games');
