@@ -36,3 +36,11 @@
         <!-- /.col-lg-12 -->
     </div>
 @endsection
+
+@section('footer')
+    <script>
+        $(function(){
+            $('#players').select2();
+        });
+    </script>
+@endsection

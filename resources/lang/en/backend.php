@@ -149,6 +149,7 @@ return [
         'status' => 'Status',
         'team_id' => 'Team',
         'league' => 'League',
+        'players' => "Players"
     ],
     'leagues' => [
         'list' => [

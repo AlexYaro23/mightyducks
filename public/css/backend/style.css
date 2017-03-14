@@ -13,3 +13,8 @@
 ul.error {
     padding-left: 20px;
 }
+
+.select2-container--default .select2-results > .select2-results__options {
+    height: 600px;
+    min-height: 600px;
+}

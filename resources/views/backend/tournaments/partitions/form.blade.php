@@ -23,6 +23,13 @@
     {!! Form::select('team_id', $teamList, null, ['class' => 'form-control']) !!}
 </div>
 
+@if(isset($players))
+    <div class="form-group">
+        {!! Form::label('players', trans('backend.tournaments.players')) !!}
+        {!! Form::select ('players[]', $players, $selectedPlayers, ['id' => 'players', 'class' => 'form-control', 'multiple' => 'multiple']) !!}
+    </div>
+@endif
+
 <div class="form-group">
     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
 </div>

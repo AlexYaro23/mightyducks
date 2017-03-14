@@ -33,11 +33,7 @@
                             <thead>
                             <tr>
                                 <th>{{ trans('backend.players.user_id') }}</th>
-                                <th>{{ trans('backend.players.mls_id') }}</th>
-                                <th>{{ trans('backend.players.team_id') }}</th>
                                 <th>{{ trans('backend.players.name') }}</th>
-                                <th>{{ trans('backend.players.date_of_birth') }}</th>
-                                <th>{{ trans('backend.players.position') }}</th>
                                 <th>{{ trans('general.actions') }}</th>
                             </tr>
                             </thead>
@@ -45,11 +41,7 @@
                             @foreach($players as $player)
                                 <tr class="">
                                     <td>{{ $player->user != null ? $player->user->name : '' }}</td>
-                                    <td>{{ $player->mls_id }}</td>
-                                    <td>{{ $player->team->name }}</td>
                                     <td>{{ $player->name }}</td>
-                                    <td>{{ $player->date_of_birth }}</td>
-                                    <td>{{ $player->position }}</td>
                                     <td align="center">
                                         {!! Form::open(['class' => 'form-inline',
                                             'method' => 'delete','route' => ['admin.players.delete', $player->id]]) !!}
@@ -73,4 +65,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    <script>
+        $(function(){
+            $('.select2').select2();
+        });
+    </script>
 @endsection

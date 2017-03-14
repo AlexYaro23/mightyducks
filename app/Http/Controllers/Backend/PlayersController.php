@@ -18,7 +18,9 @@ class PlayersController extends Controller
     {
         $players = Player::all();
 
-        return view('backend.players.list')->with('players', $players);
+        return view('backend.players.list')
+            ->with('players', $players)
+            ->with('tournaments', Tournament::all()->pluck('name', 'id'));
     }
 
     public function create()

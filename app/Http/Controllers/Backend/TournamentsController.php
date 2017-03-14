@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\League;
+use App\Models\Player;
 use App\Models\Team;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
@@ -45,12 +46,18 @@ class TournamentsController extends Controller
             ->with('tournament', $tournament)
             ->with('statusList', Tournament::getStatusList())
             ->with('teamList', Team::lists('name', 'id'))
-            ->with('leagues', League::all()->pluck('name', 'id'));
+            ->with('leagues', League::all()->pluck('name', 'id'))
+            ->with('players', Player::all()->pluck('name', 'id'))
+            ->with('selectedPlayers', $tournament->players()->pluck('id')->toArray());
     }
 
     public function update(Tournament $tournament, TournamentRequest $request)
     {
         $tournament->update($request->all());
+
+        $players = $request->get('players') ?? [];
+
+        $tournament->players()->sync($players);
 
         Flash::success(trans('general.updated_msg'));
 
