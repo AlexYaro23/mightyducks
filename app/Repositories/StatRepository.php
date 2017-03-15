@@ -161,6 +161,34 @@ class StatRepository
         return $stats ? $stats : self::getEmptyStat();
     }
 
+    public static function getFilteredByPlayerId($player_id, $leagueIds, $tournamentIds)
+    {
+        $query = DB::table('stats')
+            ->select(DB::raw('COALESCE(sum(stats.visit),0) as visits, COALESCE(sum(stats.goal),0) as goals,
+            COALESCE(sum(stats.assist),0) as assists, COALESCE(sum(stats.yc),0) as ycs, COALESCE(sum(stats.rc),0) as rcs'))
+            ->where('stats.player_id', $player_id)
+            ->where(function ($query) {
+                $query->whereNull('stats.visit')
+                    ->orWhere('stats.visit', '=', Stat::GAME_VISITED);
+            })
+            ->join('games', 'games.id', '=', 'stats.game_id')
+            ->where('games.status', Game::getPlayedStatus())
+            ->groupBy('stats.player_id');
+
+        if (!empty($tournamentIds)) {
+            $query->whereIn('games.tournament_id', $tournamentIds);
+        }
+
+        if (!empty($leagueIds)) {
+            $query->join('tournaments', 'tournaments.id', '=', 'games.tournament_id');
+            $query->whereIn('tournaments.league_id', $leagueIds);
+        }
+
+        $stats = $query->first();
+
+        return $stats ? $stats : self::getEmptyStat();
+    }
+
     public static function getStatsByGameId($game_id)
     {
         $stats[Stat::GOAL] = Stat::where('game_id', $game_id)->whereNotNull(Stat::GOAL)->get();

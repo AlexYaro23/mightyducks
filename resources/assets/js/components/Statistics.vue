@@ -13,12 +13,12 @@
 
                     <div class="form-group">
                         <label>{{ trans('frontend.stats.leagues') }}</label>
-                        <select2 name="leagues" :options="leagueOptions" multiple v-model="selectedLeagues" @input="updatePlayers"></select2>
+                        <select2 name="leagues" :options="leagueOptions" multiple v-model="selectedLeagues" @input="updatedLeagues"></select2>
                     </div>
 
                     <div class="form-group">
                         <label>{{ trans('frontend.stats.tournaments') }}</label>
-                        <select2 name="tournaments" :options="tournamentsOptions" multiple v-model="selectedTournaments" @input="updatePlayers"></select2>
+                        <select2 name="tournaments" :options="tournamentOptions" multiple v-model="selectedTournaments" @input="updatedPlayers"></select2>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,22 @@
                         'leagues': this.selectedLeagues,
                         'tournaments': this.selectedTournaments
                     }
-                ).then(response => this.players = response.data.players)
+                ).then(response => this.players = response.data)
+                    .catch(error => console.log(error));
+            },
+            updatedLeagues () {
+                axios.post('/api/leagues/tournaments',
+                    {'leagues': this.selectedLeagues}
+                ).then(response => this.tournaments = response.data)
+                    .catch(error => console.log(error));
+
+                axios.post('/api/players/filter',
+                    {
+                        'players': this.selectedPlayers,
+                        'leagues': this.selectedLeagues,
+                        'tournaments': this.selectedTournaments
+                    }
+                ).then(response => this.players = response.data)
                     .catch(error => console.log(error));
             }
         }

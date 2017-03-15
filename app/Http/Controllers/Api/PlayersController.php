@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use App\Models\Api\Player;
 use App\Models\Team;
 use App\Repositories\PlayerRepository;
@@ -34,7 +34,16 @@ class PlayersController extends Controller
     {
         $playersApi = [];
 
-        $players = PlayerRepository::getFilteredPlayers($request);
+        $players = PlayerRepository::getFilteredPlayers($request->get('players'), $request->get('leagues'), $request->get('tournaments'));
+
+        foreach ($players as $player) {
+            $stats = StatRepository::getFilteredByPlayerId($player->id, $request->get('leagues'), $request->get('tournaments'));
+
+            $playerApi = new Player($player);
+            $playerApi->loadStats($stats);
+
+            array_push($playersApi, $playerApi);
+        }
 
         return $playersApi;
     }

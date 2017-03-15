@@ -12603,6 +12603,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             players: [],
+            playersAll: [],
             leagues: [],
             tournaments: [],
             selectedPlayers: [],
@@ -12613,9 +12614,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        var self = this;
         axios.get('/api/players/stats').then(function (response) {
-            return _this.players = response.data;
+            _this.players = response.data;
+            _this.playersAll = response.data;
         }).catch(function (error) {
             return console.log(error);
         });
@@ -12629,7 +12630,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         playerOptions: function playerOptions() {
-            return this.players.map(function (player) {
+            return this.playersAll.map(function (player) {
                 return { id: player.id, text: player.name };
             });
         },
@@ -12645,8 +12646,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        updatePlayers: function updatePlayers() {
-            alert('x');
+        updatedPlayers: function updatedPlayers() {
+            var _this2 = this;
+
+            axios.post('/api/players/filter', {
+                'players': this.selectedPlayers,
+                'leagues': this.selectedLeagues,
+                'tournaments': this.selectedTournaments
+            }).then(function (response) {
+                return _this2.players = response.data;
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        },
+        updatedLeagues: function updatedLeagues() {
+            var _this3 = this;
+
+            axios.post('/api/leagues/tournaments', { 'leagues': this.selectedLeagues }).then(function (response) {
+                return _this3.tournaments = response.data;
+            }).catch(function (error) {
+                return console.log(error);
+            });
+
+            axios.post('/api/players/filter', {
+                'players': this.selectedPlayers,
+                'leagues': this.selectedLeagues,
+                'tournaments': this.selectedTournaments
+            }).then(function (response) {
+                return _this3.players = response.data;
+            }).catch(function (error) {
+                return console.log(error);
+            });
         }
     }
 };
@@ -38182,7 +38212,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": ""
     },
     on: {
-      "input": _vm.updatePlayers
+      "input": _vm.updatedPlayers
     },
     model: {
       value: (_vm.selectedPlayers),
@@ -38200,7 +38230,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": ""
     },
     on: {
-      "input": _vm.updatePlayers
+      "input": _vm.updatedLeagues
     },
     model: {
       value: (_vm.selectedLeagues),
@@ -38214,11 +38244,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', [_vm._v(_vm._s(_vm.trans('frontend.stats.tournaments')))]), _vm._v(" "), _c('select2', {
     attrs: {
       "name": "tournaments",
-      "options": _vm.tournamentsOptions,
+      "options": _vm.tournamentOptions,
       "multiple": ""
     },
     on: {
-      "input": _vm.updatePlayers
+      "input": _vm.updatedPlayers
     },
     model: {
       value: (_vm.selectedTournaments),
