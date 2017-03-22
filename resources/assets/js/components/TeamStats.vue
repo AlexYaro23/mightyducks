@@ -41,18 +41,29 @@
                 </div>
             </div>
         </div>
+        <spinner v-show="showSpinner"></spinner>
     </div>
 </template>
 
+
 <script>
+    import Spinner from './partials/Spinner.vue';
+
     export default {
+        components: {
+          'spinner' : Spinner
+        },
         data () {
             return {
-                team: {}
+                team: {},
+                showSpinner: true
             }
         },
         created () {
-            axios.get('/api/team').then(response => this.team = response.data).catch(error => console.log(error));
+            axios.get('/api/team').then(response =>{
+                this.team = response.data;
+                this.showSpinner = false;
+            }).catch(error => console.log(error));
         }
     }
 </script>

@@ -57,15 +57,18 @@
                 </div>
             </div>
         </div>
+        <spinner v-show="showSpinner"></spinner>
     </section>
 </template>
 
 <script>
-    import Select2 from './Select2.vue'
+    import Spinner from './partials/Spinner.vue';
+    import Select2 from './Select2.vue';
 
     export default {
         components: {
-            Select2
+            Select2,
+            'spinner' : Spinner
         },
         data () {
             return {
@@ -75,7 +78,8 @@
                 tournaments: [],
                 selectedPlayers: [],
                 selectedLeagues: [],
-                selectedTournaments: []
+                selectedTournaments: [],
+                showSpinner: true
             }
         },
         created () {
@@ -83,6 +87,7 @@
                 .then(response => {
                     this.players = response.data;
                     this.playersAll = response.data;
+                    this.showSpinner = false;
                 })
                 .catch(error => console.log(error));
 
@@ -109,16 +114,20 @@
         },
         methods: {
             updatedPlayers () {
+                this.showSpinner = true;
                 axios.post('/api/players/filter',
                     {
                         'players': this.selectedPlayers,
                         'leagues': this.selectedLeagues,
                         'tournaments': this.selectedTournaments
                     }
-                ).then(response => this.players = response.data)
-                    .catch(error => console.log(error));
+                ).then(response => {
+                    this.players = response.data;
+                    this.showSpinner = false;
+                }).catch(error => console.log(error));
             },
             updatedLeagues () {
+                this.showSpinner = true;
                 axios.post('/api/leagues/tournaments',
                     {'leagues': this.selectedLeagues}
                 ).then(response => this.tournaments = response.data)
@@ -130,8 +139,10 @@
                         'leagues': this.selectedLeagues,
                         'tournaments': this.selectedTournaments
                     }
-                ).then(response => this.players = response.data)
-                    .catch(error => console.log(error));
+                ).then(response => {
+                    this.players = response.data;
+                    this.showSpinner = false;
+                }).catch(error => console.log(error));
             }
         }
     }

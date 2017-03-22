@@ -98,6 +98,7 @@ return [
         'mls_site' => 'MLS',
         'mls_vk' => 'MLS VK group',
         'details' => 'Details',
+        'loading' => 'Loading'
     ]
 
 ];

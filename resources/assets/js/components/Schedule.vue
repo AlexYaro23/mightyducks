@@ -11,6 +11,7 @@
                 <schedule-visits :visits="game.visits"></schedule-visits>
             </div>
         </div>
+        <spinner v-show="showSpinner"></spinner>
     </div>
 
 </template>
@@ -19,18 +20,21 @@
     import ScheduleGame from './partials/ScheduleGame.vue';
     import ScheduleSiblings from './partials/ScheduleSiblings.vue';
     import ScheduleVisits from './partials/ScheduleVisits.vue';
-    import swal from 'sweetalert2'
+    import Spinner from './partials/Spinner.vue';
+    import swal from 'sweetalert2';
 
     export default {
         components: {
             'schedule-game': ScheduleGame,
             'schedule-siblings': ScheduleSiblings,
-            'schedule-visits': ScheduleVisits
+            'schedule-visits': ScheduleVisits,
+            'spinner' : Spinner
         },
         data () {
             return {
                 'game': {},
-                'gameId': 0
+                'gameId': 0,
+                showSpinner: true
             };
         },
         created () {
@@ -39,15 +43,19 @@
             }
 
             axios.get('/api/games/' + this.gameId)
-                .then(response => this.game = response.data)
-                .catch(error => console.log(error));
+                .then(response => {
+                    this.game = response.data;
+                    this.showSpinner = false;
+                }).catch(error => console.log(error));
 
 
             bus.$on('changedVisit', (value) => {
+                this.showSpinner = true;
                 axios.post('/api/update-visit', {
                     'value' : value,
                     'game_id': this.game.id
                 }).then(response => {
+                    this.showSpinner = false;
                     let msgType = 'success';
                     if (response.data.status == 'error') {
                         msgType = 'error';

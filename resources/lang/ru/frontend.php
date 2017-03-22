@@ -98,6 +98,7 @@ return [
         'mls_site' => 'MLS',
         'mls_vk' => 'MLS VK группа',
         'details' => 'Подробнее',
+        'loading' => 'Загрузка'
     ]
 
 ];
