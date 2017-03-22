@@ -7,6 +7,7 @@ use App\Models\Team;
 
 class Game
 {
+    public $id;
     public $teamA;
     public $teamB;
     public $logoA;
@@ -19,9 +20,13 @@ class Game
     public $ycs = [];
     public $rcs = [];
     public $championship;
+    public $prevGameId;
+    public $nextGameId;
+    public $visits = [];
 
     public function __construct(GameModel $model, $teamName = null)
     {
+        $this->id = $model->id;
         $this->teamA = $teamName ? $teamName : Team::find(config('mls.team_id'))->name;
         $this->logoA = url(Team::LOGO);
         $this->teamB = $model->team;
@@ -53,6 +58,17 @@ class Game
                 }
 
             }
+        }
+    }
+
+    public function loadSiblings($siblings)
+    {
+        if ($siblings['prev'] != null) {
+            $this->prevGameId = $siblings['prev']->id;
+        }
+
+        if ($siblings['next'] != null) {
+            $this->nextGameId = $siblings['next']->id;
         }
     }
 }

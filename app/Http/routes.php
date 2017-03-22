@@ -29,6 +29,15 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], 
     Route::get('leagues/all', 'LeaguesController@all');
     Route::post('players/filter', 'PlayersController@filter');
     Route::post('leagues/tournaments', 'LeaguesController@tournaments');
+    Route::get('games/{game}', [
+        'middleware' => 'web',
+        'uses' => 'GamesController@get'
+    ]);
+    Route::post('update-visit', [
+        'middleware' => 'web',
+        'uses' => 'GamesController@updateVisit'
+    ]);
+    Route::get('games/visits', 'GamesController@visits');
 });
 
 Route::group(['middleware' => ['web']], function () {

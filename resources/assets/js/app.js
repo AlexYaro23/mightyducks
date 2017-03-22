@@ -19,12 +19,14 @@ Vue.prototype.trans = (key) => {
 import TeamStats from './components/TeamStats.vue';
 import PlayersStats from './components/PlayersStats.vue';
 import Statistics from './components/Statistics.vue';
+import Schedule from './components/Schedule.vue';
 
 const app = new Vue({
     el: '#app',
     components: {
         'team-stats': TeamStats,
         'players-stats': PlayersStats,
-        'statistics': Statistics
+        'statistics': Statistics,
+        'schedule': Schedule
     }
 });

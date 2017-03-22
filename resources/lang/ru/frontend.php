@@ -24,6 +24,7 @@ return [
         'stadium' => 'Поле',
         'visit_added' => 'Данные добавлены',
         'visit_add_error' => 'Sorry! Error occur! Try later',
+        'visit_add_err' => 'Ошибка! Попробуйте позже',
         'no_game' => [
             'title' => 'Нет игр в расписании!',
             'msg' => 'Проверьте позже'

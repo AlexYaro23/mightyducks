@@ -82,6 +82,20 @@ class GameController extends Controller
     public function showVisit(Game $game)
     {
         $team = Team::find(config('mls.team_id'));
+        if (!isset($game->id)) {
+            $game = GameRepository::getNextGameByTeamId($team->id);
+
+            if ($game == null) {
+                $game = GameRepository::getLastFinished($team->id, 1)->first();
+            }
+        }
+
+        return view('frontend.game.index')->with('gameId', $game->id);
+    }
+
+    public function showVisitOld(Game $game)
+    {
+        $team = Team::find(config('mls.team_id'));
         $playerList = PlayerRepository::getActiveListByTeamId($team->id);
 
         if (!isset($game->id)) {
