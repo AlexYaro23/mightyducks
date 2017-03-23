@@ -17,7 +17,7 @@ class ParseResult extends CommandParent
      *
      * @var string
      */
-    protected $signature = 'parse_mls_result';
+    protected $signature = 'parseresult';
 
     /**
      * The console command description.
