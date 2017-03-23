@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Player;
 use App\Models\Team;
+use App\Models\Tournament;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +13,7 @@ use Yangqi\Htmldom\Htmldom;
 class ParseTeam extends CommandParent
 {
     const TEAM_ID = 1;
+    const MLS_ID = 1;
     const DOMAIN = 'http://mls.od.ua';
     const DEFAULT_IMG = '/media/bearleague/player_st.png.pagespeed.ce.8XofNKXlcR.png';
 
@@ -20,7 +22,7 @@ class ParseTeam extends CommandParent
      *
      * @var string
      */
-    protected $signature = 'parseteam';
+    protected $signature = 'parse_mls_team';
 
     /**
      * The console command description.
@@ -49,6 +51,7 @@ class ParseTeam extends CommandParent
         $this->startLog();
 
         $team = Team::find(self::TEAM_ID);
+        $tournament = Tournament::where('league_id', self::MLS_ID)->orderBy('id', 'desc')->first();
 
         if ($team == null) {
             $this->error('Team with id: ' . self::TEAM_ID . ' not found');
@@ -124,6 +127,9 @@ class ParseTeam extends CommandParent
                 $player->update();
             } else {
                 $player->save();
+                if ($tournament) {
+                    $player->tournaments()->attach($tournament->id);
+                }
             }
 
             $img = $player_html->find('div#etab_player_div div.gray-box img', 0);
