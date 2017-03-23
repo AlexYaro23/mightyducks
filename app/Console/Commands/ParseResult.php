@@ -11,12 +11,13 @@ use Yangqi\Htmldom\Htmldom;
 
 class ParseResult extends CommandParent
 {
+    const MLS_ID = 1;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'parseresult';
+    protected $signature = 'parse_mls_result';
 
     /**
      * The console command description.
@@ -40,7 +41,7 @@ class ParseResult extends CommandParent
     {
         $this->info('Script start');
 
-        $games = (new GameRepository())->getOpenned();
+        $games = (new GameRepository())->getOpennedForLeague(self::MLS_ID);
 
         $this->info('Games to parse: ' . $games->count());
 

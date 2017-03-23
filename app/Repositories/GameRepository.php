@@ -9,6 +9,7 @@ use App\Models\Console\GameMlsEntity;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Stat;
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -60,9 +61,10 @@ class GameRepository
         return false;
     }
 
-    public function getOpenned()
+    public function getOpennedForLeague($leagueId)
     {
-        return Game::where('status', Game::getNonePlayedStatus())->get();
+        $tournament_ids = Tournament::where('league_id', $leagueId)->get()->pluck('id')->toArray();
+        return Game::where('status', Game::getNonePlayedStatus())->whereIn('tournament_id', $tournament_ids)->get();
     }
 
     public function saveScore(Game $game, array $data)
