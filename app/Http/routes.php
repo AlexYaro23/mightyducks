@@ -25,7 +25,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], 
     Route::get('next-games/{limit}', 'GamesController@next');
     Route::get('last-games/{limit}', 'GamesController@last');
     Route::get('players/stats', 'PlayersController@stats');
-    Route::get('team', 'TeamsController@stats');
+    Route::get('team/stats', 'TeamsController@stats');
     Route::get('leagues/all', 'LeaguesController@all');
     Route::post('players/filter', 'PlayersController@filter');
     Route::post('leagues/tournaments', 'LeaguesController@tournaments');

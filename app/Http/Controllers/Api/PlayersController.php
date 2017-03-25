@@ -11,15 +11,15 @@ use App\Http\Controllers\Controller;
 
 class PlayersController extends Controller
 {
-    public function stats()
+    public function stats(Request $request)
     {
         $playersApi = [];
         $team = Team::find(config('mls.team_id'));
 
-        $players = PlayerRepository::getActiveListByTeamId($team->id);
+        $players = PlayerRepository::getActive($team->id, $request->get('leagueId'));
 
         foreach ($players as $player) {
-            $stats = StatRepository::getByPlayerId($player->id);
+            $stats = StatRepository::getByPlayerId($player->id, $request->get('leagueId'));
 
             $playerApi = new Player($player);
             $playerApi->loadStats($stats);

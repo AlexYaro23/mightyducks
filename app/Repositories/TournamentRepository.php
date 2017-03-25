@@ -20,4 +20,9 @@ class TournamentRepository
     {
         return Tournament::whereNotNull('link')->where('team_id', $teamId)->get();
     }
+
+    public static function getIdsForLeague($leagueId)
+    {
+        return Tournament::where('league_id', $leagueId)->get()->pluck('id')->toArray();
+    }
 }

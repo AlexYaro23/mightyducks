@@ -17,6 +17,20 @@ class PlayerRepository
         return Player::where('team_id', $teamId)->active()->get();
     }
 
+    public static function getActive($teamId, $leagueId = null)
+    {
+        $query = DB::table('players')->where('players.team_id', $teamId)->where('players.status', Player::ACTIVE)->select('players.id');
+        if ($leagueId) {
+            $query->join('player2tournament', 'players.id', '=', 'player2tournament.player_id')
+                ->join('tournaments', 'tournaments.id', '=', 'player2tournament.tournament_id')
+            ->where('tournaments.league_id', $leagueId);
+        }
+
+        $playerIds = collect($query->get())->pluck('id')->toArray();
+
+        return Player::whereIn('id', $playerIds)->get();
+    }
+
     public static function getFilteredPlayers($playerIds, $leagueIds, $tournamentsIds)
     {
         $query = DB::table('players')

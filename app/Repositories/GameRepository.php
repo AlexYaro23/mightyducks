@@ -40,6 +40,12 @@ class GameRepository
         return Game::where('team_id', $id)->orderBy('date', 'desc')->get();
     }
 
+    public static function getListByTeamIdForLeague($teamId, $leagueId)
+    {
+        $tournamentIds = Tournament::where('league_id', $leagueId)->get()->pluck('id')->toArray();
+        return Game::where('team_id', $teamId)->whereIn('tournament_id', $tournamentIds)->orderBy('date', 'desc')->get();
+    }
+
     public function addParsedGame(GameMlsEntity $gameEntity)
     {
         $gameBO = new GameMlsBO($gameEntity);
@@ -63,8 +69,8 @@ class GameRepository
 
     public function getOpennedForLeague($leagueId)
     {
-        $tournament_ids = Tournament::where('league_id', $leagueId)->get()->pluck('id')->toArray();
-        return Game::where('status', Game::getNonePlayedStatus())->whereIn('tournament_id', $tournament_ids)->get();
+        $tournamentIds = Tournament::where('league_id', $leagueId)->get()->pluck('id')->toArray();
+        return Game::where('status', Game::getNonePlayedStatus())->whereIn('tournament_id', $tournamentIds)->get();
     }
 
     public function saveScore(Game $game, array $data)

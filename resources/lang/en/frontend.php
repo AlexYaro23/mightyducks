@@ -33,7 +33,8 @@ return [
             'no' => 'No',
             'yes' => 'Yes',
             'Cancelled' => 'Cancelled'
-        ]
+        ],
+        'total' => 'All'
     ],
     'training' => [
         'training' => 'Trainings',

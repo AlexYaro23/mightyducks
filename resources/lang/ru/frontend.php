@@ -33,7 +33,8 @@ return [
             'no' => 'Нет',
             'yes' => 'Да',
             'Cancelled' => 'Отменил'
-        ]
+        ],
+        'total' => 'Все'
     ],
     'training' => [
         'training' => 'Тренировки',
