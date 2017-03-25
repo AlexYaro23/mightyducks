@@ -81,7 +81,7 @@ class GamesController extends Controller
         if ($user && $user->player) {
             $authorizedPlayerId = $user->player->id;
         }
-        $players = PlayerRepository::getActiveListByTeamId($team->id);
+        $players = PlayerRepository::getActiveForTournament($team->id, $game->tournament_id);
         $visits = StatRepository::getVisitsForGame($game->id)->pluck(Stat::VISIT, 'player_id');
 
         $visitsApi = [];
