@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\GameDateChange;
 use App\Http\Requests\Backend\GameRequest;
 use App\Http\Requests\Backend\StatRequest;
 use App\Models\Console\GameMlsBO;
@@ -10,6 +11,7 @@ use App\Models\Game;
 use App\Models\Player;
 use App\Models\Stat;
 use App\Models\Tournament;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -61,7 +63,8 @@ class GameRepository
                 }
 
                 return $game;
-            } elseif (isset($data['date']) && $game->status == Game::getNonePlayedStatus() && $game->date != $data['date']) {
+            } elseif (isset($data['date']) && $game->status == Game::getNonePlayedStatus() && $game->date->format('d-m-Y H:i') != Carbon::parse($data['date'])->format('d-m-Y H:i')) {
+                $data['game_id'] = $game->id;
                 event(new GameDateChange($data));
             }
         }

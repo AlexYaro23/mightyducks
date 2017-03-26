@@ -212,7 +212,7 @@
                                                     <div class="contentEditableContainer contentTextEditable">
                                                         <div class="contentEditable" align='left'>
                                                             <p>
-                                                                {{ $team . trans('email.game.date_changed') . $date }}
+                                                                {{ $team . ' ' . trans('email.game.date_changed') . ' ' . $date }}
                                                             </p>
                                                         </div>
                                                     </div>
