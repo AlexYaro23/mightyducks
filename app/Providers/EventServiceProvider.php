@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\GameVisitChange' => [
             'App\Listeners\EmailGameVisit',
         ],
+        'App\Events\GameDateChange' => [
+            'App\Listeners\EmailGameDateChange',
+        ],
     ];
 
     /**

@@ -53,7 +53,7 @@ class GameRepository
 
         $validator = Validator::make($data, GameRequest::getRules());
         if (!$validator->fails()) {
-            $game = Game::where('mls_url', $data['mls_url'])->first();
+            $game = Game::where('mls_id', $data['mls_id'])->first();
             if (!$game) {
                 $game = Game::create($data);
                 if (strpos($data['icon'], 'players-ico.png') === false && $data['icon'] != config('mls.domain')) {
@@ -61,6 +61,8 @@ class GameRepository
                 }
 
                 return $game;
+            } elseif (isset($data['date']) && $game->status == Game::getNonePlayedStatus() && $game->date != $data['date']) {
+                event(new GameDateChange($data));
             }
         }
 

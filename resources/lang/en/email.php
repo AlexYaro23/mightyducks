@@ -9,6 +9,7 @@ return [
     'game' => [
         'subject' => 'Game visit update',
         'changed' => 'changed visit status',
-        'link' => 'Details'
+        'link' => 'Details',
+        'date_changed' => 'change game date'
     ]
 ];

@@ -55,7 +55,7 @@ class TournamentsController extends Controller
     {
         $tournament->update($request->all());
 
-        $players = $request->get('players') ?? [];
+        $players = $request->get('players') ? $request->get('players') : [];
 
         $tournament->players()->sync($players);
 

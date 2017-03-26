@@ -87,7 +87,7 @@ class GamesController extends Controller
         $visitsApi = [];
         $enabledVisit = $game->isEditable();
         foreach ($players as $player) {
-            $stat = $visits[$player->id] ?? 0;
+            $stat = isset($visits[$player->id]) ? $visits[$player->id] : 0;
             $visitsApi[] = new Visit($stat, $player, $authorizedPlayerId, $enabledVisit);
         }
 

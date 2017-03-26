@@ -41,7 +41,7 @@ class PlayersController extends Controller
     {
         $player = Player::create($request->all());
 
-        $tournaments = $request->get('tournaments') ?? [];
+        $tournaments = $request->get('tournaments') ? $request->get('tournaments') : [];
         $player->tournaments()->sync($tournaments);
 
         Flash::success(trans('general.updated_msg'));
@@ -68,7 +68,7 @@ class PlayersController extends Controller
     {
         $player->update($request->all());
 
-        $tournaments = $request->get('tournaments') ?? [];
+        $tournaments = $request->get('tournaments') ? $request->get('tournaments') : [];
         $player->tournaments()->sync($tournaments);
 
         Flash::success(trans('general.updated_msg'));
