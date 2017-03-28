@@ -12,6 +12,8 @@ class Game extends Model
     const DEFAULT_PHOTO = '/img/team_logos/default.png';
     const MSG_SENT = 2;
     const MSG_NOT_SENT = 1;
+    const HOME = 1;
+    const VISITOR = 2;
 
     protected $fillable = [
         'team_id',
@@ -38,8 +40,8 @@ class Game extends Model
     ];
 
     protected static $homeList = [
-        1 => 'Home',
-        2 => 'Visitor'
+        self::HOME => 'Home',
+        self::VISITOR => 'Visitor'
     ];
 
     /**

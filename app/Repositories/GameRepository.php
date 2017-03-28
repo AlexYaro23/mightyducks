@@ -207,4 +207,18 @@ class GameRepository
             ->whereNotNull(Stat::VISIT)
             ->delete();
     }
+
+    public function processParsedGame($data)
+    {
+        $validator = Validator::make($data, GameRequest::getRules());
+        if (!$validator->fails()) {
+            $game = Game::where('tournament_id', $data['tournament_id'])->where('team', $data['team'])->first();
+            if (!$game) {
+                Game::create($data);
+            } elseif (isset($data['date']) && $game->status == Game::getNonePlayedStatus() && $game->date->format('d-m-Y H:i') != Carbon::parse($data['date'])->format('d-m-Y H:i')) {
+                $data['game_id'] = $game->id;
+                event(new GameDateChange($data));
+            }
+        }
+    }
 }

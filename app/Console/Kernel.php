@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
         Commands\FixTeamNames::class,
         Commands\ParsePlayerPhotos::class,
         Commands\MapPlayer2Tournamet::class,
+        Commands\ParseLcSchedule::class,
     ];
 
     /**

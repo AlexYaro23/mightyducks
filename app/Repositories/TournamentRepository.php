@@ -25,4 +25,9 @@ class TournamentRepository
     {
         return Tournament::where('league_id', $leagueId)->get()->pluck('id')->toArray();
     }
+
+    public function getLastTournamentForLeague($leagueId)
+    {
+        return Tournament::where('league_id', $leagueId)->orderBy('id', 'desc')->first();
+    }
 }
