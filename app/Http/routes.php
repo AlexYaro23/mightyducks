@@ -44,6 +44,15 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
         Route::get('/', 'TeamsController@index')->name('main');
+
+//        Route::get('/tk', function () {
+//            $client_id = env('VK_CLIENT_ID');
+//            $scope = 'offline,pages';
+//
+//
+//            return '<a href="https://oauth.vk.com/authorize?client_id=' . $client_id . '&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=' . $scope . '&response_type=token&v=5.37">Push the button</a>';
+//        });
+
         Route::get('schedule', 'GameController@showVisit')->name('schedule');
         Route::get('games', 'GameController@index')->name('games');
         Route::post('game/visit', 'GameController@addVisit');
@@ -139,8 +148,8 @@ Route::group(['middleware' => ['web']], function () {
             Route::patch('update', 'TournamentsController@update')->name('admin.tournaments.update');
             Route::delete('delete', 'TournamentsController@destroy')->name('admin.tournaments.delete');
         });
-        
-        
+
+
         Route::get('leagues', 'LeaguesController@index')->name('admin.leagues');
         Route::get('leagues/create', 'LeaguesController@create')->name('admin.leagues.create');
         Route::post('leagues/store', 'LeaguesController@store')->name('admin.leagues.store');

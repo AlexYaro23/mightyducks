@@ -31,7 +31,6 @@ class ParseLcSchedule extends CommandParent
     protected $description = 'Parsing lc schedule';
 
 
-    const LC_ID = 6;
     /**
      * @var TournamentRepository
      */
@@ -40,7 +39,7 @@ class ParseLcSchedule extends CommandParent
      * @var GameRepository
      */
     private $gameRepository;
-
+    private $lcId;
 
     public function __construct(TournamentRepository $tournamentRepository, GameRepository $gameRepository)
     {
@@ -48,6 +47,7 @@ class ParseLcSchedule extends CommandParent
 
         $this->tournamentRepository = $tournamentRepository;
         $this->gameRepository = $gameRepository;
+        $this->lcId = env('LC_ID');
     }
 
     /**
@@ -58,9 +58,8 @@ class ParseLcSchedule extends CommandParent
     public function handle()
     {
         $this->startLog();
-
         $htmlResponse = VkHelper::getLcSchedule();
-        $tournament = $this->tournamentRepository->getLastTournamentForLeague(self::LC_ID);
+        $tournament = $this->tournamentRepository->getLastTournamentForLeague($this->lcId);
 
         $this->parseGames($htmlResponse, $tournament);
 
@@ -79,6 +78,8 @@ class ParseLcSchedule extends CommandParent
             }
 
             if (strpos($game, 'MightyDucks') !== false) {
+                $game = htmlentities($game, null, 'utf-8');
+                $game = str_replace("&nbsp;", " ", $game);
                 preg_match('/^([0-9:]+)\s*\"([^\"]+)\"\s*-?\s*\"([^\"]+)\"/', $game, $gameData);
 
                 if (count($gameData) > 1) {
@@ -98,6 +99,7 @@ class ParseLcSchedule extends CommandParent
                         $this->gameRepository->processParsedGame($data);
                     } catch (\Exception $ex) {
                         //ToDo add error event
+                        dd($ex->getMessage());
                     }
 
                 }
