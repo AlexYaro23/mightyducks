@@ -37,9 +37,14 @@ class GameRepository
         }
     }
 
-    public static function getListByTeamId($id)
+    public static function getListByTeamId($id, $limit = null)
     {
-        return Game::where('team_id', $id)->orderBy('date', 'desc')->get();
+        $games = Game::where('team_id', $id)->orderBy('date', 'desc');
+        if ($limit) {
+            $games->limit($limit);
+        }
+
+        return $games->get();
     }
 
     public static function getListByTeamIdForLeague($teamId, $leagueId)

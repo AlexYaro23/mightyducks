@@ -28,7 +28,14 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'cors'], 
     Route::get('team/stats', 'TeamsController@stats');
     Route::get('leagues/all', 'LeaguesController@all');
     Route::post('players/filter', 'PlayersController@filter');
+    Route::post('stats/add', 'StatsController@add');
+    Route::post('stats/remove', 'StatsController@remove');
     Route::post('leagues/tournaments', 'LeaguesController@tournaments');
+    Route::get('games/all', 'GamesController@all');
+    Route::get('games/result/{id}', [
+        'middleware' => 'web',
+        'uses' => 'GamesController@result'
+    ]);
     Route::get('games/{game}', [
         'middleware' => 'web',
         'uses' => 'GamesController@get'
@@ -109,6 +116,7 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('games', 'GamesController@index')->name('admin.games');
         Route::get('games/create', 'GamesController@create')->name('admin.games.create');
+        Route::get('games/result/{id}', 'GamesController@result')->name('admin.games.result');
         Route::post('games/store', 'GamesController@store')->name('admin.games.store');
 
         Route::group(['prefix' => 'games/{game}', 'where' => ['game' => '[0-9]+']], function ($game) {
@@ -127,6 +135,8 @@ Route::group(['middleware' => ['web']], function () {
             Route::delete('delete', 'RolesController@destroy')->name('admin.roles.delete');
         });
 
+
+        Route::get('results', 'ResultsController@index')->name('admin.results');
 
         Route::get('stats', 'StatsController@index')->name('admin.stats');
         Route::get('stats/create', 'StatsController@create')->name('admin.stats.create');

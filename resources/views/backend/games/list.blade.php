@@ -47,7 +47,7 @@
                             <tbody>
                             @foreach($games as $game)
                                 <tr class="">
-                                    <td>{{ $game->team }}</td>
+                                    <td><a href="{{ route('admin.games.result', ['id' => $game->id]) }}">{{ $game->team }}</a></td>
                                     <td>{{ $game->date }}</td>
                                     <td>{{ $game->score1 }}</td>
                                     <td>{{ $game->score2 }}</td>

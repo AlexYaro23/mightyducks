@@ -23,6 +23,34 @@ class GamesController extends Controller
 	const NEXT_GAMES_COUNT = 3;
 	const LAST_GAMES_COUNT = 3;
 
+    public function all()
+    {
+        $team = Team::find(config('mls.team_id'));
+
+        $games = GameRepository::getListByTeamId($team->id, 10);
+
+        $result = collect([]);
+
+        foreach ($games as $game) {
+            $result->push(new Game($game, $team->name));
+        }
+
+        return $result;
+    }
+
+    public function result($id)
+    {
+        $team = Team::find(config('mls.team_id'));
+        $game = GameModel::find($id);
+        $stats = StatRepository::getStatsByGameId($game->id);
+        $players = PlayerRepository::getListByTeamId($team->id)->pluck('name', 'id');
+
+        $gameApi = new Game($game);
+        $gameApi->loadResults($stats, $players);
+
+        return response()->json($gameApi);
+    }
+
 	public function next($limit)
     {
 		$team = Team::find(config('mls.team_id'));

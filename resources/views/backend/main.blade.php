@@ -18,6 +18,27 @@
 
     <link href="{{ asset('/css/backend/style.css') }}" rel="stylesheet">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+
+    <script>
+        window.trans = <?php
+        // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
+        $lang_files = File::files(resource_path() . '/lang/' . App::getLocale());
+        $trans = [];
+        foreach ($lang_files as $f) {
+            $filename = pathinfo($f)['filename'];
+            $trans[$filename] = trans($filename);
+        }
+        echo json_encode($trans);
+        ?>;
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -44,6 +65,8 @@
 <script src="{{ asset('/libs/select2/js/select2.min.js') }}"></script>
 
 <script src="{{ asset('/js/backend/sb-admin-2.js') }}"></script>
+
+<script src="{{ asset('/js/backend/admin.js') }}"></script>
 
 @yield('footer')
 </body>

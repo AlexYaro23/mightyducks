@@ -23,6 +23,8 @@ class Game
     public $prevGameId;
     public $nextGameId;
     public $visits = [];
+    public $results = [];
+    public $tournamentId;
 
     public function __construct(GameModel $model, $teamName = null)
     {
@@ -35,6 +37,7 @@ class Game
         $this->place = $model->place;
         $this->round = $model->round;
         $this->championship = $model->tournament->name;
+        $this->tournamentId = $model->tournament_id;
 
         if ($model->status == GameModel::getPlayedStatus()) {
             if ($model->isHome()) {
@@ -57,6 +60,20 @@ class Game
                     array_push($this->{$property}, $players[$stat->player_id] . $count);
                 }
 
+            }
+        }
+    }
+
+    public function loadResults($stats, $players)
+    {
+        foreach ($stats as $stat => $items) {
+            $this->results[$stat] = [];
+            foreach ($items as $item) {
+                $this->results[$stat][] = [
+                    'stat_id' => $item->id,
+                    'player' => $players[$item->player_id],
+                    'count' => $item->$stat
+                ];
             }
         }
     }

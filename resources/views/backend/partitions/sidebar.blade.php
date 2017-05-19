@@ -20,6 +20,9 @@
                 <a href="{{ route('admin.stats') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.stats') }}</a>
             </li>
             <li>
+                <a href="{{ route('admin.results') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.results') }}</a>
+            </li>
+            <li>
                 <a href="{{ route('admin.tournaments') }}"><i class="fa fa-dashboard fa-fw"></i> {{ trans('backend.menu.tournaments') }}</a>
             </li>
             <li>

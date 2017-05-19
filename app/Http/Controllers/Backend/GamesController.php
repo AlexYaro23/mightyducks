@@ -15,12 +15,17 @@ class GamesController extends Controller
 {
     public function index()
     {
-        $games = Game::all();
+        $games = Game::orderBy('date', 'desc')->get();
 
         return view('backend.games.list')
             ->with('games', $games)
             ->with('homeList', Game::getHomeList())
             ->with('statusList', Game::getStatusList());
+    }
+
+    public function result($id)
+    {
+        return view('backend.games.result', compact('id'));
     }
 
     public function create()

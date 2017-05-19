@@ -239,7 +239,8 @@ return [
         'leagues' => 'Leagues',
         'visits' => 'Quick visits',
         'trainings' => 'Trainings',
-        'training_visits' => 'Training visits'
+        'training_visits' => 'Training visits',
+        'results' => 'Results'
     ],
     'home' => 'Home',
     'list' => 'List',
