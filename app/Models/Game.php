@@ -28,7 +28,8 @@ class Game extends Model
         'round',
         'tournament_id',
         'mls_id',
-        'mls_url'
+        'mls_url',
+        'youtube'
     ];
 
     protected $dates = ['date'];

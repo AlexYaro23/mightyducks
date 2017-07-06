@@ -59,5 +59,10 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('youtube', trans('backend.games.youtube')) !!}
+    {!! Form::textarea('youtube', null, ['class' => 'form-control', 'rows' => 3]) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
 </div>

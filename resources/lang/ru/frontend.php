@@ -16,6 +16,10 @@ return [
         'settings' => 'Настройки',
         'stats' => 'Статистика',
         'games' => 'Игры',
+        'videos' => 'Видео'
+    ],
+    'video' => [
+        'subtitle' => 'Видео'
     ],
     'main' => [
         'player_name' => 'Игрок',

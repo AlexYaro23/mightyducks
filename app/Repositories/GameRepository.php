@@ -53,6 +53,11 @@ class GameRepository
         return Game::where('team_id', $teamId)->whereIn('tournament_id', $tournamentIds)->orderBy('date', 'desc')->get();
     }
 
+    public static function getWithVideoSortedByDate($teamId)
+    {
+        return Game::where('team_id', $teamId)->whereNotNull('youtube')->orderBy('date', 'desc')->get();
+    }
+
     public function addParsedGame(GameMlsEntity $gameEntity)
     {
         $gameBO = new GameMlsBO($gameEntity);

@@ -70,7 +70,7 @@
 
     {{--<script src="{{ asset('/js/frontend/script.js') }}"></script>--}}
 
-    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="{{ asset('/js/app.js?1213') }}"></script>
 
     @yield('footer')
 </body>

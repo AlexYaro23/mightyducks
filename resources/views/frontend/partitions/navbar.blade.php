@@ -25,6 +25,9 @@
                 <li class="{{ url()->current() == route('schedule') ? 'active' : '' }}">
                     <a class="page-scroll" href="{{ route('schedule') }}">{{ trans('frontend.menu.schedule') }}</a>
                 </li>
+                <li class="{{ url()->current() == route('videos') ? 'active' : '' }}">
+                    <a class="page-scroll" href="{{ route('videos') }}">{{ trans('frontend.menu.videos') }}</a>
+                </li>
                 @if(!$trainingData->isEmpty())
                     <li class="dropdown {{ strpos(url()->current(), 'training') !== false ? 'active' : '' }}">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" area-haspopup="true"

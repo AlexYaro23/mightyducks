@@ -13,7 +13,8 @@ class GameRequest extends Request
         'score2' => 'integer',
         'home' => 'integer',
         'status' => 'integer',
-        'place' => 'string'
+        'place' => 'string',
+        'youtube' => ''
     ];
     /**
      * Determine if the user is authorized to make this request.

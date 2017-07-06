@@ -107,7 +107,8 @@ return [
         'mls_id' => 'MLS Id',
         'mls_url' => 'MLS URL',
         'teamA' => 'Team',
-        'round' => 'Round'
+        'round' => 'Round',
+        'youtube' => 'YouTube Links'
     ],
     'stats' => [
         'list' => [

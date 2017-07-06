@@ -16,6 +16,10 @@ return [
         'settings' => 'Settings',
         'stats' => 'Statistics',
         'games' => 'Games',
+        'videos' => 'Video'
+    ],
+    'video' => [
+        'subtitle' => 'Videos'
     ],
     'main' => [
         'player_name' => 'Player',

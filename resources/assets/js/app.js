@@ -20,10 +20,12 @@ import TeamStats from './components/TeamStats.vue';
 import PlayersStats from './components/PlayersStats.vue';
 import Statistics from './components/Statistics.vue';
 import Schedule from './components/Schedule.vue';
+import VideoList from './components/VideoList.vue';
 
 const app = new Vue({
     el: '#app',
     components: {
+        'video-list': VideoList,
         'team-stats': TeamStats,
         'players-stats': PlayersStats,
         'statistics': Statistics,
