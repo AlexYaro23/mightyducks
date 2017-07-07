@@ -19,9 +19,12 @@
             <div class="row stats-block">
                 <div class="col-md-12">
                     <template v-for="link in links">
-                        <div class="center">
-                            <iframe width="560" height="315" :src="link" frameborder="0" allowfullscreen style="display: block; margin: 30px auto;"></iframe>
+                        <div class="col-md-8 col-md-offset-2 col-sm-12" style="margin-bottom: 30px;">
+                            <div class="video-container">
+                                <iframe width="560" height="315" :src="link" frameborder="0" allowfullscreen></iframe>
+                            </div>
                         </div>
+                        <br />
                     </template>
                 </div>
             </div>
@@ -35,7 +38,7 @@
 
     export default {
         components: {
-            'spinner' : Spinner
+            'spinner': Spinner
         },
         props: [
             'games'
@@ -51,8 +54,7 @@
             this.game = this.games[0].id;
             this.links = this.games[0].youtube.split("\n");
         },
-        computed: {
-        },
+        computed: {},
         methods: {
             showGameTitle(game) {
                 return game.team + ' ' + game.date.substring(0, 10);
@@ -76,5 +78,19 @@
 </script>
 
 <style>
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 30px;
+        height: 0;
+        overflow: hidden;
+    }
 
+    .video-container iframe, .video-container object, .video-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 </style>

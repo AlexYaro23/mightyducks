@@ -47686,6 +47686,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -47970,7 +47973,7 @@ exports.push([module.i, "\nselect {\n    width: 100%;\n}\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.video-container {\n    position: relative;\n    padding-bottom: 56.25%;\n    padding-top: 30px;\n    height: 0;\n    overflow: hidden;\n}\n.video-container iframe, .video-container object, .video-container embed {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n", ""]);
 
 /***/ }),
 /* 63 */
@@ -50322,12 +50325,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12"
   }, [_vm._l((_vm.links), function(link) {
     return [_c('div', {
-      staticClass: "center"
-    }, [_c('iframe', {
+      staticClass: "col-md-8 col-md-offset-2 col-sm-12",
       staticStyle: {
-        "display": "block",
-        "margin": "30px auto"
-      },
+        "margin-bottom": "30px"
+      }
+    }, [_c('div', {
+      staticClass: "video-container"
+    }, [_c('iframe', {
       attrs: {
         "width": "560",
         "height": "315",
@@ -50335,7 +50339,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "frameborder": "0",
         "allowfullscreen": ""
       }
-    })], 1)]
+    })], 1)]), _vm._v(" "), _c('br')]
   })], 2)])]), _vm._v(" "), _c('spinner', {
     directives: [{
       name: "show",
