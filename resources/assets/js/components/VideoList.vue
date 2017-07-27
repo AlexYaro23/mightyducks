@@ -17,6 +17,15 @@
             </div>
 
             <div class="row stats-block">
+
+                <div class="col-md-10 col-md-offset-1" v-if="description">
+                    <div class="text-muted well">
+                        {{ description }}
+                    </div>
+                </div>
+
+                <br />
+
                 <div class="col-md-12">
                     <template v-for="link in links">
                         <div class="col-md-8 col-md-offset-2 col-sm-12" style="margin-bottom: 30px;">
@@ -47,12 +56,14 @@
             return {
                 showSpinner: false,
                 game: null,
-                links: []
+                links: [],
+                description: ''
             }
         },
         created () {
             this.game = this.games[0].id;
             this.links = this.games[0].youtube.split("\n");
+            this.description = this.games[0].description;
         },
         computed: {},
         methods: {
@@ -65,6 +76,7 @@
                 for (let i = 0; i < this.games.length; i++) {
                     if (this.games[i].id == this.game) {
                         this.links = this.games[i].youtube.split("\n");
+                        this.description = this.games[i].description;
                     }
                 }
                 var self = this;

@@ -78,6 +78,14 @@
                                 </div>
                             @endif
                         @endforeach
+
+                        @if($game->description)
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-muted well">
+                                    {{ $game->description }}
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

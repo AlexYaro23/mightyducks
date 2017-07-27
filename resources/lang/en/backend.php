@@ -108,7 +108,8 @@ return [
         'mls_url' => 'MLS URL',
         'teamA' => 'Team',
         'round' => 'Round',
-        'youtube' => 'YouTube Links'
+        'youtube' => 'YouTube Links',
+        'description' => 'Description'
     ],
     'stats' => [
         'list' => [

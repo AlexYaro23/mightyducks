@@ -64,5 +64,10 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('description', trans('backend.games.description')) !!}
+    {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 3]) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit(trans('general.update'), ['class' => 'btn btn-info form-control']) !!}
 </div>

@@ -47689,6 +47689,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47701,12 +47710,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             showSpinner: false,
             game: null,
-            links: []
+            links: [],
+            description: ''
         };
     },
     created: function created() {
         this.game = this.games[0].id;
         this.links = this.games[0].youtube.split("\n");
+        this.description = this.games[0].description;
     },
 
     computed: {},
@@ -47719,6 +47730,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             for (var i = 0; i < this.games.length; i++) {
                 if (this.games[i].id == this.game) {
                     this.links = this.games[i].youtube.split("\n");
+                    this.description = this.games[i].description;
                 }
             }
             var self = this;
@@ -50321,7 +50333,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.showGameTitle(game)))])
   }))])])]), _vm._v(" "), _c('div', {
     staticClass: "row stats-block"
+  }, [(_vm.description) ? _c('div', {
+    staticClass: "col-md-10 col-md-offset-1"
   }, [_c('div', {
+    staticClass: "text-muted well"
+  }, [_vm._v("\n                    " + _vm._s(_vm.description) + "\n                ")])]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_vm._l((_vm.links), function(link) {
     return [_c('div', {

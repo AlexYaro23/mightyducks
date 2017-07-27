@@ -14,7 +14,8 @@ class GameRequest extends Request
         'home' => 'integer',
         'status' => 'integer',
         'place' => 'string',
-        'youtube' => ''
+        'youtube' => '',
+        'description' => ''
     ];
     /**
      * Determine if the user is authorized to make this request.

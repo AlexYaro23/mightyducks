@@ -25,6 +25,7 @@ class Game
     public $visits = [];
     public $results = [];
     public $tournamentId;
+    public $description;
 
     public function __construct(GameModel $model, $teamName = null)
     {
@@ -38,6 +39,7 @@ class Game
         $this->round = $model->round;
         $this->championship = $model->tournament->name;
         $this->tournamentId = $model->tournament_id;
+        $this->description = $model->description;
 
         if ($model->status == GameModel::getPlayedStatus()) {
             if ($model->isHome()) {
