@@ -43,6 +43,11 @@ class StatRepository
         return Stat::where('game_id', $gameId)->whereIn(Stat::VISIT, array_keys(Stat::$visitList))->get();
     }
 
+    public static function getApprovedVisitsForGame($gameId)
+    {
+        return Stat::where('game_id', $gameId)->where(Stat::VISIT, Stat::GAME_VISITED)->get();
+    }
+
     public static function addVisit($game_id, $player_id, $visit = Stat::VISIT)
     {
         $stat = Stat::where('game_id', $game_id)

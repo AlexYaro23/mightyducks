@@ -25,6 +25,9 @@ class Kernel extends ConsoleKernel
         Commands\ParsePlayerPhotos::class,
         Commands\MapPlayer2Tournamet::class,
         Commands\ParseLcSchedule::class,
+        Commands\TelegramScheduler::class,
+        Commands\CloseVote::class,
+        Commands\TelegramUpdates::class,
     ];
 
     /**
@@ -39,7 +42,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('parseschedule')->twiceDaily(13, 22)->appendOutputTo($filePath);;
         $schedule->command('lc_schedule')->twiceDaily(14, 23)->appendOutputTo($filePath);;
         $schedule->command('parseresult')->daily()->appendOutputTo($filePath);;
-        $schedule->command('reminder')->twiceDaily(15, 23)->appendOutputTo($filePath);;
+        //$schedule->command('reminder')->twiceDaily(15, 23)->appendOutputTo($filePath);;
         $schedule->command('trainings')->dailyAt('13:00')->appendOutputTo($filePath);;
         $schedule->command('trainings_reset')->dailyAt('23:30')->appendOutputTo($filePath);;
     }

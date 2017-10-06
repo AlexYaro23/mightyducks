@@ -231,4 +231,48 @@ class GameRepository
             }
         }
     }
+
+    public function getFirstGameToSchedule($period)
+    {
+        $date = Carbon::now();
+        $game = Game::where('date', '>=', $date->format('Y-m-d H:m:s'))
+            ->where('date', '<=', $date->addDays($period)->format('Y-m-d 23:59:59'))
+            ->where('reminder', Game::MSG_NOT_SENT)->first();
+
+        return $game;
+    }
+
+    public function markAsVoteMsgSent($game, $msgId)
+    {
+        $game->update(['telegram_msg_id' => $msgId, 'reminder' => Game::MSG_SENT]);
+    }
+
+    public function getGameVoteNeedsToBeClosed()
+    {
+        $date = Carbon::now();
+        $game = Game::where('date', '<=', $date->format('Y-m-d H:m:s'))->where('reminder', Game::MSG_SENT)
+            ->orderBy('date', 'asc')->first();
+
+        return $game;
+    }
+
+    public function markAsVoteClosed($game)
+    {
+        $game->update(['reminder' => Game::MSG_CLOSED]);
+    }
+
+    public function getVisitsForVote($gameId)
+    {
+        $msg = '';
+        $stats = StatRepository::getApprovedVisitsForGame($gameId);
+        if ($stats->count() > 0) {
+            $msg .= config('mls.chat_game_msg_visits_telegram');
+            foreach ($stats as $index => $stat) {
+                $player = Player::find($stat->player_id);
+                $msg .= ++$index . ' ' . $player->getShortName() . "\n";
+            }
+        }
+
+        return $msg;
+    }
 }

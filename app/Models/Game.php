@@ -10,8 +10,9 @@ class Game extends Model
     const PHOTO_PATH = '/img/team_logos/';
     const PHOTO_TYPE = '.png';
     const DEFAULT_PHOTO = '/img/team_logos/default.png';
-    const MSG_SENT = 2;
+    const MSG_SENT = 3;
     const MSG_NOT_SENT = 1;
+    const MSG_CLOSED = 2;
     const HOME = 1;
     const VISITOR = 2;
 
@@ -30,7 +31,8 @@ class Game extends Model
         'mls_id',
         'mls_url',
         'youtube',
-        'description'
+        'description',
+        'telegram_msg_id'
     ];
 
     protected $dates = ['date'];
@@ -124,5 +126,30 @@ class Game extends Model
         }
 
         return false;
+    }
+
+    public function getVoteMsg($platform)
+    {
+        $month_en = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $month_ru = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+        $days = [
+            1 => 'Понедельник',
+            2 => 'Вторник',
+            3 => 'Среда',
+            4 => 'Четверг',
+            5 => 'Пятница',
+            6 => 'Суббота',
+            7 => 'Воскресенье'
+        ];
+
+        $msg = config('mls.chat_game_msg_' . $platform);
+        $msg = str_replace('%date%', $days[$this->date->format('N')] . $this->date->format(' (d M)'),  $msg);
+        $msg = str_replace('%time%', $this->date->format('H:i'),  $msg);
+        $msg = str_replace($month_en, $month_ru, $msg);
+        $msg = str_replace('%team%', $this->team, $msg);
+        $msg = str_replace('%place%', $this->place, $msg);
+        $msg = str_replace('%url%', route('game.visit', ['id' => $this->id]), $msg);
+
+        return $msg;
     }
 }

@@ -77,4 +77,13 @@ class PlayerRepository
 
         return $players;
     }
+
+    public function addTgUserIdToPlayer($playerId, $tgUserId)
+    {
+        $player = Player::find($playerId);
+        $player->telegram_id = $tgUserId;
+        $player->save();
+
+        return $player;
+    }
 }

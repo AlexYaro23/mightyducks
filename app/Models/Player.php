@@ -26,7 +26,8 @@ class Player extends Model
         'name',
         'date_of_birth',
         'position',
-        'status'
+        'status',
+        'telegram_id'
     ];
 
     public function user()
@@ -57,5 +58,16 @@ class Player extends Model
     public function tournaments()
     {
         return $this->belongsToMany('App\Models\Tournament', 'player2tournament', 'player_id', 'tournament_id');
+    }
+
+    public function getShortName()
+    {
+        $parts = preg_split('/\s+/', $this->name);
+        $name = $parts[0];
+        if (isset($parts[1])) {
+            $name .= ' ' . $parts[1];
+        }
+
+        return $name;
     }
 }

@@ -51,7 +51,7 @@ class Reminder extends CommandParent
 
         foreach ($gameList as $game) {
 
-            $msg = $this->getMsg($game);
+            $msg = $game->getVoteMsg('mls');
 
             $result = sendVkMsg($msg);
 
@@ -65,30 +65,5 @@ class Reminder extends CommandParent
         }
 
         $this->endLog();
-    }
-
-    private function getMsg(Game $game)
-    {
-        $month_en = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        $month_ru = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-        $days = [
-            1 => 'Понедельник',
-            2 => 'Вторник',
-            3 => 'Среда',
-            4 => 'Четверг',
-            5 => 'Пятница',
-            6 => 'Суббота',
-            7 => 'Воскресенье'
-        ];
-
-        $msg = config('mls.chat_game_msg');
-        $msg = str_replace('%date%', $days[$game->date->format('N')] . $game->date->format(' (d M)'),  $msg);
-        $msg = str_replace('%time%', $game->date->format('H:i'),  $msg);
-        $msg = str_replace($month_en, $month_ru, $msg);
-        $msg = str_replace('%team%', $game->team, $msg);
-        $msg = str_replace('%place%', $game->place, $msg);
-        $msg = str_replace('%url%', route('game.visit', ['id' => $game->id]), $msg);
-
-        return $msg;
     }
 }

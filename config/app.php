@@ -162,7 +162,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Yangqi\Htmldom\HtmldomServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
-
+        Telegram\Bot\Laravel\TelegramServiceProvider::class,
     ],
 
     /*
@@ -237,7 +237,7 @@ return [
         'Thumbnail' => 'Bootstrapper\Facades\Thumbnail',
         'Flash' => 'Laracasts\Flash\Flash',
         'Htmldom' => Yangqi\Htmldom\Htmldom::class,
-
+        'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
     ],
 
 ];

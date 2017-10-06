@@ -51,6 +51,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
         Route::get('/', 'TeamsController@index')->name('main');
+        Route::get('telegram', 'TelegramController@index');
 
 //        Route::get('/tk', function () {
 //            $client_id = env('VK_CLIENT_ID');
