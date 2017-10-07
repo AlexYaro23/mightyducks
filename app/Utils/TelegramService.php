@@ -318,7 +318,7 @@ class TelegramService
             $buttons[] = [['callback_data' => '/map/' . $tgId . '/' . $player->id, 'text' => $player->name]];
         }
 
-        $buttons[] = $this->getClosVoteButton();
+        $buttons[] = $this->getCloseVoteButton();
 
         return $buttons;
     }
@@ -357,7 +357,7 @@ class TelegramService
         $this->sendAdminMsqWithButtons($msg, $buttons);
     }
 
-    private function getClosVoteButton()
+    private function getCloseVoteButton()
     {
         return [['callback_data' => '/closevotecommand', 'text' => 'Close Vote']];
     }
@@ -398,6 +398,8 @@ class TelegramService
         foreach ($players as $player) {
             $buttons[] = [['callback_data' => '/quickvisitadd/' . $game->id . '/' . $player->id, 'text' => $player->name]];
         }
+
+        $buttons[] = $this->getCloseVoteButton();
 
         return $buttons;
     }
