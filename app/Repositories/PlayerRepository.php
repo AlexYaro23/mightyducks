@@ -86,4 +86,17 @@ class PlayerRepository
 
         return $player;
     }
+
+    public function getActivePlayersForTournament($tournamentId)
+    {
+        $query = DB::table('players')->where('players.status', Player::ACTIVE)->select('players.id');
+        if ($tournamentId) {
+            $query->join('player2tournament', 'players.id', '=', 'player2tournament.player_id')
+                ->where('player2tournament.tournament_id', $tournamentId);
+        }
+
+        $playerIds = collect($query->get())->pluck('id')->toArray();
+
+        return Player::whereIn('id', $playerIds)->get();
+    }
 }

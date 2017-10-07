@@ -210,4 +210,23 @@ class StatRepository
 
         return $stats;
     }
+
+    public function triggerUserVisit($gameId, $playerId)
+    {
+        $stat = Stat::where('game_id', $gameId)
+            ->where('player_id', $playerId)
+            ->whereNotNull(Stat::VISIT)->first();
+
+        if ($stat == null) {
+            Stat::create([
+                'game_id' => $gameId,
+                'player_id' => $playerId,
+                Stat::VISIT => Stat::GAME_VISITED
+            ]);
+        } elseif ($stat->visit == Stat::GAME_VISITED) {
+            $stat->update([Stat::VISIT => Stat::GAME_NOT_VISITED]);
+        } else {
+            $stat->update([Stat::VISIT => Stat::GAME_VISITED]);
+        }
+    }
 }

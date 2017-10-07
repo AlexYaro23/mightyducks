@@ -275,4 +275,11 @@ class GameRepository
 
         return $msg;
     }
+
+    public function getNextGame()
+    {
+        return Game::where('status', Game::getNonePlayedStatus())
+            ->where('date', '>=', date('Y-m-d H:i:s', time()))
+            ->orderBy('date', 'asc')->first();
+    }
 }

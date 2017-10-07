@@ -91,7 +91,7 @@ class ParseLcSchedule extends CommandParent
                             'date' => Carbon::parse($gameData[1] . $roundDate)->format('Y-m-d H:i:s'),
                             'home' => Game::HOME,
                             'status' => Game::getNonePlayedStatus(),
-                            'place' => 'Санаторий СБУ "Одесса"',
+                            'place' => 'Зал "Нефтегаз"',
                             'tournament_id' => $tournament->id
                         ];
 

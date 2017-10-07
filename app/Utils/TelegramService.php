@@ -16,9 +16,16 @@ use Log;
 
 class TelegramService
 {
+
+    const ADMIN_COMMAND = [
+        'quick_visits' => 'quickvisit'
+    ];
+
+    const DEFAULT_VOTE_CLOSED_MSG = 'Vote Closed';
     protected $telegram;
     protected $gameRepository;
     protected $playerRepository;
+    protected $statsRepository;
     protected $client;
     protected $chatId;
     protected $ownerId;
@@ -35,6 +42,7 @@ class TelegramService
         $this->ownerId = env('TELEGRAM_OWNER_CHAT_ID');
         $this->gameRepository = new GameRepository();
         $this->playerRepository = new PlayerRepository();
+        $this->statsRepository = new StatRepository();
     }
 
     public function startVote($msg)
@@ -78,12 +86,21 @@ class TelegramService
         ]);
     }
 
+    public function closeAdminVote($msgId, $msgText = self::DEFAULT_VOTE_CLOSED_MSG)
+    {
+        $this->telegram->editMessage([
+            'chat_id' => $this->ownerId,
+            'message_id' => $msgId,
+            'text' => $msgText
+        ]);
+    }
+
     public function getUpdates()
     {
         return $this->telegram->getUpdates();
     }
 
-    public function sendMapTgUserMsg($msg, $buttons)
+    public function sendAdminMsqWithButtons($msg, $buttons)
     {
         $reply_markup = $this->telegram->replyKeyboardMarkup([
             'inline_keyboard' => $buttons
@@ -91,6 +108,23 @@ class TelegramService
 
         $response = $this->telegram->sendMessage([
             'chat_id' => $this->ownerId,
+            'text' => $msg,
+            'reply_markup' => $reply_markup,
+            'parse_mode' => 'html'
+        ]);
+
+        return $response->getMessageId();
+    }
+
+    public function editAdminMsqWithButtons($msg, $buttons, $msgId)
+    {
+        $reply_markup = $this->telegram->replyKeyboardMarkup([
+            'inline_keyboard' => $buttons
+        ]);
+
+        $response = $this->telegram->editMessage([
+            'chat_id' => $this->ownerId,
+            'message_id' => $msgId,
             'text' => $msg,
             'reply_markup' => $reply_markup,
             'parse_mode' => 'html'
@@ -134,6 +168,7 @@ class TelegramService
             Log::info("It's a callback");
             $this->processCallback($response);
         } elseif ($this->isNewChatMemberMsg($response)) {
+            Log::info("It's a new chat member");
             $tgUser = $this->addNewChatMember(
                 $response->message->new_chat_member->id,
                 $response->message->new_chat_member->first_name,
@@ -142,8 +177,12 @@ class TelegramService
             );
 
             if ($tgUser->wasRecentlyCreated) {
+                Log::info("Informing admin about new user");
                 $this->informAdminAboutNewUser($tgUser);
             }
+        } elseif ($this->checkIfAdminCommand($response)) {
+            Log::info("It's an admin command");
+            $this->processAdminCommand($response);
         } else {
             Log::info("It's a message");
         }
@@ -177,6 +216,12 @@ class TelegramService
         } elseif ($this->checkIfMapUser($message->callback_query->data)) {
             Log::info("new map user");
             $this->processMapUser($message);
+        } elseif ($this->checkIfQuickVisitsCallback($message->callback_query->data)) {
+            Log::info("quickvisit user");
+            $this->processQuickVisitsCallback($message);
+        } elseif ($this->checkIfCloseVoteCallback($message->callback_query->data)) {
+            Log::info("close admin vote");
+            $this->closeVoteForMessage($message);
         }
     }
 
@@ -260,7 +305,7 @@ class TelegramService
         $msgMock = config('mls.inform_admin_about_new_user');
         $msg = sprintf($msgMock, $tgUser->first_name, $tgUser->last_name, $tgUser->username);
         $buttons = $this->getPlayersMapButtons($tgUser->tg_id);
-        $this->sendMapTgUserMsg($msg, $buttons);
+        $this->sendAdminMsqWithButtons($msg, $buttons);
 
         Log::info('Sent map message to admin');
     }
@@ -273,6 +318,102 @@ class TelegramService
             $buttons[] = [['callback_data' => '/map/' . $tgId . '/' . $player->id, 'text' => $player->name]];
         }
 
+        $buttons[] = $this->getClosVoteButton();
+
         return $buttons;
+    }
+
+    private function checkIfAdminCommand($response)
+    {
+        return $response->message->chat->id == $this->ownerId;
+    }
+
+    private function processAdminCommand($response)
+    {
+        if ($this->checkIfQuickVisitsCommand($response)) {
+            Log:info("Quick visits command");
+            $this->sendQuickVisitsVote();
+        }
+    }
+
+    private function checkIfQuickVisitsCommand($response)
+    {
+        return isset($response->message) && $response->message->text == self::ADMIN_COMMAND['quick_visits'];
+    }
+
+    private function sendQuickVisitsVote()
+    {
+        $game = $this->gameRepository->getNextGame();
+
+        if ($game == null) {
+            Log::info('No next game');
+            return;
+        }
+        Log::info('Processing game id: ' . $game->id);
+
+        $buttons = $this->getQuickVisitButtons($game);
+        $msg = $this->getQuickVisitsMsg($game);
+
+        $this->sendAdminMsqWithButtons($msg, $buttons);
+    }
+
+    private function getClosVoteButton()
+    {
+        return [['callback_data' => '/closevotecommand', 'text' => 'Close Vote']];
+    }
+
+    private function checkIfQuickVisitsCallback($data)
+    {
+        return strpos($data, '/quickvisitadd/') !== false;
+    }
+
+    private function checkIfCloseVoteCallback($data)
+    {
+        return strpos($data, '/closevotecommand') !== false;
+    }
+
+    private function processQuickVisitsCallback($data)
+    {
+        Log::info("Processing quick visits");
+        $msgId = $data->callback_query->message->message_id;
+        $answerRow = $data->callback_query->data;
+        $answerPars = explode('/', $answerRow);
+        $gameId = $answerPars[2];
+        $playerId = $answerPars[3];
+        $game = Game::find($gameId);
+        $this->statsRepository->triggerUserVisit($gameId, $playerId);
+        Log::info("Visit triggered for game: " . $gameId . " player: " . $playerId);
+
+        $buttons = $this->getQuickVisitButtons($game);
+        $msg = $this->getQuickVisitsMsg($game);
+
+        $this->editAdminMsqWithButtons($msg, $buttons, $msgId);
+    }
+
+    private function getQuickVisitButtons($game)
+    {
+        $players = $this->playerRepository->getActivePlayersForTournament($game->tournament_id);
+
+        $buttons = [];
+        foreach ($players as $player) {
+            $buttons[] = [['callback_data' => '/quickvisitadd/' . $game->id . '/' . $player->id, 'text' => $player->name]];
+        }
+
+        return $buttons;
+    }
+
+    private function getQuickVisitsMsg($game)
+    {
+        $msgMock = config('mls.quickvisitadd_msg');
+        $msg = sprintf($msgMock, $game->team);
+        $msg .= $this->gameRepository->getVisitsForVote($game->id);
+
+        return $msg;
+    }
+
+    private function closeVoteForMessage($message)
+    {
+        $msgId = $message->callback_query->message->message_id;
+        $this->closeAdminVote($msgId);
     }
 }

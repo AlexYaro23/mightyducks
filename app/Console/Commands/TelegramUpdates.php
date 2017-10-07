@@ -126,7 +126,7 @@ class TelegramUpdates extends CommandParent
         $msgMock = config('mls.inform_admin_about_new_user');
         $msg = sprintf($msgMock, $tgUser->first_name, $tgUser->last_name, $tgUser->username);
         $buttons = $this->getPlayersMapButtons($tgUser->tg_id);
-        $this->telegram->sendMapTgUserMsg($msg, $buttons);
+        $this->telegram->sendAdminMsqWithButtons($msg, $buttons);
 
         $this->info('Sent map message to admin');
     }
