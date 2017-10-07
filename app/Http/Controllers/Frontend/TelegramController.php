@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Game;
-use App\Models\Player;
-use App\Models\Stat;
-use App\Models\TelegramUpdate;
-use App\Models\TelegramUser;
+use Illuminate\Http\Request;
 use App\Repositories\GameRepository;
-use App\Repositories\StatRepository;
 use App\Utils\TelegramService;
-
+use Telegram\Bot\Api;
+use Log;
 
 class TelegramController extends Controller
 {
@@ -24,38 +20,35 @@ class TelegramController extends Controller
         $this->gameRepository = $gameRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $update = TelegramUpdate::find(68);
+        Log::error('Telegram update has come');
+        $this->telegram->getWebhookUpdates();
+        Log::error('Telegram update has been processed');
+    }
 
-        $data = json_decode($update);
-        $data = json_decode($update->update);
-        $msgId = $data->callback_query->message->message_id;
-        $answerRow = $data->callback_query->data;
-        $answerPars = explode('/', $answerRow);
-        $tgUserId = $answerPars[2];
-        $playerId = $answerPars[3];
-        $player = Player::find($playerId);
-        $player->telegram_id = $tgUserId;
-        $player->save();
+    public function check()
+    {
+        $telegram = new Api();
+        $response = $telegram->getWebhookUpdates();
+    }
 
-        $msg = "Player " . $player->name . " mapped with his telegram account";
+    public function setWebhook()
+    {
+        $telegram = new Api();
 
-        $this->telegram->closeMapMsg($msgId, $msg);
+        $response = $telegram->setWebhook(['url' => 'https://mightyducks.od.ua/telegram']);
 
+        return $response;
 
-//        $tgUser = TelegramUser::where('tg_id', 249401878)->first();
-//        $msg = sprintf("Alex, new user has been added\n%s %s %s\nMap it with existing player:\n", $tgUser->first_name, $tgUser->last_name, $tgUser->username);
-//
-//        $players = Player::all();
-//
-//        $buttons = [];
-//        foreach ($players as $player) {
-//            $buttons[] = [['callback_data' => '/map/' . $tgUser->tg_id . '/' . $player->id, 'text' => $player->name]];
-//        }
-//
-//        $this->telegram->sendMapTgUserMsg($msg, $buttons);
+    }
 
+    public function removeWebhook()
+    {
+        $telegram = new Api();
+        $response = $telegram->removeWebhook();
+
+        return $response;
 
     }
 }

@@ -39,11 +39,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $filePath = storage_path('logs/cron.log');
-        $schedule->command('parseschedule')->twiceDaily(13, 22)->appendOutputTo($filePath);;
-        $schedule->command('lc_schedule')->twiceDaily(14, 23)->appendOutputTo($filePath);;
-        $schedule->command('parseresult')->daily()->appendOutputTo($filePath);;
-        //$schedule->command('reminder')->twiceDaily(15, 23)->appendOutputTo($filePath);;
-        $schedule->command('trainings')->dailyAt('13:00')->appendOutputTo($filePath);;
-        $schedule->command('trainings_reset')->dailyAt('23:30')->appendOutputTo($filePath);;
+        $schedule->command('parseschedule')->twiceDaily(13, 22)->appendOutputTo($filePath);
+        $schedule->command('lc_schedule')->twiceDaily(14, 23)->appendOutputTo($filePath);
+        $schedule->command('parseresult')->daily()->appendOutputTo($filePath);
+        //$schedule->command('reminder')->twiceDaily(15, 23)->appendOutputTo($filePath);
+        $schedule->command('trainings')->dailyAt('13:00')->appendOutputTo($filePath);
+        $schedule->command('trainings_reset')->dailyAt('23:30')->appendOutputTo($filePath);
+
+        $schedule->command('telegram_scheduler')->hourly()->twiceDaily(15, 19)->appendOutputTo($filePath);
+        $schedule->command('close_vote')->hourly()->appendOutputTo($filePath);
     }
 }

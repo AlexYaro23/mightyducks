@@ -51,7 +51,11 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
         Route::get('/', 'TeamsController@index')->name('main');
-        Route::get('telegram', 'TelegramController@index');
+        Route::post('telegram', 'TelegramController@index');
+        Route::get('tg-check', 'TelegramController@check');
+        Route::get('setWebhook', 'TelegramController@setWebhook');
+        Route::get('removeWebhook', 'TelegramController@removeWebhook');
+        Route::get('{token}/webhook', 'TelegramController@index');
 
 //        Route::get('/tk', function () {
 //            $client_id = env('VK_CLIENT_ID');
