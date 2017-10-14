@@ -21,6 +21,6 @@ class CommandParent extends Command
 
     public function timedInfo($msg)
     {
-        $this->info(PHP_EOL . Carbon::now()->format('d-m-Y H:i:s') . ' ' . $msg);
+        $this->info(PHP_EOL . Carbon::now()->format('d-m-Y H:i:s') . ' ' . substr(strrchr(get_class($this), "\\"), 1) . ' ' . $msg);
     }
 }

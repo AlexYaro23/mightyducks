@@ -275,6 +275,20 @@ class GameRepository
 
         return $msg;
     }
+    public function getSkipsForVote($gameId)
+    {
+        $msg = '';
+        $stats = StatRepository::getSkipVisitsForGame($gameId);
+        if ($stats->count() > 0) {
+            $msg .= config('mls.chat_game_msg_skip_telegram');
+            foreach ($stats as $index => $stat) {
+                $player = Player::find($stat->player_id);
+                $msg .= ++$index . ' ' . $player->getShortName() . "\n";
+            }
+        }
+
+        return $msg;
+    }
 
     public function getNextGame()
     {

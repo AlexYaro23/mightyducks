@@ -18,7 +18,9 @@ class TelegramService
 {
 
     const ADMIN_COMMAND = [
-        'quick_visits' => 'quickvisit'
+        'quick_visits' => 'quickvisit',
+        'start_vote' => 'startvote',
+        'close_vote' => 'closevote',
     ];
 
     const DEFAULT_VOTE_CLOSED_MSG = 'Vote Closed';
@@ -38,7 +40,8 @@ class TelegramService
     {
         $this->telegram = new Api();
         $this->client = new TelegramClient();
-        $this->chatId = env('TELEGRAM_CHAT_ID');
+        //$this->chatId = env('TELEGRAM_CHAT_ID');
+        $this->chatId = env('TELEGRAM_TEST_CHAT_ID');
         $this->ownerId = env('TELEGRAM_OWNER_CHAT_ID');
         $this->gameRepository = new GameRepository();
         $this->playerRepository = new PlayerRepository();
@@ -169,12 +172,25 @@ class TelegramService
             $this->processCallback($response);
         } elseif ($this->isNewChatMemberMsg($response)) {
             Log::info("It's a new chat member");
-            $tgUser = $this->addNewChatMember(
-                $response->message->new_chat_member->id,
-                $response->message->new_chat_member->first_name,
-                $response->message->new_chat_member->last_name,
-                $response->message->new_chat_member->username
-            );
+            if ($response->message->chat->id != $this->chatId) {
+                Log::info("Not main chat");
+                return;
+            }
+            $userId = $response->message->new_chat_member->id;
+            $firstName = $lastName = $username = '';
+            if (isset($response->message->new_chat_member->first_name)) {
+                $firstName = $response->message->new_chat_member->first_name;
+            }
+
+            if (isset($response->message->new_chat_member->last_name)) {
+                $lastName = $response->message->new_chat_member->last_name;
+            }
+
+            if (isset($response->message->new_chat_member->username)) {
+                $username = $response->message->new_chat_member->username;
+            }
+
+            $tgUser = $this->addNewChatMember($userId, $firstName, $lastName, $username);
 
             if ($tgUser->wasRecentlyCreated) {
                 Log::info("Informing admin about new user");
@@ -246,6 +262,14 @@ class TelegramService
             return;
         }
 
+        $players4Tournament = $this->playerRepository->getActivePlayersForTournament($game->tournament_id);
+        $allowedPlayerIds = $players4Tournament->pluck('id');
+
+        if (!$allowedPlayerIds->contains($player->id)) {
+            Log::error(sprintf("Player #%d not allowed for tournament %d", $player->id, $game->tournament_id));
+            return;
+        }
+
         $info['game_id'] = $game->id;
         $info['player_id'] = $player->id;
         if ($vote == '/yes') {
@@ -257,15 +281,7 @@ class TelegramService
             return;
         }
 
-        $msg = $game->getVoteMsg('telegram');
-        $msg .= $this->gameRepository->getVisitsForVote($game->id);
-
-        try {
-            $this->updateVote($voteId, $msg);
-            Log::info("Message was updated successfully");
-        } catch (\Exception $ex) {
-            Log::error("Exception occured. " . $ex->getMessage());
-        }
+        $this->updateVoteMsg($game);
     }
 
     private function processMapUser($data)
@@ -331,14 +347,38 @@ class TelegramService
     private function processAdminCommand($response)
     {
         if ($this->checkIfQuickVisitsCommand($response)) {
-            Log:info("Quick visits command");
+            Log::info("Quick visits command");
             $this->sendQuickVisitsVote();
+        } else if ($this->checkIfStartVoteCommand($response)) {
+            Log::info("Start Vote command");
+            $gameId = filter_var($response->message->text, FILTER_SANITIZE_NUMBER_INT);
+            if ($gameId == '') {
+                Log::info('No game id in command string');
+            }
+            $this->sendStartVote($gameId);
+        } else if ($this->checkIfCloseVoteCommand($response)) {
+            Log::info("Start Vote command");
+            $gameId = filter_var($response->message->text, FILTER_SANITIZE_NUMBER_INT);
+            if ($gameId == '') {
+                Log::info('No game id in command string');
+            }
+            $this->sendCloseVote($gameId);
         }
     }
 
     private function checkIfQuickVisitsCommand($response)
     {
         return isset($response->message) && $response->message->text == self::ADMIN_COMMAND['quick_visits'];
+    }
+
+    private function checkIfStartVoteCommand($response)
+    {
+        return isset($response->message) && strpos($response->message->text, self::ADMIN_COMMAND['start_vote']) !== false;
+    }
+
+    private function checkIfCloseVoteCommand($response)
+    {
+        return isset($response->message) && strpos($response->message->text, self::ADMIN_COMMAND['close_vote']) !== false;
     }
 
     private function sendQuickVisitsVote()
@@ -388,6 +428,8 @@ class TelegramService
         $msg = $this->getQuickVisitsMsg($game);
 
         $this->editAdminMsqWithButtons($msg, $buttons, $msgId);
+
+        $this->updateVoteMsg($game);
     }
 
     private function getQuickVisitButtons($game)
@@ -417,5 +459,57 @@ class TelegramService
     {
         $msgId = $message->callback_query->message->message_id;
         $this->closeAdminVote($msgId);
+    }
+
+    private function sendStartVote($gameId)
+    {
+        $game = Game::find($gameId);
+        if ($game == null) {
+            Log::info('Game not found: ' . $gameId);
+            return;
+        }
+
+        Log::info('Sending vote for game ' . $game->id);
+        $msg = $game->getVoteMsg('telegram');
+
+        $msgId = $this->startVote($msg);
+
+        if(filter_var($msgId, FILTER_VALIDATE_INT)){
+            Log::info("Updating game. Adding telegram msgId: " . $msgId);
+            $this->gameRepository->markAsVoteMsgSent($game, $msgId);
+        }
+
+        Log::info("Received response. MSG id: " . $msgId);
+    }
+
+    private function sendCloseVote($gameId)
+    {
+        $game = Game::find($gameId);
+        if ($game == null || $game->telegram_msg_id == null) {
+            Log::info('Game not found: ' . $gameId . ' or telegram msg id is null');
+            return;
+        }
+
+        Log::info('Sending closje vote for game ' . $game->id);
+        $msg = $game->getVoteMsg('telegram');
+
+        $this->closeVote($game->telegram_msg_id, $msg);
+        $this->gameRepository->markAsVoteClosed($game);
+
+        Log::info("Vote closed");
+    }
+
+    private function updateVoteMsg($game)
+    {
+        $msg = $game->getVoteMsg('telegram');
+        $msg .= $this->gameRepository->getVisitsForVote($game->id);
+        $msg .= $this->gameRepository->getSkipsForVote($game->id);
+
+        try {
+            $this->updateVote($game->telegram_msg_id, $msg);
+            Log::info("Message was updated successfully");
+        } catch (\Exception $ex) {
+            Log::error("Exception occured. " . $ex->getMessage());
+        }
     }
 }
