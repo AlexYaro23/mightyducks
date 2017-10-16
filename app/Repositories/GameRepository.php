@@ -296,4 +296,18 @@ class GameRepository
             ->where('date', '>=', date('Y-m-d H:i:s', time()))
             ->orderBy('date', 'asc')->first();
     }
+
+    public function getGameWithNewVideo($fromDate)
+    {
+        return Game::whereNotNull('youtube')
+            ->where('youtube', '!=', '')
+            ->whereNull('telegram_youtube_msg_id')
+            ->where('date', '>=', $fromDate)
+            ->orderBy('date', 'asc')->first();
+    }
+
+    public function markAsVideoMsgSent($game, $msgId)
+    {
+        $game->update(['telegram_youtube_msg_id' => $msgId]);
+    }
 }

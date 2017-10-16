@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         Commands\TelegramScheduler::class,
         Commands\CloseVote::class,
         Commands\TelegramUpdates::class,
+        Commands\VideoInformer::class,
     ];
 
     /**
@@ -48,5 +49,6 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('telegram_scheduler')->hourly()->twiceDaily(15, 19)->appendOutputTo($filePath);
         $schedule->command('close_vote')->hourly()->appendOutputTo($filePath);
+        $schedule->command('video_informer')->hourly()->appendOutputTo($filePath);
     }
 }

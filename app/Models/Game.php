@@ -152,4 +152,12 @@ class Game extends Model
 
         return $msg;
     }
+
+    public function getVideoMsg()
+    {
+        $msg = config('mls.video_msg');
+        $msg = sprintf($msg, $this->youtube);
+
+        return $msg;
+    }
 }

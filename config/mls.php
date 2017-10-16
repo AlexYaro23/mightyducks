@@ -12,4 +12,5 @@ return [
     'inform_admin_about_new_user' => "Alex, new user has been added\n%s %s %s\nMap it with existing player:\n",
     'mapped_user_success_msg' => "Player %s mapped with his telegram account\n",
     'quickvisitadd_msg' => "Add quick visits for game %s\n",
+    'video_msg' => "Свежие видосы игры:\n%s"
 ];
