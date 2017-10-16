@@ -40,8 +40,8 @@ class TelegramService
     {
         $this->telegram = new Api();
         $this->client = new TelegramClient();
-        //$this->chatId = env('TELEGRAM_CHAT_ID');
-        $this->chatId = env('TELEGRAM_TEST_CHAT_ID');
+        $this->chatId = env('TELEGRAM_CHAT_ID');
+        //$this->chatId = env('TELEGRAM_TEST_CHAT_ID');
         $this->ownerId = env('TELEGRAM_OWNER_CHAT_ID');
         $this->gameRepository = new GameRepository();
         $this->playerRepository = new PlayerRepository();
